@@ -32,7 +32,7 @@ render(
 )
 ```
 
-or hooks _(require React 1.6.8 or above)_
+or hooks _(require React 16.8 or above)_
 
 ```jsx
 import { useRunner } from 'react-runner'

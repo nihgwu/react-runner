@@ -5,9 +5,9 @@ import LiveContext from './LiveContext'
 
 function LivePreview({ Component, ...rest }) {
   return (
-    <Component {...rest}>
-      <LiveContext.Consumer>{({ element }) => element}</LiveContext.Consumer>
-    </Component>
+    <LiveContext.Consumer>
+      {({ element }) => <Component {...rest}>{element}</Component>}
+    </LiveContext.Consumer>
   )
 }
 

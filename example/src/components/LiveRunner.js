@@ -54,6 +54,7 @@ const Error = styled(LiveError)`
   top: 0;
   left: 0;
   width: 100%;
+  margin: 0;
   padding: 10px;
   color: #f00;
   overflow-y: auto;

@@ -7,13 +7,14 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "example": "cd example && yarn start",
-    "start": "run-p watch example",
+    "start:example": "run-p watch example",
+    "start": "cd website && yarn start",
     "build": "lerna run build --scope react*",
     "watch": "lerna run watch",
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prettier": "lerna run prettier",
-    "deploy": "cd example && yarn deploy",
+    "deploy": "cd website && yarn deploy",
     "prepush": "yarn lint",
     "prerelease": "yarn clean & yarn build",
     "release": "yarn build && lerna publish --scope react*"

@@ -4,7 +4,7 @@ import Runner from 'react-runner'
 
 export default class LiveRunner extends React.Component {
   state = {
-    code: this.props.code,
+    code: this.props.code ? this.props.code.trim() : '',
   }
 
   handleChange = code => {

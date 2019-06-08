@@ -22,12 +22,15 @@ const CodeEditor = ({ code: _code, language = 'jsx', onChange, ...rest }) => {
         )}
       </Highlight>
     ),
-    [code, language]
+    [language]
   )
-  const handleChange = useCallback(code => {
-    setCode(code)
-    onChange && onChange(code)
-  })
+  const handleChange = useCallback(
+    code => {
+      setCode(code)
+      onChange && onChange(code)
+    },
+    [onChange]
+  )
 
   return (
     <Editor

@@ -1,6 +1,6 @@
 # react-runner
 
-Run your React code on the air [https://nihgwu.github.io/react-runner/](https://nihgwu.github.io/react-runner/)
+Run your React code on the go [https://nihgwu.github.io/react-runner/](https://nihgwu.github.io/react-runner/)
 
 ## Features
 

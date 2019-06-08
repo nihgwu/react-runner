@@ -13,6 +13,10 @@ package-lock.json
 yarn-error.log
 yarn-debug.log*
 
+# lerna
+lerna-debug.log
+lerna-debug.log.*
+
 # builds
 build
 dist

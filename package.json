@@ -1,56 +1,34 @@
 {
-  "name": "react-runner",
-  "version": "0.1.4",
-  "description": "Run your React code on the air",
-  "homepage": "https://nihgwu.github.io/react-runner/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nihgwu/react-runner.git"
-  },
-  "author": "Neo Nie <nihgwu@live.com>",
-  "license": "MIT",
-  "keywords": [
-    "react",
-    "component",
-    "preview",
-    "runner",
-    "live"
-  ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "files": [
-    "dist"
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "example"
   ],
   "scripts": {
-    "start": "cd website && yarn start",
-    "deploy": "cd website && yarn deploy",
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
-    "clean": "rimraf dist",
-    "lint": "eslint 'src/**/*.js'",
-    "prettier": "prettier --write '**/src/**/*.{js,css}'"
+    "bootstrap": "lerna bootstrap",
+    "example": "cd example && yarn start",
+    "start": "run-p watch example",
+    "build": "lerna run build --scope react*",
+    "watch": "lerna run watch",
+    "clean": "lerna run clean",
+    "lint": "lerna run lint",
+    "prettier": "lerna run prettier",
+    "deploy": "cd example && yarn deploy",
+    "prepush": "yarn lint",
+    "prerelease": "yarn clean & yarn build",
+    "release": "yarn build && lerna publish --scope react*"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn lint",
-      "pre-publish": "yarn clean & yarn build"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*.js": [
+    "**/*.js": [
       "prettier --write",
       "eslint",
       "git add"
     ]
-  },
-  "dependencies": {
-    "sucrase": "^3.10.1"
-  },
-  "peerDependencies": {
-    "prop-types": "^15.5.7",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -70,9 +48,9 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.0",
-    "gh-pages": "^2.0.0",
     "husky": "^2.4.0",
     "jest": "^24.8.0",
+    "lerna": "^3.14.1",
     "lint-staged": "^8.1.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.17.1",

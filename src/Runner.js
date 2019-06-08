@@ -47,5 +47,5 @@ Runner.propTypes = {
   children: PropTypes.func.isRequired,
   code: PropTypes.string.isRequired,
   scope: PropTypes.object,
-  type: PropTypes.oneOf(['typescripte', 'flow']),
+  type: PropTypes.oneOf(['typescript', 'flow']),
 }

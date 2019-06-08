@@ -1,0 +1,32 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://nihgwu.github.io/react-runner/",
+  "scripts": {
+    "start": "gatsby develop",
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "deploy": "rimraf .cache public && gatsby build --prefix-paths && gh-pages -d public",
+    "format": "prettier --write '**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-plugin-styled-components": "^1.10.0",
+    "gatsby": "^2.0.6",
+    "gatsby-plugin-offline": "^2.0.25",
+    "gatsby-plugin-react-helmet": "^3.0.9",
+    "gatsby-plugin-styled-components": "^3.0.7",
+    "prism-react-renderer": "^0.1.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.0",
+    "react-simple-code-editor": "^0.9.11",
+    "styled-components": "^4.1.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.2.0",
+    "rimraf": "^2.6.2"
+  }
+}

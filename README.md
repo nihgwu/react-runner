@@ -2,6 +2,14 @@
 
 Run your React code on the air [https://nihgwu.github.io/react-runner/](https://nihgwu.github.io/react-runner/)
 
+## Features
+
+- Inline element
+- Inline elements _require React 16.3 or above_
+- Function component
+- Class component, will class fields support
+- Composing components with `render` or `export default`
+
 ## Install
 
 ```bash
@@ -22,7 +30,7 @@ npm install --save react-runner
 ## Usage
 
 ```jsx
-import Runnder from 'react-runner'
+import Runner from 'react-runner'
 
 // pseudo code
 render(
@@ -39,6 +47,13 @@ import { useRunner } from 'react-runner'
 
 const { element, error } = useRunner({ code, scope, type })
 ```
+
+## About
+
+This package is inspired by [react-live](https://github.com/FormidableLabs/react-live) heavily,
+I love it, but I love arrow functions for event handlers instead of bind them manually as well as other modern features,
+and I don't want to change my code to be compliant with restrictions, so I created this project,
+use [sucrase](https://github.com/alangpierce/sucrase) instead of [Bublé](https://github.com/bublejs/buble) to transpile the code
 
 ## License
 

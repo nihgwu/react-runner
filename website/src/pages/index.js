@@ -6,6 +6,7 @@ import LiveRunner from '../components/LiveRunner'
 
 const examples = [
   {
+    key: 'inline-elements',
     title: 'Inline elements',
     code: `
 <div>Hello</div>
@@ -13,6 +14,7 @@ const examples = [
 `,
   },
   {
+    key: 'function-component',
     title: 'Function Component',
     code: `
 () => {
@@ -29,7 +31,8 @@ const examples = [
 `,
   },
   {
-    title: 'Class Component',
+    key: 'class-component',
+    title: 'Class Component with fields support',
     code: `
 class Counter extends React.Component {
   state = {
@@ -61,6 +64,7 @@ class Counter extends React.Component {
 `,
   },
   {
+    key: 'export-default',
     title: 'export default Component',
     scope: { styled, css },
     code: `
@@ -80,6 +84,7 @@ export default Counter
 `,
   },
   {
+    key: 'render',
     title: 'render(<Component />)',
     scope: { styled, css },
     code: `
@@ -114,9 +119,9 @@ const Title = styled.h3`
 
 const Page = () => (
   <Layout>
-    {examples.map(({ title, code, scope }) => (
-      <React.Fragment key={title}>
-        <Title>{title}</Title>
+    {examples.map(({ key, title, code, scope }) => (
+      <React.Fragment key={key}>
+        <Title id={key}>{title}</Title>
         <LiveRunner code={code} scope={scope} />
       </React.Fragment>
     ))}

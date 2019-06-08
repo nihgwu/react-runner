@@ -31,8 +31,9 @@
     "prettier": "prettier --write '**/src/**/*.{js,css}'"
   },
   "dependencies": {
+    "create-react-context": "^0.3.0",
     "prism-react-renderer": "^0.1.6",
-    "react-run": "^0.0.1",
+    "react-runner": "^0.1.4",
     "react-simple-code-editor": "^0.9.11"
   },
   "peerDependencies": {

@@ -1,11 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {
-  LiveProvider,
-  LiveEditor,
-  LivePreview,
-  LiveError,
-} from 'react-live-runner'
+import { useRunner } from 'react-runner'
+import { CodeEditor } from 'react-live-runner'
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +15,7 @@ const EditorContainer = styled.div`
   overflow: auto;
 `
 
-const Editor = styled(LiveEditor)`
+const Editor = styled(CodeEditor)`
   white-space: pre;
   font-family: monospace;
   background: #222;
@@ -48,7 +44,7 @@ const Element = styled.div`
   text-align: center;
 `
 
-const Error = styled(LiveError)`
+const Error = styled.div`
   background: #fcc;
   position: absolute;
   top: 0;
@@ -59,18 +55,24 @@ const Error = styled(LiveError)`
   overflow-y: auto;
 `
 
-const LiveRunner = props => (
-  <LiveProvider {...props}>
+const LiveRunner = ({ code: _code, scope, type, transformCode }) => {
+  const [code, setCode] = useState(_code.trim())
+  const { element, error } = useRunner({ code, scope })
+
+  return (
     <Container>
       <EditorContainer>
-        <Editor />
+        <Editor code={code} language="jsx" onChange={setCode} />
       </EditorContainer>
       <Preview>
-        <LivePreview Component={Element} />
-        <Error />
+        {error ? (
+          <Error>{error.toString()}</Error>
+        ) : (
+          <Element>{element}</Element>
+        )}
       </Preview>
     </Container>
-  </LiveProvider>
-)
+  )
+}
 
 export default LiveRunner

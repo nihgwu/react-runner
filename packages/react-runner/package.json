@@ -1,0 +1,39 @@
+{
+  "name": "react-runner",
+  "version": "0.1.4",
+  "description": "Run your React code on the go",
+  "homepage": "https://nihgwu.github.io/react-runner/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nihgwu/react-runner.git"
+  },
+  "author": "Neo Nie <nihgwu@live.com>",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "component",
+    "preview",
+    "runner",
+    "live"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "clean": "rimraf dist",
+    "lint": "eslint 'src/**/*.js'",
+    "prettier": "prettier --write '**/src/**/*.{js,css}'"
+  },
+  "dependencies": {
+    "sucrase": "^3.10.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.7",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}

@@ -9,6 +9,7 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 - Function component
 - Class component, will class fields support
 - Composing components with `render` or `export default`
+- Support `typescript` or `flow`
 
 ## Install
 
@@ -48,13 +49,79 @@ import { useRunner } from 'react-runner'
 const { element, error } = useRunner({ code, scope, type })
 ```
 
-## About
+## react-live-runner
 
-This package is inspired by [react-live](https://github.com/FormidableLabs/react-live) heavily,
+`react-runner` is inspired by [react-live](https://github.com/FormidableLabs/react-live) heavily,
 I love it, but I love arrow functions for event handlers instead of bind them manually as well as other modern features,
 and I don't want to change my code to be compliant with restrictions, so I created this project,
-use [sucrase](https://github.com/alangpierce/sucrase) instead of [Bublé](https://github.com/bublejs/buble) to transpile the code
+use [sucrase](https://github.com/alangpierce/sucrase) instead of [Bublé](https://github.com/bublejs/buble) to transpile the code.
+
+If you are using `react-live` in your project and want a smooth transition, `react-live-runner` is there for you which provide the identical way to play with:
+
+```jsx
+import {
+  LiveProvider,
+  LiveEditor,
+  LiveError,
+  LivePreview,
+} from 'react-live-runner'
+
+// pseudo code
+render(
+  <LiveProvider code={code}>
+    <LiveEditor />
+    <LiveError />
+    <LivePreview />
+  </LiveProvider>
+)
+```
+
+or you can use render props
+
+```jsx
+import LiveRunner, { CodeEditor } from 'react-live-runner'
+
+// pseudo code
+render(
+  <LiveRunner sourceCode={sourceCode} scope={scope} type={type}>
+    {({element, error, code, onChange }) => (
+      <div>
+        <CodeEditor code={code} onChange={onChange} />
+        {error ? error.toString() : element)}
+      </div>
+    )}
+  </LiveRunner>
+)
+```
+
+or hooks _(require React 16.8 or above)_
+
+```jsx
+import { useLiveRunner } from 'react-live-runner'
+
+const { element, error, code, onChange } = useLiveRunner({
+  sourceCode,
+  scope,
+  type,
+})
+```
+
+or use `react-runner` directly
+
+```jsx
+import { useState, useEffect } from 'react'
+import { useRunner } from 'react-runner'
+
+const [code, onChange] = useState(sourceCode)
+const { element, error } = useRunner({ code, scope, type })
+
+useEffect(() => {
+  onChange(sourceCode)
+}, [sourceCode])
+```
+
+See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.js
 
 ## License
 
-MIT © [Neo](https://github.com/nihgwu)
+MIT © [Neo Nie](https://github.com/nihgwu)

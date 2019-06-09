@@ -1,4 +1,5 @@
 export { default } from './LiveRunner'
+export { default as useLiveRunner } from './useLiveRunner'
 export { default as CodeEditor } from './CodeEditor'
 
 export { default as LiveContext } from './LiveContext'

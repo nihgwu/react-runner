@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useRunner } from 'react-runner'
 import {
   LiveProvider,
   LiveEditor,
   LivePreview,
   LiveError,
+  CodeEditor,
+  useLiveRunner,
 } from 'react-live-runner'
 
 const Container = styled.div`
@@ -19,7 +22,7 @@ const EditorContainer = styled.div`
   overflow: auto;
 `
 
-const Editor = styled(LiveEditor)`
+const Editor = styled(CodeEditor)`
   white-space: pre;
   font-family: monospace;
   background: #222;
@@ -35,43 +38,88 @@ const Editor = styled(LiveEditor)`
   }
 `
 
-const Preview = styled.div`
+const PreviewContainer = styled.div`
   flex: 1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
+  overflow: auto;
 `
 
-const Element = styled.div`
+const Preview = styled.div`
+  margin: auto;
   text-align: center;
 `
 
-const Error = styled(LiveError)`
+const Error = styled.div`
   background: #fcc;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  min-width: 100%;
   margin: 0;
   padding: 10px;
   color: #f00;
-  overflow-y: auto;
+  white-space: pre;
 `
 
-const LiveRunner = props => (
+export const LiveRunner = props => (
   <LiveProvider {...props}>
     <Container>
       <EditorContainer>
-        <Editor />
+        <Editor as={LiveEditor} />
       </EditorContainer>
-      <Preview>
-        <LivePreview Component={Element} />
-        <Error />
-      </Preview>
+      <PreviewContainer>
+        <Preview as={LivePreview} />
+        <Error as={LiveError} />
+      </PreviewContainer>
     </Container>
   </LiveProvider>
 )
+
+export const UseLiveRunner = ({ code: sourceCode, scope, type, language }) => {
+  const { element, error, code, onChange } = useLiveRunner({
+    sourceCode,
+    scope,
+    type,
+  })
+
+  return (
+    <Container>
+      <EditorContainer>
+        <Editor code={code} language={language} onChange={onChange} />
+      </EditorContainer>
+      <PreviewContainer>
+        {error ? (
+          <Error>{error.toString()}</Error>
+        ) : (
+          <Preview>{element}</Preview>
+        )}
+      </PreviewContainer>
+    </Container>
+  )
+}
+
+export const UseRunner = ({ code: sourceCode, scope, type, language }) => {
+  const [code, setCode] = useState((sourceCode || '').trim())
+  const { element, error } = useRunner({ code, scope })
+
+  return (
+    <Container>
+      <EditorContainer>
+        <Editor code={code} language={language} onChange={setCode} />
+      </EditorContainer>
+      <PreviewContainer>
+        {error ? (
+          <Error>{error.toString()}</Error>
+        ) : (
+          <Preview>{element}</Preview>
+        )}
+      </PreviewContainer>
+    </Container>
+  )
+}
 
 export default LiveRunner

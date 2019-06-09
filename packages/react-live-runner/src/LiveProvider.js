@@ -9,7 +9,7 @@ export default function LiveProvider(props) {
   const transformedCode = transformCode ? transformCode(code) : code
 
   return (
-    <LiveRunner code={transformedCode} scope={scope} type={type}>
+    <LiveRunner sourceCode={transformedCode} scope={scope} type={type}>
       {({ element, error, code, onChange }) => (
         <LiveContext.Provider
           value={{ element, error, code, language, type, theme, onChange }}

@@ -3,12 +3,24 @@ import PropTypes from 'prop-types'
 import Runner from 'react-runner'
 
 export default class LiveRunner extends React.Component {
-  state = {
-    code: this.props.code ? this.props.code.trim() : '',
+  state = this.getState()
+
+  getState() {
+    const { sourceCode } = this.props
+
+    return {
+      code: sourceCode ? sourceCode.trim() : '',
+    }
   }
 
   handleChange = code => {
     this.setState({ code })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.sourceCode !== prevProps.sourceCode) {
+      this.setState(this.getState())
+    }
   }
 
   render() {
@@ -31,7 +43,7 @@ export default class LiveRunner extends React.Component {
 
 LiveRunner.propTypes = {
   children: PropTypes.func.isRequired,
-  code: PropTypes.string.isRequired,
+  sourceCode: PropTypes.string.isRequired,
   scope: PropTypes.object,
   type: PropTypes.oneOf(['typescript', 'flow']),
 }

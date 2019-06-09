@@ -1,7 +1,6 @@
 {
-  "name": "example",
-  "version": "0.0.0",
   "private": true,
+  "name": "example",
   "homepage": "https://nihgwu.github.io/react-runner/",
   "scripts": {
     "start": "react-scripts start",

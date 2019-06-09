@@ -11,13 +11,13 @@
     "start": "cd website && yarn start",
     "build": "lerna run build --scope react*",
     "watch": "lerna run watch",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean --scope react*",
     "lint": "lerna run lint",
     "prettier": "lerna run prettier",
     "deploy": "cd website && yarn deploy",
     "prepush": "yarn lint",
     "prerelease": "yarn clean & yarn build",
-    "release": "yarn build && lerna publish --scope react*"
+    "release": "yarn build && lerna publish"
   },
   "husky": {
     "hooks": {

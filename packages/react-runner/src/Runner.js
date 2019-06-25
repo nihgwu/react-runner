@@ -11,10 +11,15 @@ export default class Runner extends React.Component {
 
   transpile = () => {
     const { code, scope, type } = this.props
-    const element = generateElement({ code, scope, type }, error => {
+
+    try {
+      const element = generateElement({ code, scope, type }, error => {
+        this.setState({ error, element: null })
+      })
+      this.setState({ element, error: null })
+    } catch (error) {
       this.setState({ error, element: null })
-    })
-    this.setState({ element, error: null })
+    }
   }
 
   componentDidMount() {

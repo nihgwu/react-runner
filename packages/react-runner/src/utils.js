@@ -3,7 +3,7 @@ import { transform } from 'sucrase'
 
 const evalCode = (code, scope) => {
   const scopeKeys = Object.keys(scope)
-  const scopeValues = Object.values(scope)
+  const scopeValues = scopeKeys.map(key => scope[key])
   // eslint-disable-next-line no-new-func
   const fn = new Function(...scopeKeys, code)
   return fn(...scopeValues)
@@ -25,7 +25,7 @@ const prepareCode = code => {
   return `return (${code})`
 }
 
-const errorBoundary = (Element, errorCallback) => {
+const withErrorBoundary = (Element, errorCallback) => {
   return class ErrorBoundary extends React.Component {
     state = {
       error: null,
@@ -43,31 +43,22 @@ const errorBoundary = (Element, errorCallback) => {
   }
 }
 
-export const generateElement = (
-  { code, scope, type },
-  errorCallback = () => {}
-) => {
-  try {
-    const trimmedCode = code ? code.trim() : ''
-    if (!trimmedCode) return null
+export const generateElement = (options, errorCallback = () => {}) => {
+  const { code, scope, type } = options
+  const trimmedCode = code ? code.trim() : ''
+  if (!trimmedCode) return null
 
-    const transformedCode = transform(prepareCode(trimmedCode), {
-      transforms: [
-        'jsx',
-        'imports',
-        type === 'typescript' && 'typescript',
-        type === 'flow' && 'flow',
-      ].filter(Boolean),
-      production: true,
-    }).code.substr(13)
-    const Element = errorBoundary(
-      evalCode(transformedCode, { React, ...scope }),
-      errorCallback
-    )
-    return <Element />
-  } catch (error) {
-    // run after return
-    setTimeout(errorCallback, 0, error)
-    return null
-  }
+  const transformedCode = transform(prepareCode(trimmedCode), {
+    transforms: [
+      'jsx',
+      'imports',
+      type === 'typescript' && 'typescript',
+      type === 'flow' && 'flow',
+    ].filter(Boolean),
+    production: true,
+  }).code.substr(13)
+  const result = evalCode(transformedCode, { React, ...scope })
+  const Element = withErrorBoundary(result, errorCallback)
+
+  return <Element />
 }

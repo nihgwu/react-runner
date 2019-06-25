@@ -92,11 +92,8 @@ export const UseLiveRunner = ({ code: sourceCode, scope, type, language }) => {
         <Editor code={code} language={language} onChange={onChange} />
       </EditorContainer>
       <PreviewContainer>
-        {error ? (
-          <Error>{error.toString()}</Error>
-        ) : (
-          <Preview>{element}</Preview>
-        )}
+        {error && <Error>{error.toString()}</Error>}
+        <Preview>{element}</Preview>
       </PreviewContainer>
     </Container>
   )
@@ -112,14 +109,11 @@ export const UseRunner = ({ code: sourceCode, scope, type, language }) => {
         <Editor code={code} language={language} onChange={setCode} />
       </EditorContainer>
       <PreviewContainer>
-        {error ? (
-          <Error>{error.toString()}</Error>
-        ) : (
-          <Preview>{element}</Preview>
-        )}
+        {error && <Error>{error.toString()}</Error>}
+        <Preview>{element}</Preview>
       </PreviewContainer>
     </Container>
   )
 }
 
-export default LiveRunner
+export default UseRunner

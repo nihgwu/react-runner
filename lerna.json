@@ -1,11 +1,17 @@
 {
+  "version": "independent",
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
-    "publish": {
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
       "message": "chore(release): publish"
     }
   },
-  "packages": ["packages/*", "example"],
-  "version": "independent"
+  "ignoreChanges": [
+    "**/__tests__/**",
+    "**/*.md"
+  ]
 }

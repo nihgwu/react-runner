@@ -36,7 +36,8 @@ export default class CodeEditor extends React.Component {
         onValueChange={onChange}
         style={{
           whiteSpace: 'pre',
-          fontFamily: 'monospace',
+          fontFamily:
+            'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
           ...(theme && typeof theme.plain === 'object' ? theme.plain : {}),
           ...style,
         }}

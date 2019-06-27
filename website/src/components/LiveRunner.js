@@ -62,7 +62,7 @@ const Error = styled.div`
   margin: 0;
   padding: 10px;
   color: #f00;
-  white-space: pre;
+  white-space: pre-wrap;
 `
 
 export const LiveRunner = props => (
@@ -92,7 +92,7 @@ export const UseLiveRunner = ({ code: sourceCode, scope, type, language }) => {
         <Editor code={code} language={language} onChange={onChange} />
       </EditorContainer>
       <PreviewContainer>
-        {error && <Error>{error.toString()}</Error>}
+        {error && <Error>{error}</Error>}
         <Preview>{element}</Preview>
       </PreviewContainer>
     </Container>
@@ -109,11 +109,11 @@ export const UseRunner = ({ code: sourceCode, scope, type, language }) => {
         <Editor code={code} language={language} onChange={setCode} />
       </EditorContainer>
       <PreviewContainer>
-        {error && <Error>{error.toString()}</Error>}
+        {error && <Error>{error}</Error>}
         <Preview>{element}</Preview>
       </PreviewContainer>
     </Container>
   )
 }
 
-export default UseRunner
+export default LiveRunner

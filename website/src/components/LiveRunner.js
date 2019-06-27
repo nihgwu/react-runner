@@ -23,9 +23,8 @@ const EditorContainer = styled.div`
 `
 
 const Editor = styled(CodeEditor)`
+  font-size: 14px;
   white-space: pre;
-  font-family: monospace;
-  background: #222;
   caret-color: #fff;
   min-width: 100%;
   min-height: 100%;

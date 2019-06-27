@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Editor from 'react-simple-code-editor'
 import Highlight, { Prism } from 'prism-react-renderer'
-import vsDarkPlus from 'prism-react-renderer/themes/vsDarkPlus'
+import defaultTheme from './theme'
 
 export default class CodeEditor extends React.Component {
   highlightCode = code => {
@@ -49,7 +49,7 @@ export default class CodeEditor extends React.Component {
 
 CodeEditor.defaultProps = {
   language: 'jsx',
-  theme: vsDarkPlus,
+  theme: defaultTheme,
   onChange: () => {},
 }
 

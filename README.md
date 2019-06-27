@@ -36,7 +36,7 @@ import Runner from 'react-runner'
 // pseudo code
 render(
   <Runner code={code} scope={scope} type={type}>
-    {({ element, error }) => (error ? error.toString() : element)}
+    {({ element, error }) => (error ? error : element)}
   </Runner>
 )
 ```
@@ -87,7 +87,7 @@ render(
     {({element, error, code, onChange }) => (
       <div>
         <CodeEditor code={code} onChange={onChange} />
-        {error ? error.toString() : element)}
+        {error ? error : element)}
       </div>
     )}
   </LiveRunner>

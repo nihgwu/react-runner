@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { generateElement } from './utils'
+import { transpile } from './utils'
 
 export default class Runner extends React.Component {
   state = {
@@ -12,14 +12,10 @@ export default class Runner extends React.Component {
   transpile = () => {
     const { code, scope, type } = this.props
 
-    try {
-      const element = generateElement({ code, scope, type }, error => {
-        this.setState({ error, element: null })
-      })
-      this.setState({ element, error: null })
-    } catch (error) {
+    const { element, error } = transpile({ code, scope, type }, error => {
       this.setState({ error, element: null })
-    }
+    })
+    this.setState({ element, error })
   }
 
   componentDidMount() {

@@ -33,7 +33,7 @@ const withErrorBoundary = (Element, errorCallback) => {
 
     componentDidCatch(error) {
       this.setState({ error })
-      errorCallback(error)
+      errorCallback(error.toString())
     }
 
     render() {
@@ -61,4 +61,16 @@ export const generateElement = (options, errorCallback = () => {}) => {
   const Element = withErrorBoundary(result, errorCallback)
 
   return <Element />
+}
+
+export const transpile = (options, errorCallback) => {
+  let element = null
+  let error = null
+  try {
+    element = generateElement(options, errorCallback)
+  } catch (err) {
+    error = err.toString()
+  }
+
+  return { element, error }
 }

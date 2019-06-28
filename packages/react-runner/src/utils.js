@@ -51,12 +51,11 @@ export const generateElement = (options, errorCallback = () => {}) => {
   const transformedCode = transform(prepareCode(trimmedCode), {
     transforms: [
       'jsx',
-      'imports',
       type === 'typescript' && 'typescript',
       type === 'flow' && 'flow',
     ].filter(Boolean),
     production: true,
-  }).code.substr(13)
+  }).code
   const result = evalCode(transformedCode, { React, ...scope })
   const Element = withErrorBoundary(result, errorCallback)
 

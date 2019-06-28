@@ -10,12 +10,12 @@ const evalCode = (code, scope) => {
 }
 
 const prepareCode = code => {
-  const exportRegexp = /\bexport default\b/gm
-  const renderRegexp = /\brender(\([^)])/gm
-  const elementRegexp = /^<.+>/g
+  const exportRegexp = /\bexport default( +[\S]+)/gm
+  const renderRegexp = /\brender\s*(\([^)])/gm
+  const elementRegexp = /^<.+>/gm
 
   // export default Component
-  if (exportRegexp.test(code)) return code.replace(exportRegexp, 'return')
+  if (exportRegexp.test(code)) return code.replace(exportRegexp, 'return $1')
   // render(<Component />)
   if (renderRegexp.test(code)) return code.replace(renderRegexp, 'return $1')
   // remove trailing comma for expression

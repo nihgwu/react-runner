@@ -14,7 +14,7 @@ export default [
     key: 'function-component',
     title: 'Function Component',
     code: codeBlock`
-    () => {
+    function Counter() {
       const [count, setCount] = React.useState(0)
 
       return (
@@ -80,7 +80,7 @@ export default [
       \`}
     \`
 
-    render(
+    export default () => (
       <>
         <Button>Normal Button</Button>
         <Button primary>Primary Button</Button>

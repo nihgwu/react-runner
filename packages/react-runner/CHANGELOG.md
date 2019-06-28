@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/nihgwu/react-runner/compare/react-runner@0.4.0...react-runner@0.4.1) (2019-06-28)
+
+
+### Bug Fixes
+
+* crash on export default empty content ([3ad5dda](https://github.com/nihgwu/react-runner/commit/3ad5dda))
+
+
+
+
+
 # [0.4.0](https://github.com/nihgwu/react-runner/compare/react-runner@0.3.0...react-runner@0.4.0) (2019-06-27)
 
 

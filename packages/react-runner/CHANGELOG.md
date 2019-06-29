@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/nihgwu/react-runner/compare/react-runner@0.4.1...react-runner@0.4.2) (2019-06-29)
+
+**Note:** Version bump only for package react-runner
+
+
+
+
+
 ## [0.4.1](https://github.com/nihgwu/react-runner/compare/react-runner@0.4.0...react-runner@0.4.1) (2019-06-28)
 
 

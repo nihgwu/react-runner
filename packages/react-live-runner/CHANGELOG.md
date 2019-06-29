@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.4.1...react-live-runner@0.5.0) (2019-06-29)
+
+
+### Bug Fixes
+
+* remove default font family for CodeEditor ([6cc446b](https://github.com/nihgwu/react-runner/commit/6cc446b))
+
+
+### Features
+
+* add CodeBlock ([19a180d](https://github.com/nihgwu/react-runner/commit/19a180d))
+
+
+
+
+
 ## [0.4.1](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.4.0...react-live-runner@0.4.1) (2019-06-28)
 
 **Note:** Version bump only for package react-live-runner

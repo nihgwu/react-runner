@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Editor from 'react-simple-code-editor'
-import Highlight, { Prism } from 'prism-react-renderer'
+
+import CodeBlock from './CodeBlock'
 import defaultTheme from './theme'
 
 export default class CodeEditor extends React.Component {
@@ -9,28 +10,24 @@ export default class CodeEditor extends React.Component {
     const { language, theme } = this.props
 
     return (
-      <Highlight code={code} language={language} Prism={Prism} theme={theme}>
-        {({ tokens, getLineProps, getTokenProps }) => (
-          <>
-            {tokens.map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
-          </>
-        )}
-      </Highlight>
+      <CodeBlock code={code} language={language} theme={theme} noContainer />
     )
   }
 
   render() {
-    const { code, language, theme, style, onChange, ...rest } = this.props
+    const {
+      code,
+      language,
+      theme,
+      style,
+      padding,
+      onChange,
+      ...rest
+    } = this.props
 
     return (
       <Editor
-        padding={10}
+        padding={padding}
         value={code || ''}
         highlight={this.highlightCode}
         onValueChange={onChange}
@@ -47,6 +44,7 @@ export default class CodeEditor extends React.Component {
 
 CodeEditor.defaultProps = {
   language: 'jsx',
+  padding: 10,
   theme: defaultTheme,
   onChange: () => {},
 }
@@ -54,6 +52,7 @@ CodeEditor.defaultProps = {
 CodeEditor.propTypes = {
   code: PropTypes.string,
   language: PropTypes.string,
+  padding: PropTypes.number,
   theme: PropTypes.object,
   style: PropTypes.object,
   onChange: PropTypes.func,

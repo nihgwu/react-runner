@@ -15,6 +15,10 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  pre, code, kbd {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+  }
 `
 
 const Container = styled.div`

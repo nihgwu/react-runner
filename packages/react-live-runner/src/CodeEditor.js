@@ -34,13 +34,11 @@ export default class CodeEditor extends React.Component {
         value={code || ''}
         highlight={this.highlightCode}
         onValueChange={onChange}
-        style={{
-          whiteSpace: 'pre',
-          fontFamily:
-            'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
-          ...(theme && typeof theme.plain === 'object' ? theme.plain : {}),
-          ...style,
-        }}
+        style={
+          theme && typeof theme.plain === 'object'
+            ? { ...theme.plain, ...style }
+            : style
+        }
         {...rest}
       />
     )

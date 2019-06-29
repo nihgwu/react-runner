@@ -7,7 +7,7 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 - Inline element
 - Inline elements _require React 16.3 or above_
 - Function component
-- Class component, will class fields support
+- Class component, **with class fields support**
 - Composing components with `render` or `export default`
 - Support `typescript` or `flow`
 
@@ -49,12 +49,16 @@ import { useRunner } from 'react-runner'
 const { element, error } = useRunner({ code, scope, type })
 ```
 
+## Caveats
+
+As Sucrase transpiles your code to work in modern JS runtime only, so your code would not work on IE, depending on the features you used. If you want to work with old browsers, use [react-runner-buble](https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-buble) instead.
+
 ## react-live-runner
 
 `react-runner` is inspired by [react-live](https://github.com/FormidableLabs/react-live) heavily,
 I love it, but I love arrow functions for event handlers instead of bind them manually as well as other modern features,
 and I don't want to change my code to be compliant with restrictions, so I created this project,
-use [sucrase](https://github.com/alangpierce/sucrase) instead of [Bublé](https://github.com/bublejs/buble) to transpile the code.
+use [Sucrase](https://github.com/alangpierce/sucrase) instead of [Bublé](https://github.com/bublejs/buble) to transpile the code.
 
 If you are using `react-live` in your project and want a smooth transition, `react-live-runner` is there for you which provide the identical way to play with:
 

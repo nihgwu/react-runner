@@ -15,7 +15,12 @@ export default function CodeBlock({
   ...rest
 }) {
   return (
-    <Highlight code={code} language={language} Prism={Prism} theme={theme}>
+    <Highlight
+      code={code || ''}
+      language={language}
+      Prism={Prism}
+      theme={theme}
+    >
       {({ className, style, tokens, getLineProps, getTokenProps }) => {
         const children = tokens.map((line, i) => (
           <div {...getLineProps({ line, key: i })}>

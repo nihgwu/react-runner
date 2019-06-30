@@ -8,7 +8,7 @@ export default function Highlight({
   code,
   language,
   theme,
-  noContainer,
+  noWrapper,
   padding,
   style,
   ...rest
@@ -27,7 +27,7 @@ export default function Highlight({
     </Highlighter>
   )
 
-  if (noContainer) return children
+  if (noWrapper) return children
 
   const containerStyle = {
     margin: 0,
@@ -53,7 +53,7 @@ export default function Highlight({
 Highlight.defaultProps = {
   language: 'jsx',
   theme: defaultTheme,
-  noContainer: false,
+  noWrapper: false,
   padding: 10,
 }
 
@@ -62,6 +62,6 @@ Highlight.propTypes = {
   language: PropTypes.string,
   theme: PropTypes.object,
   style: PropTypes.object,
-  noContainer: PropTypes.bool,
+  noWrapper: PropTypes.bool,
   padding: PropTypes.number,
 }

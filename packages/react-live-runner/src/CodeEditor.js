@@ -9,9 +9,7 @@ export default class CodeEditor extends React.Component {
   highlightCode = code => {
     const { language, theme } = this.props
 
-    return (
-      <CodeBlock code={code} language={language} theme={theme} noContainer />
-    )
+    return <CodeBlock code={code} language={language} theme={theme} noWrapper />
   }
 
   render() {

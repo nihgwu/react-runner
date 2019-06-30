@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.6.0...react-live-runner@0.7.0) (2019-06-30)
+
+
+### Features
+
+* add sourceCode prop to CodeEditor ([d440f92](https://github.com/nihgwu/react-runner/commit/d440f92))
+
+
+
+
+
 # [0.6.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.5.0...react-live-runner@0.6.0) (2019-06-30)
 
 

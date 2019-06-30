@@ -2,6 +2,7 @@ export { default } from './LiveRunner'
 export { default as useLiveRunner } from './useLiveRunner'
 export { default as CodeEditor } from './CodeEditor'
 export { default as CodeBlock } from './CodeBlock'
+export { default as defaultTheme } from './defaultTheme'
 
 export { default as LiveContext } from './LiveContext'
 export { default as LiveProvider } from './LiveProvider'

@@ -1,67 +1,63 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Highlighter, { Prism } from 'prism-react-renderer'
+import Highlight, { Prism } from 'prism-react-renderer'
 
-import defaultTheme from './theme'
+import defaultTheme from './defaultTheme'
 
-export default function Highlight({
+export default function CodeBlock({
   code,
   language,
   theme,
   noWrapper,
   padding,
-  style,
+  className: _className,
+  style: _style,
   ...rest
 }) {
-  const children = (
-    <Highlighter code={code} language={language} Prism={Prism} theme={theme}>
-      {({ tokens, getLineProps, getTokenProps }) =>
-        tokens.map((line, i) => (
+  return (
+    <Highlight code={code} language={language} Prism={Prism} theme={theme}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => {
+        const children = tokens.map((line, i) => (
           <div {...getLineProps({ line, key: i })}>
             {line.map((token, key) => (
               <span {...getTokenProps({ token, key })} />
             ))}
           </div>
         ))
-      }
-    </Highlighter>
-  )
 
-  if (noWrapper) return children
+        if (noWrapper) return children
 
-  const containerStyle = {
-    margin: 0,
-    paddingTop: padding,
-    paddingRight: padding,
-    paddingBottom: padding,
-    paddingLeft: padding,
-  }
-  return (
-    <pre
-      style={{
-        ...(theme && typeof theme.plain === 'object' && theme.plain),
-        ...containerStyle,
-        ...style,
+        const wrapperStyle = {
+          margin: 0,
+          padding: 0,
+        }
+        return (
+          <pre
+            className={_className ? `${className} ${_className}` : className}
+            style={{ ...style, ...wrapperStyle, ..._style }}
+            {...rest}
+          >
+            {children}
+          </pre>
+        )
       }}
-      {...rest}
-    >
-      {children}
-    </pre>
+    </Highlight>
   )
 }
 
-Highlight.defaultProps = {
+CodeBlock.defaultProps = {
   language: 'jsx',
   theme: defaultTheme,
   noWrapper: false,
   padding: 10,
 }
 
-Highlight.propTypes = {
+CodeBlock.propTypes = {
   code: PropTypes.string,
   language: PropTypes.string,
   theme: PropTypes.object,
-  style: PropTypes.object,
   noWrapper: PropTypes.bool,
   padding: PropTypes.number,
+  className: PropTypes.string,
+  style: PropTypes.object,
 }

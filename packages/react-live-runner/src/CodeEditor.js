@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Editor from 'react-simple-code-editor'
 
 import CodeBlock from './CodeBlock'
-import defaultTheme from './theme'
+import defaultTheme from './defaultTheme'
 
 export default class CodeEditor extends React.Component {
   highlightCode = code => {

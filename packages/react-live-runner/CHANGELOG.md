@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.5.0...react-live-runner@0.6.0) (2019-06-30)
+
+
+### Features
+
+* add noWrapper to CodeBlock ([77c0d66](https://github.com/nihgwu/react-runner/commit/77c0d66))
+
+
+
+
+
 # [0.5.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.4.1...react-live-runner@0.5.0) (2019-06-29)
 
 

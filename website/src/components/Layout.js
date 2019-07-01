@@ -22,19 +22,17 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  overflow: auto;
 `
 
 const Body = styled.div`
-  flex: 1;
-  overflow-y: auto;
-`
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 70px 20px 20px;
 
-const Content = styled.div`
-  margin: 20px auto;
-  max-width: 900px;
+  @media (max-width: 600px) {
+    padding: 60px 10px 10px;
+  }
 `
 
 const Layout = ({ children }) => (
@@ -54,9 +52,7 @@ const Layout = ({ children }) => (
       ]}
     />
     <Header />
-    <Body>
-      <Content>{children}</Content>
-    </Body>
+    <Body>{children}</Body>
   </Container>
 )
 

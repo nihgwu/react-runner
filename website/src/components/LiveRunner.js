@@ -15,6 +15,11 @@ const Container = styled.div`
   box-shadow: 0 0 8px 0 lightsteelblue;
   height: 250px;
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+    height: 400px;
+  }
 `
 
 const EditorContainer = styled.div`

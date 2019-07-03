@@ -9,6 +9,7 @@ export default function CodeBlock({
   language,
   theme,
   noWrapper,
+  noWrap,
   padding,
   className: _className,
   style: _style,
@@ -34,7 +35,8 @@ export default function CodeBlock({
 
         const wrapperStyle = {
           margin: 0,
-          padding: 0,
+          padding: padding,
+          whiteSpace: noWrap ? 'pre' : 'pre-wrap',
         }
         return (
           <pre
@@ -54,6 +56,7 @@ CodeBlock.defaultProps = {
   language: 'jsx',
   theme: defaultTheme,
   noWrapper: false,
+  noWrap: false,
   padding: 10,
 }
 
@@ -62,6 +65,7 @@ CodeBlock.propTypes = {
   language: PropTypes.string,
   theme: PropTypes.object,
   noWrapper: PropTypes.bool,
+  noWrap: PropTypes.bool,
   padding: PropTypes.number,
   className: PropTypes.string,
   style: PropTypes.object,

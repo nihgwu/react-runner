@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { transpile } from './utils'
+import { compile } from './utils'
 
 export default class Runner extends React.Component {
   state = {
@@ -9,17 +9,17 @@ export default class Runner extends React.Component {
     element: null,
   }
 
-  transpile = () => {
+  compile = () => {
     const { code, scope, type } = this.props
 
-    const { element, error } = transpile({ code, scope, type }, error => {
+    const { element, error } = compile({ code, scope, type }, error => {
       this.setState({ error, element: null })
     })
     this.setState({ element, error })
   }
 
   componentDidMount() {
-    this.transpile()
+    this.compile()
   }
 
   componentDidUpdate(prevProps) {
@@ -29,7 +29,7 @@ export default class Runner extends React.Component {
       scope !== prevProps.scope ||
       type !== prevProps.type
     ) {
-      this.transpile()
+      this.compile()
     }
   }
 

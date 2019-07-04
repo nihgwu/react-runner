@@ -60,7 +60,7 @@ export const generateElement = (options, errorCallback = () => {}) => {
   return <Element />
 }
 
-export const transpile = (options, errorCallback) => {
+export const compile = (options, errorCallback) => {
   let element = null
   let error = null
   try {

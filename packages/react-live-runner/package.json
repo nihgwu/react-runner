@@ -1,6 +1,6 @@
 {
   "name": "react-live-runner",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Run your React code on the go",
   "homepage": "https://nihgwu.github.io/react-runner/",
   "repository": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "create-react-context": "^0.3.0",
     "prism-react-renderer": "^0.1.7",
-    "react-runner": "^0.4.2",
+    "react-runner": "^0.5.0",
     "react-simple-code-editor": "^0.9.11"
   },
   "peerDependencies": {

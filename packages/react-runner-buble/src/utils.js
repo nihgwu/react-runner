@@ -37,8 +37,11 @@ const withErrorBoundary = (Element, errorCallback) => {
     }
 
     render() {
-      if (this.state.error) return null
-      return typeof Element === 'function' ? <Element /> : Element
+      if (this.state.error || !Element) return null
+
+      const type = typeof Element
+      if (type === 'object') return Element.toString()
+      return type === 'function' ? <Element /> : Element
     }
   }
 }

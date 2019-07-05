@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/nihgwu/react-runner/compare/react-runner@0.5.0...react-runner@0.5.1) (2019-07-05)
+
+
+### Bug Fixes
+
+* inline element regression ([215a98c](https://github.com/nihgwu/react-runner/commit/215a98c))
+
+
+
+
+
 # [0.5.0](https://github.com/nihgwu/react-runner/compare/react-runner@0.4.2...react-runner@0.5.0) (2019-07-04)
 
 

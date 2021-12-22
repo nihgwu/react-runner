@@ -18,5 +18,5 @@ lerna-debug.log
 lerna-debug.log.*
 
 # builds
-build
+coverage
 dist

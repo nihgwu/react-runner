@@ -9,7 +9,7 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 - Function component
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`
-- Support `typescript` or `flow`
+- Support `typescript`
 
 ## Install
 
@@ -26,16 +26,15 @@ npm install --save react-runner
 - **children** `function({ element, error })`, _required_ render props
 - **code** `string`, _required_ the code to be ran
 - **scope** `object` globals that could be used in `code`
-- **type** `string` the type system of the code, code be `typescript` or `flow`
 
 ## Usage
 
 ```jsx
-import Runner from 'react-runner'
+import { Runner } from 'react-runner'
 
 // pseudo code
 render(
-  <Runner code={code} scope={scope} type={type}>
+  <Runner code={code} scope={scope}>
     {({ element, error }) => (error ? error : element)}
   </Runner>
 )
@@ -46,12 +45,19 @@ or hooks _(require React 16.8 or above)_
 ```jsx
 import { useRunner } from 'react-runner'
 
-const { element, error } = useRunner({ code, scope, type })
+const { element, error } = useRunner({ code, scope })
 ```
 
-## Caveats
+## Browser support
 
-As Sucrase transpiles your code to work in modern JS runtime only, so your code would not work on IE, depending on the features you used. If you want to work with old browsers, use [react-runner-buble](https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-buble) instead.
+```
+"browserslist": [
+  "Chrome > 61",
+  "Edge > 16",
+  "Firefox > 60",
+  "Safari > 10.1"
+]
+```
 
 ## react-live-runner
 
@@ -87,7 +93,7 @@ import LiveRunner, { CodeEditor } from 'react-live-runner'
 
 // pseudo code
 render(
-  <LiveRunner sourceCode={sourceCode} scope={scope} type={type}>
+  <LiveRunner sourceCode={sourceCode} scope={scope}>
     {({element, error, code, onChange }) => (
       <div>
         <CodeEditor code={code} onChange={onChange} />
@@ -117,7 +123,7 @@ import { useState, useEffect } from 'react'
 import { useRunner } from 'react-runner'
 
 const [code, onChange] = useState(sourceCode)
-const { element, error } = useRunner({ code, scope, type })
+const { element, error } = useRunner({ code, scope })
 
 useEffect(() => {
   onChange(sourceCode)

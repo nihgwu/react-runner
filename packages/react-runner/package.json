@@ -16,24 +16,50 @@
     "runner",
     "live"
   ],
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "unpkg": "dist/foo.umd.js",
+  "exports": "./dist/index.modern.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
+    "test": "jest",
+    "tsc": "tsc",
+    "build": "microbundle build",
+    "watch": "microbundle watch",
     "clean": "rimraf dist",
-    "lint": "eslint 'src/**/*.js'",
-    "prettier": "prettier --write '**/src/**/*.{js,css}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "prettier": "prettier --write '**/src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "sucrase": "^3.10.1"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.7",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.0.0 || ^17 || ^18",
+    "react-dom": "^16.0.0 || ^17 || ^18"
+  },
+  "browserslist": [
+    "Chrome > 61",
+    "Edge > 16",
+    "Firefox > 60",
+    "Safari > 10.1"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 95,
+        "branches": 95,
+        "functions": 95,
+        "lines": 95
+      }
+    }
   }
 }

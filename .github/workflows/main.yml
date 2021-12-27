@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Type check
+        run: yarn tsc
+
+      - name: Test
+        run: yarn test:ci

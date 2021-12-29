@@ -1,4 +1,4 @@
 export * from './Runner'
 export * from './useRunner'
-export * from './utils'
+export * from './compile'
 export * from './types'

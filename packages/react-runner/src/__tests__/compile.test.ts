@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
 
-import { compile } from '../utils'
+import { compile } from '../compile'
 
 test('inline elements', () => {
   const { element, error } = compile({

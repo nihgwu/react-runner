@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { compile } from './utils'
+
+import { compile } from './compile'
 import { RunnerOptions, RunnerResult } from './types'
 
 export const useRunner = ({ code, scope }: RunnerOptions) => {

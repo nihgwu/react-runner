@@ -1,6 +1,6 @@
 import { Component, ReactElement } from 'react'
 
-import { compile } from './utils'
+import { compile } from './compile'
 import { RunnerOptions, RunnerResult } from './types'
 
 export type RunnerProps = RunnerOptions & {

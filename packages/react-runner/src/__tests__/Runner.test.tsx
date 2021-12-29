@@ -3,7 +3,7 @@ import { create, act, ReactTestRenderer } from 'react-test-renderer'
 
 import { Runner } from '../Runner'
 import { RunnerOptions } from '../types'
-import * as Utils from '../utils'
+import * as Compile from '../compile'
 
 const Container = (props: RunnerOptions) => {
   return (
@@ -14,7 +14,7 @@ const Container = (props: RunnerOptions) => {
 }
 
 test('code', () => {
-  const spy = jest.spyOn(Utils, 'compile')
+  const spy = jest.spyOn(Compile, 'compile')
   let instance: ReactTestRenderer
 
   act(() => {
@@ -37,7 +37,7 @@ test('code', () => {
 })
 
 test('scope', () => {
-  const spy = jest.spyOn(Utils, 'compile')
+  const spy = jest.spyOn(Compile, 'compile')
   let instance: ReactTestRenderer
 
   act(() => {

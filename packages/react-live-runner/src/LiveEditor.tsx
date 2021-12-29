@@ -13,11 +13,11 @@ export const LiveEditor = (props: LiveEditorProps) => {
 
   return (
     <CodeEditor
-      {...props}
       value={code}
       language={language}
       theme={theme}
       onChange={onChange}
+      {...props}
     />
   )
 }

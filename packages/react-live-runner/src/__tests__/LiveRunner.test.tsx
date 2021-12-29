@@ -43,6 +43,48 @@ test('edit', () => {
     },
   })
 
+  expect(screen.getByTestId('preview').innerHTML).toBe(
+    `<div>hello</div><div>react-runner</div>`
+  )
+  expect(screen.getByTestId('error').innerHTML).toBe(
+    `ReferenceError: react is not defined`
+  )
+
+  result.rerender(
+    <Container sourceCode={`() => <div>hello react-runner</div>`} />
+  )
+  expect(screen.getByTestId('preview').innerHTML).toBe(
+    `<div>hello react-runner</div>`
+  )
+  expect(screen.queryByTestId('error')).toBeNull()
+})
+
+test('disableCache', () => {
+  const result = render(
+    <Container sourceCode={`() => <div>hello</div>`} disableCache />
+  )
+  const editor = screen.getByRole<HTMLTextAreaElement>('textbox')
+
+  expect(editor.value).toBe(`() => <div>hello</div>`)
+  expect(screen.getByTestId('preview').innerHTML).toBe(`<div>hello</div>`)
+  expect(screen.queryByTestId('error')).toBeNull()
+
+  fireEvent.change(editor, {
+    target: {
+      value: `<div>hello</div><div>react-runner</div>`,
+    },
+  })
+
+  expect(screen.getByTestId('preview').innerHTML).toBe(
+    `<div>hello</div><div>react-runner</div>`
+  )
+
+  fireEvent.change(editor, {
+    target: {
+      value: `<div>hello</div><div>{react-runner}</div>`,
+    },
+  })
+
   expect(screen.getByTestId('preview').innerHTML).toBe(``)
   expect(screen.getByTestId('error').innerHTML).toBe(
     `ReferenceError: react is not defined`

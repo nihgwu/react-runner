@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styled from 'styled-components'
-import { useRunner, Scope } from 'react-runner'
+import { useRunner, Scope, RunnerResult } from 'react-runner'
 import {
   LiveProvider,
   LiveEditor,
@@ -111,8 +111,10 @@ export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
 }
 
 export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
+  const elementRef = useRef<RunnerResult['element']>(null)
   const [code, setCode] = useState((sourceCode || '').trim())
   const { element, error } = useRunner({ code, scope })
+  if (!error) elementRef.current = element
 
   return (
     <Container>
@@ -121,7 +123,7 @@ export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
       </EditorContainer>
       <PreviewContainer>
         {error && <Error>{error}</Error>}
-        <Preview>{element}</Preview>
+        <Preview>{elementRef.current}</Preview>
       </PreviewContainer>
     </Container>
   )

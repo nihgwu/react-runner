@@ -3,9 +3,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export -o build",
+    "export": "next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "rm -rf node_modules/.cache build && next build && next export -o build && touch build/.nojekyll && gh-pages -d build -t true"
   },
   "dependencies": {
     "common-tags": "^1.8.2",
@@ -20,6 +22,8 @@
     "@types/styled-components": "^5.1.15",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
+    "gh-pages": "^3.2.3",
+    "rimraf": "^3.0.2",
     "typescript": "4.5.4"
   }
 }

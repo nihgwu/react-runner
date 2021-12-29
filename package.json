@@ -14,7 +14,7 @@
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prettier": "lerna run prettier",
-    "deploy": "cd website && yarn deploy",
+    "deploy": "yarn --cwd website deploy",
     "postinstall": "yarn --cwd website",
     "prepush": "yarn lint",
     "prerelease": "yarn clean & yarn build",

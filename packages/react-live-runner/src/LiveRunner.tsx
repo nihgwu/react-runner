@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Runner } from 'react-runner'
+import { Runner, RunnerResult } from 'react-runner'
 
 import { LiveRunnerOptions, LiveRunnerResult } from './types'
 
@@ -21,6 +21,8 @@ export class LiveRunner extends React.Component<
     sourceCode: this.props.sourceCode,
   }
 
+  element: RunnerResult['element'] = null
+
   static getDerivedStateFromProps(
     props: LiveRunnerProps,
     state: LiveRunnerState
@@ -40,19 +42,20 @@ export class LiveRunner extends React.Component<
   }
 
   render() {
-    const { children, scope, transformCode } = this.props
+    const { children, scope, disableCache, transformCode } = this.props
     const { code } = this.state
 
     return (
       <Runner code={transformCode ? transformCode(code) : code} scope={scope}>
-        {({ element, error }) =>
-          children({
-            element,
+        {({ element, error }) => {
+          if (disableCache || !error) this.element = element
+          return children({
+            element: this.element,
             error,
             code,
             onChange: this.handleChange,
           })
-        }
+        }}
       </Runner>
     )
   }

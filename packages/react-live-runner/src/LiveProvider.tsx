@@ -13,15 +13,17 @@ export type LiveProviderProps = Omit<LiveRunnerOptions, 'sourceCode'> & {
 
 export const LiveProvider: FC<LiveProviderProps> = ({
   children,
-  code: sourceCode = '',
   scope,
+  code: sourceCode = '',
   language = 'jsx',
   theme = defaultTheme,
+  disableCache,
   transformCode,
 }) => {
   const { element, error, code, onChange } = useLiveRunner({
-    sourceCode,
     scope,
+    sourceCode,
+    disableCache,
     transformCode,
   })
 

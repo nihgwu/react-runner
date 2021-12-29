@@ -4,13 +4,33 @@ import { render, screen } from '@testing-library/react'
 import { CodeBlock } from '../CodeBlock'
 
 test('default', () => {
-  render(<CodeBlock data-testid="block" />)
+  render(<CodeBlock data-testid="block">hello</CodeBlock>)
 
   expect(screen.getByTestId('block').tagName).toBe('PRE')
 })
 
 test('noWrap', () => {
-  render(<CodeBlock data-testid="block" noWrap className="foo" />)
+  render(
+    <CodeBlock data-testid="block" noWrap className="foo">
+      hello
+    </CodeBlock>
+  )
 
   expect(screen.getByTestId('block').style.whiteSpace).toBe('pre')
+})
+
+test('code', () => {
+  render(<CodeBlock code="hello" data-testid="block" />)
+
+  expect(screen.getByTestId('block').textContent).toBe('hello')
+})
+
+test('children', () => {
+  render(
+    <CodeBlock code="hello" data-testid="block">
+      world
+    </CodeBlock>
+  )
+
+  expect(screen.getByTestId('block').textContent).toBe('world')
 })

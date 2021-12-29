@@ -19,6 +19,8 @@ export type CodeEditorProps = Omit<
 > & {
   defaultValue?: string
   value?: string
+  /** @deprecated use `value` instead */
+  code?: string
   language?: Language
   padding?: number
   theme?: Theme
@@ -28,13 +30,16 @@ export type CodeEditorProps = Omit<
 export const CodeEditor = ({
   defaultValue,
   value,
+  code: deprecatedCode,
   language = 'jsx',
   theme = defaultTheme,
   padding = 10,
   onChange,
   ...rest
 }: CodeEditorProps) => {
-  const [code, setCode] = useState(defaultValue || '')
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue || '')
+  const controlledValue = value ?? deprecatedCode
+  const isControlled = controlledValue !== undefined
 
   const highlightCode = useCallback(
     (code: string) => (
@@ -49,10 +54,10 @@ export const CodeEditor = ({
   onChangeRef.current = onChange
   const handleChange = useCallback(
     (code: string) => {
-      if (value === undefined) setCode(code)
+      if (!isControlled) setUncontrolledValue(code)
       onChangeRef.current?.(code)
     },
-    [value]
+    [isControlled]
   )
   const style = useMemo(
     () => ({ ...theme.plain, ...rest.style }),
@@ -63,7 +68,7 @@ export const CodeEditor = ({
     <Editor
       {...rest}
       padding={padding}
-      value={value !== undefined ? value : code}
+      value={isControlled ? controlledValue : uncontrolledValue}
       highlight={highlightCode}
       onValueChange={handleChange}
       style={style}

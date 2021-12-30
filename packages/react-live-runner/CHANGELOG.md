@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.1](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.0...react-live-runner@1.0.0-alpha.1) (2021-12-30)
+
+
+### Features
+
+* added `disableCache` and deprecated code ([#49](https://github.com/nihgwu/react-runner/issues/49)) ([3f79b10](https://github.com/nihgwu/react-runner/commit/3f79b103964f916022c8e339d6555b8f6d557f2f))
+
+
+
+
+
 # [1.0.0-alpha.0](https://github.com/nihgwu/react-runner/compare/react-live-runner@0.7.3...react-live-runner@1.0.0-alpha.0) (2021-12-27)
 
 **Note:** Version bump only for package react-live-runner

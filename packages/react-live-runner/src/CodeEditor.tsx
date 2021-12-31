@@ -19,8 +19,6 @@ export type CodeEditorProps = Omit<
 > & {
   defaultValue?: string
   value?: string
-  /** @deprecated use `value` instead */
-  code?: string
   language?: Language
   padding?: number
   theme?: Theme
@@ -29,8 +27,7 @@ export type CodeEditorProps = Omit<
 
 export const CodeEditor = ({
   defaultValue,
-  value,
-  code: deprecatedCode,
+  value: controlledValue,
   language = 'jsx',
   theme = defaultTheme,
   padding = 10,
@@ -38,7 +35,6 @@ export const CodeEditor = ({
   ...rest
 }: CodeEditorProps) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue || '')
-  const controlledValue = value ?? deprecatedCode
   const isControlled = controlledValue !== undefined
 
   const highlightCode = useCallback(

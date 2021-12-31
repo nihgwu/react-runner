@@ -2,54 +2,54 @@ import React from 'react'
 import { create, act, ReactTestRenderer } from 'react-test-renderer'
 
 import { Runner } from '../Runner'
-import { RunnerOptions } from '../types'
-import * as Compile from '../compile'
+import * as Utils from '../utils'
 
-const Container = (props: RunnerOptions) => {
-  return (
-    <Runner {...props}>
-      {({ element, error }) => <>{element || error}</>}
-    </Runner>
-  )
-}
-
-test('code', () => {
-  const spy = jest.spyOn(Compile, 'compile')
+test('code update', () => {
+  const onRendered = jest.fn()
+  const spy = jest.spyOn(Utils, 'generateElement')
   let instance: ReactTestRenderer
 
   act(() => {
-    instance = create(<Container code="hello" />)
+    instance = create(<Runner code="hello" onRendered={onRendered} />)
   })
-  expect(instance!).toMatchInlineSnapshot(
-    `"ReferenceError: hello is not defined"`
+  expect(instance!).toMatchInlineSnapshot(`null`)
+  expect(onRendered).toHaveBeenCalledTimes(1)
+  expect(onRendered).toHaveBeenLastCalledWith(
+    'ReferenceError: hello is not defined'
   )
   expect(spy).toHaveBeenCalledTimes(1)
 
-  act(() => instance!.update(<Container code="<div>hello</hello>" />))
+  act(() =>
+    instance!.update(
+      <Runner code="<div>hello</hello>" onRendered={onRendered} />
+    )
+  )
   expect(instance!).toMatchInlineSnapshot(`
     <div>
       hello
     </div>
   `)
+  expect(onRendered).toHaveBeenCalledTimes(2)
+  expect(onRendered).toHaveBeenLastCalledWith(undefined)
   expect(spy).toHaveBeenCalledTimes(2)
 
   spy.mockRestore()
 })
 
-test('scope', () => {
-  const spy = jest.spyOn(Compile, 'compile')
+test('scope update', () => {
+  const spy = jest.spyOn(Utils, 'generateElement')
   let instance: ReactTestRenderer
 
   act(() => {
     instance = create(
-      <Container code="<div>hello {value}</div>" scope={{ value: 'react' }} />
+      <Runner code="<div>hello {value}</div>" scope={{ value: 'react' }} />
     )
   })
   expect(spy).toHaveBeenCalledTimes(1)
 
   act(() =>
     instance.update(
-      <Container
+      <Runner
         code="<div>hello {value}</div>"
         scope={{ value: 'react-runner' }}
       />
@@ -65,7 +65,7 @@ test('scope', () => {
 
   act(() =>
     instance.update(
-      <Container
+      <Runner
         code="<div>hello! {value}</div>"
         scope={{ value: 'react-runner' }}
       />
@@ -82,15 +82,20 @@ test('scope', () => {
   spy.mockRestore()
 })
 
-test('handle error', () => {
+test('handle react error', () => {
+  const onRendered = jest.fn()
   const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
   let instance: ReactTestRenderer
 
   act(() => {
-    instance = create(<Container code="() => <div>{value}</div>" />)
+    instance = create(
+      <Runner code="() => <div>{value}</div>" onRendered={onRendered} />
+    )
   })
-  expect(instance!).toMatchInlineSnapshot(
-    `"ReferenceError: value is not defined"`
+  expect(instance!).toMatchInlineSnapshot(`null`)
+  expect(onRendered).toHaveBeenCalledTimes(1)
+  expect(onRendered).toHaveBeenLastCalledWith(
+    'ReferenceError: value is not defined'
   )
 
   spy.mockRestore()

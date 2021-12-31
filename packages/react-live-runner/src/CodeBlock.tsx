@@ -8,8 +8,6 @@ export type CodeBlockProps = Omit<
   ComponentPropsWithoutRef<'pre'>,
   'children'
 > & {
-  /** @deprecated use `children` instead */
-  code?: string
   children?: string
   language?: Language
   theme?: Theme
@@ -19,7 +17,6 @@ export type CodeBlockProps = Omit<
 }
 
 export const CodeBlock = ({
-  code: deprecatedCode,
   children,
   language = 'jsx',
   theme = defaultTheme,
@@ -30,9 +27,13 @@ export const CodeBlock = ({
   style: _style,
   ...rest
 }: CodeBlockProps) => {
-  const code = children || deprecatedCode || ''
   return (
-    <Highlight code={code} language={language} Prism={Prism} theme={theme}>
+    <Highlight
+      code={children || ''}
+      language={language}
+      Prism={Prism}
+      theme={theme}
+    >
       {({ className, style, tokens, getLineProps, getTokenProps }) => {
         const children = tokens.map((line, i) => (
           <div {...getLineProps({ line, key: i })}>

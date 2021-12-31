@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "test:ci": "jest --coverage",
     "tsc": "tsc",
     "build": "microbundle build",
     "watch": "microbundle watch",

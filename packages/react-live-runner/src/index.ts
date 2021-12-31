@@ -1,6 +1,5 @@
 export * from 'react-runner'
 
-export * from './LiveRunner'
 export * from './useLiveRunner'
 export * from './CodeEditor'
 export * from './CodeBlock'

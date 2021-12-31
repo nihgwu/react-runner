@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
 import { LiveContext } from './LiveContext'
-import { useLiveRunner } from './useLiveRunner'
-import { LiveRunnerOptions, Language, Theme } from './types'
+import { useLiveRunner, UseLiveRunnerProps } from './useLiveRunner'
+import { Language, Theme } from './types'
 import defaultTheme from './defaultTheme'
 
-export type LiveProviderProps = Omit<LiveRunnerOptions, 'sourceCode'> & {
+export type LiveProviderProps = Omit<UseLiveRunnerProps, 'sourceCode'> & {
   code?: string
   language?: Language
   theme?: Theme

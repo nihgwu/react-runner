@@ -34,19 +34,3 @@ test('controlled value', () => {
     `<div>hello</div><div>react-runner</div>`
   )
 })
-
-test('controlled code', () => {
-  const handleChange = jest.fn()
-  render(<CodeEditor code="" onChange={handleChange} />)
-  const editor = screen.getByRole<HTMLTextAreaElement>('textbox')
-
-  fireEvent.change(editor, {
-    target: {
-      value: `<div>hello</div><div>react-runner</div>`,
-    },
-  })
-  expect(editor.value).toBe(``)
-  expect(handleChange).toHaveBeenCalledWith(
-    `<div>hello</div><div>react-runner</div>`
-  )
-})

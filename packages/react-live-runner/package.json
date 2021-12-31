@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "test:ci": "jest --coverage",
     "tsc": "tsc",
     "build": "microbundle build --jsx React.createElement  --jsxFragment React.Fragment",
     "watch": "microbundle watch --jsx React.createElement  --jsxFragment React.Fragment",

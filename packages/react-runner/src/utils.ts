@@ -3,12 +3,10 @@ import React, {
   isValidElement,
   Fragment,
   ReactElement,
-  ReactNode,
 } from 'react'
 
-import { ErrorBoundary } from './ErrorBoundary'
 import { transform } from './transform'
-import { RunnerOptions, RunnerResult, ErrorCallback, Scope } from './types'
+import { RunnerOptions, Scope } from './types'
 
 const exportRegexp = /^export default(?=\s+)/m
 const renderRegexp = /^render(?=\s*\([^)])/m
@@ -34,40 +32,17 @@ const evalCode = (code: string, scope: Scope) => {
   return fn(...scopeValues)
 }
 
-const generateElement = (
-  options: RunnerOptions,
-  onError?: ErrorCallback
+export const generateElement = (
+  options: RunnerOptions
 ): ReactElement | null => {
   const { code, scope } = options
-  const trimmedCode = code ? code.trim() : ''
+  const trimmedCode = code.trim()
   if (!trimmedCode) return null
 
   const transformedCode = transform(prepareCode(trimmedCode))
   const result = evalCode(transformedCode, { React, ...scope })
 
-  let children: ReactNode
-  if (isValidElement(result)) children = result
-  // prevent crashing with code `console`
-  else if (typeof result === 'object') children = String(result)
-  else if (typeof result === 'function') children = createElement(result)
-  else children = null
-
-  return createElement(ErrorBoundary, { onError }, children)
-}
-
-export const compile = (options: RunnerOptions, onError?: ErrorCallback) => {
-  let state: RunnerResult
-  try {
-    state = {
-      element: generateElement(options, onError),
-      error: null,
-    }
-  } catch (error: unknown) {
-    state = {
-      element: null,
-      error: (error as Error).toString(),
-    }
-  }
-
-  return state
+  if (isValidElement(result)) return result
+  else if (typeof result === 'function') return createElement(result)
+  return null
 }

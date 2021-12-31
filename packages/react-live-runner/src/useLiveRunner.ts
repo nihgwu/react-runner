@@ -1,25 +1,32 @@
-import { useState, useEffect, useRef } from 'react'
-import { useRunner, RunnerResult } from 'react-runner'
+import { useState, useEffect } from 'react'
+import { useRunner, UseRunnerProps, UseRunnerReturn } from 'react-runner'
 
-import { LiveRunnerOptions, LiveRunnerResult } from './types'
+export type UseLiveRunnerProps = Omit<UseRunnerProps, 'code'> & {
+  sourceCode: string
+  transformCode?: (code: string) => string
+}
+
+export type UseLiveRunnerRetrun = UseRunnerReturn & {
+  code: string
+  onChange: (value: string) => void
+}
 
 export const useLiveRunner = ({
   scope,
   sourceCode,
   disableCache,
   transformCode,
-}: LiveRunnerOptions): LiveRunnerResult => {
-  const elementRef = useRef<RunnerResult['element']>(null)
+}: UseLiveRunnerProps): UseLiveRunnerRetrun => {
   const [code, onChange] = useState(sourceCode)
   const { element, error } = useRunner({
     code: transformCode ? transformCode(code) : code,
     scope,
+    disableCache,
   })
-  if (disableCache || !error) elementRef.current = element
 
   useEffect(() => {
     onChange(sourceCode)
   }, [sourceCode])
 
-  return { element: elementRef.current, error, code, onChange }
+  return { element, error, code, onChange }
 }

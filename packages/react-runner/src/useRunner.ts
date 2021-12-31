@@ -1,26 +1,67 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, createElement, ReactElement } from 'react'
 
-import { compile } from './compile'
-import { RunnerOptions, RunnerResult } from './types'
+import { Runner } from './Runner'
+import { RunnerOptions } from './types'
 
-export const useRunner = ({ code, scope }: RunnerOptions) => {
-  const [state, setState] = useState<RunnerResult>({
-    element: null,
-    error: null,
-  })
+export type UseRunnerProps = RunnerOptions & {
+  disableCache?: boolean
+}
 
+export type UseRunnerReturn = {
+  element: ReactElement | null
+  error: string | null
+}
+
+export const useRunner = ({
+  code,
+  scope,
+  disableCache,
+}: UseRunnerProps): UseRunnerReturn => {
+  const isMountRef = useRef(true)
+  const elementRef = useRef<ReactElement | null>(null)
   const scopeRef = useRef(scope)
   scopeRef.current = scope
 
+  const [state, setState] = useState<UseRunnerReturn>(() => {
+    const element = createElement(Runner, {
+      code,
+      scope: scopeRef.current,
+      onRendered: (error) => {
+        if (error) {
+          setState({
+            element: disableCache ? null : elementRef.current,
+            error,
+          })
+        } else {
+          elementRef.current = element
+        }
+      },
+    })
+    return { element, error: null }
+  })
+
   useEffect(() => {
-    const { element, error } = compile(
-      { code, scope: scopeRef.current },
-      (error) => {
-        setState({ error, element: null })
-      }
-    )
-    setState({ element, error })
-  }, [code])
+    if (isMountRef.current) {
+      isMountRef.current = false
+      return
+    }
+
+    const element = createElement(Runner, {
+      code,
+      scope: scopeRef.current,
+      onRendered: (error) => {
+        if (error) {
+          setState({
+            element: disableCache ? null : elementRef.current,
+            error,
+          })
+        } else {
+          elementRef.current = element
+        }
+      },
+    })
+    setState({ element, error: null })
+  }, [code, disableCache])
 
   return state
 }

@@ -1,18 +1,15 @@
 import { createContext, useContext } from 'react'
 
-import { LiveRunnerResult, Language, Theme } from './types'
+import { UseLiveRunnerRetrun } from './useLiveRunner'
+import { Language, Theme } from './types'
 
-export type LiveContextProps = LiveRunnerResult & {
+export type LiveContextProps = UseLiveRunnerRetrun & {
   language?: Language
   theme?: Theme
 }
 
-/* istanbul ignore next */
-export const LiveContext = createContext<LiveContextProps>({
-  element: null,
-  error: null,
-  code: '',
-  onChange: () => {},
-})
+export const LiveContext = createContext<LiveContextProps>(
+  {} as LiveContextProps
+)
 
 export const useLiveContext = () => useContext(LiveContext)

@@ -7,10 +7,9 @@
     "bootstrap": "lerna bootstrap",
     "start": "yarn --cwd website dev",
     "test": "lerna run test",
-    "test:ci": "lerna run test -- --coverage",
+    "test:ci": "lerna run test:ci",
     "tsc": "lerna run tsc",
     "build": "lerna run build",
-    "watch": "lerna run watch",
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prettier": "lerna run prettier",
@@ -26,10 +25,13 @@
     }
   },
   "lint-staged": {
-    "**/*.js": [
+    "*.{js,ts,tsx}": [
       "prettier --write",
-      "eslint",
+      "eslint --fix",
       "git add"
+    ],
+    "*.{md,json,yml}": [
+      "prettier --write"
     ]
   },
   "devDependencies": {

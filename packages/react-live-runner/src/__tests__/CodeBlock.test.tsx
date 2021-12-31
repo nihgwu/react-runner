@@ -19,18 +19,8 @@ test('noWrap', () => {
   expect(screen.getByTestId('block').style.whiteSpace).toBe('pre')
 })
 
-test('code', () => {
-  render(<CodeBlock code="hello" data-testid="block" />)
-
-  expect(screen.getByTestId('block').textContent).toBe('hello')
-})
-
 test('children', () => {
-  render(
-    <CodeBlock code="hello" data-testid="block">
-      world
-    </CodeBlock>
-  )
+  render(<CodeBlock data-testid="block">world</CodeBlock>)
 
   expect(screen.getByTestId('block').textContent).toBe('world')
 })

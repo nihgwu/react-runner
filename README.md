@@ -4,8 +4,7 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 
 ## Features
 
-- Inline element
-- Inline elements _require React 16.3 or above_
+- Inline element(s)
 - Function component
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`
@@ -21,31 +20,25 @@ yarn add react-runner
 npm install --save react-runner
 ```
 
-## Props
+## Options
 
-- **children** `function({ element, error })`, _required_ render props
 - **code** `string`, _required_ the code to be ran
 - **scope** `object` globals that could be used in `code`
 
 ## Usage
 
 ```jsx
-import { Runner } from 'react-runner'
-
-// pseudo code
-render(
-  <Runner code={code} scope={scope}>
-    {({ element, error }) => (error ? error : element)}
-  </Runner>
-)
-```
-
-or hooks _(require React 16.8 or above)_
-
-```jsx
 import { useRunner } from 'react-runner'
 
 const { element, error } = useRunner({ code, scope })
+```
+
+or use `Runner` as a component directly and handle error with `onRendered`
+
+```jsx
+import { Runner } from 'react-runner'
+
+const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
 ```
 
 ## Browser support
@@ -76,14 +69,13 @@ import {
   LivePreview,
 } from 'react-live-runner'
 
-// pseudo code
-render(
-  <LiveProvider code={code}>
-    <LiveEditor />
-    <LiveError />
-    <LivePreview />
-  </LiveProvider>
-)
+...
+<LiveProvider code={code}>
+  <LiveEditor />
+  <LiveError />
+  <LivePreview />
+</LiveProvider>
+...
 ```
 
 or you can use render props
@@ -91,20 +83,19 @@ or you can use render props
 ```jsx
 import LiveRunner, { CodeEditor } from 'react-live-runner'
 
-// pseudo code
-render(
-  <LiveRunner sourceCode={sourceCode} scope={scope}>
-    {({element, error, code, onChange }) => (
-      <div>
-        <CodeEditor code={code} onChange={onChange} />
-        {error ? error : element)}
-      </div>
-    )}
-  </LiveRunner>
-)
+...
+<LiveRunner sourceCode={sourceCode} scope={scope}>
+  {({element, error, code, onChange }) => (
+    <div>
+      <CodeEditor code={code} onChange={onChange} />
+      {error ? error : element)}
+    </div>
+  )}
+</LiveRunner>
+...
 ```
 
-or hooks _(require React 16.8 or above)_
+or hooks for better custom rendering
 
 ```jsx
 import { useLiveRunner } from 'react-live-runner'

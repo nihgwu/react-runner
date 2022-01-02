@@ -188,6 +188,15 @@ test('scope', () => {
   `)
 })
 
+test('string', () => {
+  const element = generateElement({ code: `"hello"` })
+  expect(element).toMatchInlineSnapshot(`
+    <React.Fragment>
+      hello
+    </React.Fragment>
+  `)
+})
+
 test('empty code', () => {
   const element = generateElement({ code: `` })
   expect(element).toBeNull()

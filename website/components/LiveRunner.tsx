@@ -54,6 +54,7 @@ const PreviewContainer = styled.div`
 
 const Preview = styled.div`
   margin: auto;
+  white-space: pre;
 `
 
 const Error = styled.div`

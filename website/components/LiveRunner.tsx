@@ -14,12 +14,12 @@ import {
 const Container = styled.div`
   display: flex;
   box-shadow: 0 0 8px 0 lightsteelblue;
-  height: 250px;
+  height: 300px;
   overflow: hidden;
 
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     flex-direction: column-reverse;
-    height: 400px;
+    height: 480px;
   }
 `
 
@@ -48,15 +48,12 @@ const PreviewContainer = styled.div`
   flex: 1;
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background: #fff;
   overflow: auto;
 `
 
 const Preview = styled.div`
   margin: auto;
-  text-align: center;
 `
 
 const Error = styled.div`
@@ -71,6 +68,9 @@ const Error = styled.div`
   white-space: pre-wrap;
 `
 
+const transformCode = (code: string) =>
+  code.replace(/import [^']* from '[^']*'/gms, '')
+
 type Props = {
   code: string
   scope?: Scope
@@ -78,7 +78,7 @@ type Props = {
 }
 
 export const LiveRunner = (props: Props) => (
-  <LiveProvider {...props}>
+  <LiveProvider transformCode={transformCode} {...props}>
     <Container>
       <EditorContainer>
         <Editor as={LiveEditor} />
@@ -95,6 +95,7 @@ export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
   const { element, error, code, onChange } = useLiveRunner({
     sourceCode,
     scope,
+    transformCode,
   })
 
   return (
@@ -112,7 +113,7 @@ export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
 
 export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
   const [code, setCode] = useState((sourceCode || '').trim())
-  const { element, error } = useRunner({ code, scope })
+  const { element, error } = useRunner({ code: transformCode(code), scope })
 
   return (
     <Container>
@@ -126,5 +127,3 @@ export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
     </Container>
   )
 }
-
-export default UseRunner

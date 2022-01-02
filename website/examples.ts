@@ -1,13 +1,34 @@
-import styled, { css } from 'styled-components'
+// @ts-ignore
 import { codeBlock } from 'common-tags'
+// @ts-ignore
+import hn from '!!raw-loader!./pages/hacker-news.tsx'
 
-export default [
+export const examples = [
   {
     key: 'inline-elements',
     title: 'Inline elements',
     code: codeBlock`
-    <div>Hello</div>
-    <div>react-runner</div>
+    <h4>react-runner</h4>
+    <ul>
+      <li>Inline element(s)</li>
+      <li>Function component</li>
+      <li>
+        Class component, <strong>with class fields support</strong>
+      </li>
+      <li>
+        Composing components with <em>render</em> or <em>export default</em>
+      </li>
+      <li>
+        Support <em>Typescript</em>
+      </li>
+      <li>Server Side Rendering</li>
+    </ul>
+    <div>
+      <span>Hacker News </span>
+      <a href="#hacker-news">in react-runner</a>
+      <span> vs </span>
+      <a href="hacker-news">in real world</a>
+    </div>
     `,
   },
   {
@@ -63,7 +84,6 @@ export default [
   {
     key: 'export-default',
     title: 'export default Component',
-    scope: { styled, css },
     code: codeBlock`
     const Button = styled.button\`
       background: transparent;
@@ -91,7 +111,6 @@ export default [
   {
     key: 'render',
     title: 'render(<Component />)',
-    scope: { styled, css },
     code: codeBlock`
     const Button = styled.button\`
       background: transparent;
@@ -115,5 +134,10 @@ export default [
       </>
     )
     `,
+  },
+  {
+    key: 'hacker-news',
+    title: 'Hacker News (Typescript)',
+    code: hn,
   },
 ]

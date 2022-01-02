@@ -8,7 +8,10 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 - Function component
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`
-- Support `typescript`
+- Support `Typescript`
+- Server Side Rendering
+
+Hacker News [in react-runner](https://nihgwu.github.io/react-runner/#hacker-news) vs [in real world](https://nihgwu.github.io/react-runner/hacker-news), with the same code
 
 ## Install
 

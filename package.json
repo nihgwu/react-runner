@@ -17,7 +17,7 @@
     "postinstall": "yarn --cwd website",
     "prepush": "yarn lint",
     "prerelease": "yarn clean & yarn build",
-    "release": "yarn build && lerna publish"
+    "release": "lerna publish"
   },
   "husky": {
     "hooks": {

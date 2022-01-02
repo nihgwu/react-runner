@@ -171,3 +171,37 @@ test('disable cache', () => {
 
   spy.mockRestore()
 })
+
+test('toggle cache', () => {
+  const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+  const { result, update } = setup({
+    code: `() => <div>hello</div>`,
+    disableCache: true,
+  })
+
+  expect(create(result.element!)).toMatchInlineSnapshot(`
+    <div>
+      hello
+    </div>
+  `)
+  expect(result.error).toBeNull()
+
+  update({ code: `() => <div>{hello}</div>`, disableCache: true })
+  expect(create(result.element!)).toMatchInlineSnapshot(`null`)
+  expect(result.error).toBe('ReferenceError: hello is not defined')
+
+  update({ code: `() => <div>{hello}</div>`, disableCache: false })
+  expect(create(result.element!)).toMatchInlineSnapshot(`
+    <div>
+      hello
+    </div>
+  `)
+  expect(result.error).toBe('ReferenceError: hello is not defined')
+
+  update({ code: `() => <div>{hello}</div>`, disableCache: true })
+  expect(create(result.element!)).toMatchInlineSnapshot(`null`)
+  expect(result.error).toBe('ReferenceError: hello is not defined')
+
+  spy.mockRestore()
+})

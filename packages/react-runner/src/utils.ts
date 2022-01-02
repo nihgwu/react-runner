@@ -20,7 +20,7 @@ const prepareCode = (code: string) => {
   // remove trailing comma for expression
   code = code.replace(/;$/, '')
   // inline elements
-  if (elementRegexp.test(code) && Fragment) code = `<>${code}</>`
+  if (elementRegexp.test(code)) code = `<>${code}</>`
   return `return (${code})`
 }
 
@@ -42,7 +42,11 @@ export const generateElement = (
   const transformedCode = transform(prepareCode(trimmedCode))
   const result = evalCode(transformedCode, { React, ...scope })
 
+  if (!result) return null
   if (isValidElement(result)) return result
-  else if (typeof result === 'function') return createElement(result)
+  if (typeof result === 'function') return createElement(result)
+  if (typeof result === 'string') {
+    return createElement(Fragment, undefined, result)
+  }
   return null
 }

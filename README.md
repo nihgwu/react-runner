@@ -106,7 +106,7 @@ import { useLiveRunner } from 'react-live-runner'
 const { element, error, code, onChange } = useLiveRunner({
   sourceCode,
   scope,
-  type,
+  transformCode,
 })
 ```
 

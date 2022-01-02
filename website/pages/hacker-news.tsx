@@ -78,13 +78,14 @@ const Container = styled.div`
   padding: 16px;
   max-width: 640px;
   margin: auto;
+  background: white;
 `
 
 const Header = styled.header`
   height: 48px;
   position: sticky;
   top: 0;
-  background: white;
+  background: inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,7 +94,6 @@ const Header = styled.header`
 const Button = styled.button`
   background: none;
   border: none;
-  cursor: pointer;
 `
 
 const App = () => {
@@ -103,11 +103,11 @@ const App = () => {
     <Container>
       <Header>
         <h2>Hacker News</h2>
-        <div style={{ textAlign: 'center' }}>
+        <div>
           <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
             prev
           </Button>
-          <Meta>{page} / 10</Meta>
+          <Meta> {page} / 10 </Meta>
           <Button disabled={page >= 10} onClick={() => setPage(page + 1)}>
             next
           </Button>

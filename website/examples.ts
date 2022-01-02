@@ -8,7 +8,7 @@ export const examples = [
     key: 'inline-elements',
     title: 'Inline elements',
     code: codeBlock`
-    <h4>react-runner</h4>
+    <h2>react-runner</h2>
     <ul>
       <li>Inline element(s)</li>
       <li>Function component</li>

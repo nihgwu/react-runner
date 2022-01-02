@@ -49,12 +49,15 @@ const PreviewContainer = styled.div`
   position: relative;
   display: flex;
   background: #fff;
-  overflow: auto;
+  overflow: hidden;
 `
 
 const Preview = styled.div`
   margin: auto;
-  white-space: pre;
+  white-space: pre-wrap;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
 `
 
 const Error = styled.div`
@@ -69,6 +72,7 @@ const Error = styled.div`
   white-space: pre-wrap;
 `
 
+// remove import statements
 const transformCode = (code: string) =>
   code.replace(/import [^']* from '[^']*'/gms, '')
 
@@ -105,8 +109,8 @@ export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
         <Editor value={code} language={language} onChange={onChange} />
       </EditorContainer>
       <PreviewContainer>
-        {error && <Error>{error}</Error>}
         <Preview>{element}</Preview>
+        {error && <Error>{error}</Error>}
       </PreviewContainer>
     </Container>
   )
@@ -122,8 +126,8 @@ export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
         <Editor value={code} language={language} onChange={setCode} />
       </EditorContainer>
       <PreviewContainer>
-        {error && <Error>{error}</Error>}
         <Preview>{element}</Preview>
+        {error && <Error>{error}</Error>}
       </PreviewContainer>
     </Container>
   )

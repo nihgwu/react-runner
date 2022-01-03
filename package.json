@@ -25,9 +25,14 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "packages/**/*.{js,ts,tsx}": [
       "prettier --write",
       "eslint --fix",
+      "git add"
+    ],
+    "website/**/*.{js,ts,tsx}": [
+      "prettier --write",
+      "yarn --cwd website eslint --fix",
       "git add"
     ],
     "*.{md,json,yml}": [

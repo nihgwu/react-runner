@@ -5,6 +5,7 @@ const debug = process.env.NODE_ENV !== 'production'
 /** @type {import('next').NextConfig} */
 module.exports = {
   assetPrefix: !debug ? '/react-runner/' : '',
+  basePath: !debug ? '/react-runner' : '',
   experimental: {
     // ssr and displayName are configured by default
     styledComponents: true,

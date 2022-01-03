@@ -12,13 +12,13 @@ export const examples = [
       <li>Inline element(s)</li>
       <li>Function component</li>
       <li>
-        Class component, <strong>with class fields support</strong>
+        Class component, <b>with class fields support</b>
       </li>
       <li>
-        Composing components with <em>render</em> or <em>export default</em>
+        Composing components with <b>render</b> or <b>export default</b>
       </li>
       <li>
-        Support <em>Typescript</em>
+        Support <b>Typescript</b>
       </li>
       <li>Server Side Rendering</li>
     </ul>

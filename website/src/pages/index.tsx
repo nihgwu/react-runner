@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import styled, { css } from 'styled-components'
 
 import { UseRunner as LiveRunner } from '../components/LiveRunner'
-import { examples } from '../examples'
+import { examples } from '../constants'
 
 const Container = styled.div`
   max-width: 1024px;

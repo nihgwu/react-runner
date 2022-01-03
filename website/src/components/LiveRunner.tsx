@@ -74,7 +74,9 @@ export const Error = styled.div`
 
 // remove import statements
 export const transformCode = (code: string) =>
-  code.replace(/import [^']* from '[^']*'/gms, '')
+  code
+    .replace(/^import +({[^']*) from 'react'/m, 'const $1 = React')
+    .replace(/^import [^']* from '[^']*'/gm, '')
 
 type Props = {
   code: string

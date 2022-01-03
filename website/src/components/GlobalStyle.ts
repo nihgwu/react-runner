@@ -15,4 +15,9 @@ export const GlobalStyle = createGlobalStyle`
   pre, code, kbd {
     font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
   }
+
+  ul {
+    list-style: circle;
+    padding: 16px;
+  }
 `

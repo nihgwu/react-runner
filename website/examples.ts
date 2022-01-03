@@ -1,14 +1,13 @@
-// @ts-ignore
 import { codeBlock } from 'common-tags'
 // @ts-ignore
-import hn from '!!raw-loader!./pages/hacker-news.tsx'
+import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
 export const examples = [
   {
     key: 'inline-elements',
     title: 'Inline elements',
     code: codeBlock`
-    <h2>react-runner</h2>
+    <h2>React Runner</h2>
     <ul>
       <li>Inline element(s)</li>
       <li>Function component</li>
@@ -27,7 +26,7 @@ export const examples = [
       <span>Hacker News </span>
       <a href="#hacker-news">in react-runner</a>
       <span> vs </span>
-      <a href="hacker-news">in real world</a>
+      <a href="examples/hacker-news">in real world</a>
     </div>
     `,
   },

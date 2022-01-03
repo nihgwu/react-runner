@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { useLiveRunner } from 'react-live-runner'
+import { useRunner } from 'react-live-runner'
 
 import {
   Editor,
@@ -11,46 +11,55 @@ import {
   transformCode,
 } from '../components/LiveRunner'
 import { getCode, replaceState } from '../utils/urlHash'
+import { scope } from '../constants'
 
 // @ts-ignore
 import sampleCode from '!!raw-loader!./examples/hacker-news.tsx'
-
-const scope = { styled, css }
 
 const Container = styled.div`
   position: relative;
   display: flex;
   box-shadow: 0 0 8px 0 lightsteelblue;
   overflow: hidden;
-  margin: 24px;
-  height: calc(100vh - 96px);
+  margin: 16px;
+  height: calc(100vh - 80px);
+
+  @media (max-width: 960px) {
+    flex-direction: column-reverse;
+  }
 `
 
 const Playground = () => {
-  const [sourceCode, setSourceCode] = useState('')
-  const { element, error, onChange } = useLiveRunner({
-    sourceCode,
+  const [code, setCode] = useState('')
+  const { element, error } = useRunner({
+    code: transformCode(code),
     scope,
-    transformCode,
   })
-  const handleChange = useCallback(
-    (code) => {
-      onChange(code)
-      replaceState(code)
-    },
-    [onChange]
-  )
+  const handleChange = useCallback((code) => {
+    setCode(code)
+    replaceState(code)
+  }, [])
 
+  // to clear editing history
+  const [editorKey, resetEditor] = useReducer((state: number) => state + 1, 0)
   useEffect(() => {
-    setSourceCode(getCode(sampleCode))
+    setCode(getCode(sampleCode))
+    resetEditor()
+
+    const reset = () => {
+      setCode(sampleCode)
+      resetEditor()
+    }
+    window.addEventListener('playground', reset)
+    return () => window.removeEventListener('playground', reset)
   }, [])
 
   return (
     <Container>
       <EditorContainer>
         <Editor
-          key={sourceCode}
-          defaultValue={sourceCode}
+          key={editorKey}
+          value={code}
           language="tsx"
           padding={16}
           onChange={handleChange}

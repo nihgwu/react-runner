@@ -1,6 +1,9 @@
+import styled, { css, keyframes, createGlobalStyle } from 'styled-components'
 import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
+
+export const scope = { styled, css, keyframes, createGlobalStyle }
 
 export const examples = [
   {

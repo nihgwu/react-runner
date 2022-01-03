@@ -50,7 +50,9 @@ export const Header = () => (
       </NextLink>
       <Nav>
         <NextLink href="/playground" passHref>
-          <Link>Playground</Link>
+          <Link onClick={() => dispatchEvent(new Event('playground'))}>
+            Playground
+          </Link>
         </NextLink>
         <Link href="https://github.com/nihgwu/react-runner">Github</Link>
       </Nav>

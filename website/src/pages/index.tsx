@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { UseRunner as LiveRunner } from '../components/LiveRunner'
-import { examples } from '../constants'
+import { scope, examples } from '../constants'
 
 const Container = styled.div`
   max-width: 1024px;
@@ -17,8 +17,6 @@ const Title = styled.h3`
 const Description = styled.div`
   color: steelblue;
 `
-
-const scope = { styled, css }
 
 const Page = () => (
   <Container>

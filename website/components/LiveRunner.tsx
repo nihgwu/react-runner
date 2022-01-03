@@ -11,7 +11,7 @@ import {
   Language,
 } from 'react-live-runner'
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   box-shadow: 0 0 8px 0 lightsteelblue;
   height: 300px;
@@ -23,12 +23,12 @@ const Container = styled.div`
   }
 `
 
-const EditorContainer = styled.div`
-  flex: 1;
+export const EditorContainer = styled.div`
+  flex: 0 1 720px;
   overflow: auto;
 `
 
-const Editor = styled(CodeEditor)`
+export const Editor = styled(CodeEditor)`
   font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
   font-size: 14px;
   white-space: pre;
@@ -44,15 +44,15 @@ const Editor = styled(CodeEditor)`
   }
 `
 
-const PreviewContainer = styled.div`
-  flex: 1;
+export const PreviewContainer = styled.div`
+  flex: 1 1 720px;
   position: relative;
   display: flex;
   background: #fff;
   overflow: hidden;
 `
 
-const Preview = styled.div`
+export const Preview = styled.div`
   margin: auto;
   white-space: pre-wrap;
   max-width: 100%;
@@ -60,7 +60,7 @@ const Preview = styled.div`
   overflow: auto;
 `
 
-const Error = styled.div`
+export const Error = styled.div`
   background: #fcc;
   position: absolute;
   top: 0;
@@ -73,7 +73,7 @@ const Error = styled.div`
 `
 
 // remove import statements
-const transformCode = (code: string) =>
+export const transformCode = (code: string) =>
   code.replace(/import [^']* from '[^']*'/gms, '')
 
 type Props = {

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import NextLink from 'next/link'
 
 const Container = styled.header`
   background: steelblue;
@@ -9,7 +10,7 @@ const Container = styled.header`
   z-index: 1;
 `
 
-const Nav = styled.nav`
+const Head = styled.div`
   max-width: 1024px;
   height: 48px;
   margin: auto;
@@ -17,6 +18,12 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`
+
+const Nav = styled.nav`
+  & > :not(:last-child) {
+    margin-right: 16px;
+  }
 `
 
 const Link = styled.a`
@@ -29,16 +36,24 @@ const Link = styled.a`
 `
 
 const Title = styled.h1`
-  margin: 10px 0;
+  font-size: 24px;
+  margin: 0;
 `
 
 export const Header = () => (
   <Container>
-    <Nav>
-      <Link href="/">
-        <Title>react-runner</Title>
-      </Link>
-      <Link href="https://github.com/nihgwu/react-runner">Github</Link>
-    </Nav>
+    <Head>
+      <NextLink href="/" passHref>
+        <Link>
+          <Title>React Runner</Title>
+        </Link>
+      </NextLink>
+      <Nav>
+        <NextLink href="/playground" passHref>
+          <Link>Playground</Link>
+        </NextLink>
+        <Link href="https://github.com/nihgwu/react-runner">Github</Link>
+      </Nav>
+    </Head>
   </Container>
 )

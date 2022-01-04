@@ -31,7 +31,6 @@ const Container = styled.div`
 
 const Playground = () => {
   const { element, error, code, onChange } = useLiveRunner({
-    initialCode: '',
     scope,
     transformCode,
   })
@@ -45,6 +44,7 @@ const Playground = () => {
       onChange(getHashCode())
       resetEditor()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

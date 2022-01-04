@@ -7,7 +7,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "rm -rf node_modules/.cache build && next build && next export -o build && touch build/.nojekyll && gh-pages -d build -t true"
+    "deploy": "rm -rf node_modules/.cache build && PREFIX=true next build && next export -o build && touch build/.nojekyll && gh-pages -d build -t true"
   },
   "dependencies": {
     "common-tags": "^1.8.2",

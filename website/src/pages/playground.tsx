@@ -31,7 +31,7 @@ const Container = styled.div`
 
 const Playground = () => {
   const { element, error, code, onChange } = useLiveRunner({
-    sourceCode: '',
+    initialCode: '',
     scope,
     transformCode,
   })

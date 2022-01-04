@@ -17,8 +17,8 @@ test('edit', () => {
   const result = render(
     <LiveProvider code={`() => <div>hello</div>`}>
       <LiveEditor />
-      <LiveError data-testid="error" />
       <LivePreview data-testid="preview" />
+      <LiveError data-testid="error" />
     </LiveProvider>
   )
   const editor = screen.getByRole<HTMLTextAreaElement>('textbox')

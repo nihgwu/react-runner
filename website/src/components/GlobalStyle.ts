@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ul {
-    list-style: circle;
-    padding: 16px;
+    list-style: auto inside;
+    padding: 0;
   }
 `

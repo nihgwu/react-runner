@@ -1,20 +1,20 @@
 import LZString from 'lz-string'
 
-export const getCode = (defaultValue = '') => {
-  if (typeof document === 'undefined') return defaultValue
+export const getHashCode = () => {
+  if (typeof location === 'undefined') return undefined
+  if (location.href.endsWith(location.pathname)) return undefined
 
-  const hash = document.location.hash.slice(1)
-  if (!hash) return defaultValue
+  const hash = location.hash.slice(1)
+  if (!hash) return ''
 
   return (
     LZString.decompressFromEncodedURIComponent(hash) || decodeURIComponent(hash)
   )
 }
 
-export const replaceState = (code: string) => {
-  if (typeof document === 'undefined') return
+export const updateHash = (code: string) => {
+  if (typeof history === 'undefined') return
 
-  const url = new URL(document.location.href)
-  url.hash = code ? LZString.compressToEncodedURIComponent(code) : ''
-  window.history.replaceState(null, '', url)
+  const hash = code ? LZString.compressToEncodedURIComponent(code) : ''
+  history.replaceState(history.state, '', `#${hash}`)
 }

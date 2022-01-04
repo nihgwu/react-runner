@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 type Item = {
@@ -58,9 +58,9 @@ const Ul = styled.ul`
 `
 
 const List = ({ page }: { page: number }) => {
-  const [items, setItems] = React.useState<Item[] | null>(null)
+  const [items, setItems] = useState<Item[] | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     getItems(page).then(setItems)
   }, [page])
 
@@ -96,8 +96,8 @@ const Button = styled.button`
   border: none;
 `
 
-const App = () => {
-  const [page, setPage] = React.useState(1)
+export default function App() {
+  const [page, setPage] = useState(1)
 
   return (
     <Container>
@@ -117,5 +117,3 @@ const App = () => {
     </Container>
   )
 }
-
-export default App

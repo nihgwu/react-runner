@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
-import styled, { css } from 'styled-components'
-import { useRunner } from 'react-live-runner'
+import { useEffect, useReducer } from 'react'
+import styled from 'styled-components'
+import { useLiveRunner } from 'react-live-runner'
 
 import {
   Editor,
@@ -10,7 +10,7 @@ import {
   Error,
   transformCode,
 } from '../components/LiveRunner'
-import { getCode, replaceState } from '../utils/urlHash'
+import { getHashCode, updateHash } from '../utils/urlHash'
 import { scope } from '../constants'
 
 // @ts-ignore
@@ -30,30 +30,30 @@ const Container = styled.div`
 `
 
 const Playground = () => {
-  const [code, setCode] = useState('')
-  const { element, error } = useRunner({
-    code: transformCode(code),
+  const { element, error, code, onChange } = useLiveRunner({
+    sourceCode: '',
     scope,
+    transformCode,
   })
-  const handleChange = useCallback((code) => {
-    setCode(code)
-    replaceState(code)
-  }, [])
 
-  // to clear editing history
+  // reset to clear editing history
   const [editorKey, resetEditor] = useReducer((state: number) => state + 1, 0)
-  useEffect(() => {
-    setCode(getCode(sampleCode))
-    resetEditor()
 
-    const reset = () => {
-      setCode(sampleCode)
+  const hashCode = getHashCode()
+  useEffect(() => {
+    if (hashCode !== undefined) {
+      onChange(getHashCode())
       resetEditor()
     }
-    window.addEventListener('playground', reset)
-    return () => window.removeEventListener('playground', reset)
   }, [])
 
+  useEffect(() => {
+    if (hashCode === undefined) {
+      onChange(sampleCode)
+      resetEditor()
+    }
+    updateHash(code)
+  })
   return (
     <Container>
       <EditorContainer>
@@ -62,7 +62,7 @@ const Playground = () => {
           value={code}
           language="tsx"
           padding={16}
-          onChange={handleChange}
+          onChange={onChange}
         />
       </EditorContainer>
       <PreviewContainer>

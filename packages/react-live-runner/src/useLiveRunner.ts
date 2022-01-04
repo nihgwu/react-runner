@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRunner, UseRunnerProps, UseRunnerReturn } from 'react-runner'
 
 export type UseLiveRunnerProps = Omit<UseRunnerProps, 'code'> & {
-  sourceCode: string
+  initialCode?: string
   transformCode?: (code: string) => string
 }
 
@@ -12,12 +12,12 @@ export type UseLiveRunnerRetrun = UseRunnerReturn & {
 }
 
 export const useLiveRunner = ({
+  initialCode = '',
   scope,
-  sourceCode,
   disableCache,
   transformCode,
 }: UseLiveRunnerProps): UseLiveRunnerRetrun => {
-  const [code, onChange] = useState(sourceCode)
+  const [code, onChange] = useState(initialCode)
   const { element, error } = useRunner({
     code: transformCode ? transformCode(code) : code,
     scope,
@@ -25,8 +25,8 @@ export const useLiveRunner = ({
   })
 
   useEffect(() => {
-    onChange(sourceCode)
-  }, [sourceCode])
+    onChange(initialCode)
+  }, [initialCode])
 
   return { element, error, code, onChange }
 }

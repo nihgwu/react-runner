@@ -5,7 +5,7 @@ import { useLiveRunner, UseLiveRunnerProps } from './useLiveRunner'
 import { Language, Theme } from './types'
 import defaultTheme from './defaultTheme'
 
-export type LiveProviderProps = Omit<UseLiveRunnerProps, 'sourceCode'> & {
+export type LiveProviderProps = Omit<UseLiveRunnerProps, 'initialCode'> & {
   code?: string
   language?: Language
   theme?: Theme
@@ -14,7 +14,7 @@ export type LiveProviderProps = Omit<UseLiveRunnerProps, 'sourceCode'> & {
 export const LiveProvider: FC<LiveProviderProps> = ({
   children,
   scope,
-  code: sourceCode = '',
+  code: initialCode = '',
   language = 'jsx',
   theme = defaultTheme,
   disableCache,
@@ -22,7 +22,7 @@ export const LiveProvider: FC<LiveProviderProps> = ({
 }) => {
   const { element, error, code, onChange } = useLiveRunner({
     scope,
-    sourceCode,
+    initialCode,
     disableCache,
     transformCode,
   })

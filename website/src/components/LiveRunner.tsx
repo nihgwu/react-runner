@@ -96,9 +96,13 @@ export const LiveRunner = (props: Props) => (
   </LiveProvider>
 )
 
-export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
+export const UseLiveRunner = ({
+  code: initialCode,
+  scope,
+  language,
+}: Props) => {
   const { element, error, code, onChange } = useLiveRunner({
-    sourceCode,
+    initialCode,
     scope,
     transformCode,
   })
@@ -116,8 +120,8 @@ export const UseLiveRunner = ({ code: sourceCode, scope, language }: Props) => {
   )
 }
 
-export const UseRunner = ({ code: sourceCode, scope, language }: Props) => {
-  const [code, setCode] = useState((sourceCode || '').trim())
+export const UseRunner = ({ code: initialCode, scope, language }: Props) => {
+  const [code, setCode] = useState((initialCode || '').trim())
   const { element, error } = useRunner({ code: transformCode(code), scope })
 
   return (

@@ -1,15 +1,17 @@
-# react-runner
+# React Runner
 
 Run your React code on the go [https://nihgwu.github.io/react-runner/](https://nihgwu.github.io/react-runner/)
 
 ## Features
 
-- Inline element
-- Inline elements _require React 16.3 or above_
+- Inline element(s)
 - Function component
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`
-- Support `typescript` or `flow`
+- Support `Typescript`
+- Server Side Rendering
+
+Hacker News [in react-runner](https://nihgwu.github.io/react-runner/#hacker-news) vs [in real world](https://nihgwu.github.io/react-runner/examples/hacker-news), with the same code
 
 ## Install
 
@@ -21,37 +23,37 @@ yarn add react-runner
 npm install --save react-runner
 ```
 
-## Props
+## Options
 
-- **children** `function({ element, error })`, _required_ render props
 - **code** `string`, _required_ the code to be ran
 - **scope** `object` globals that could be used in `code`
-- **type** `string` the type system of the code, code be `typescript` or `flow`
 
 ## Usage
 
 ```jsx
-import Runner from 'react-runner'
-
-// pseudo code
-render(
-  <Runner code={code} scope={scope} type={type}>
-    {({ element, error }) => (error ? error : element)}
-  </Runner>
-)
-```
-
-or hooks _(require React 16.8 or above)_
-
-```jsx
 import { useRunner } from 'react-runner'
 
-const { element, error } = useRunner({ code, scope, type })
+const { element, error } = useRunner({ code, scope })
 ```
 
-## Caveats
+or use `Runner` as a component directly and handle error with `onRendered`
 
-As Sucrase transpiles your code to work in modern JS runtime only, so your code would not work on IE, depending on the features you used. If you want to work with old browsers, use [react-runner-buble](https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-buble) instead.
+```jsx
+import { Runner } from 'react-runner'
+
+const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
+```
+
+## Browser support
+
+```
+"browserslist": [
+  "Chrome > 61",
+  "Edge > 16",
+  "Firefox > 60",
+  "Safari > 10.1"
+]
+```
 
 ## react-live-runner
 
@@ -70,43 +72,24 @@ import {
   LivePreview,
 } from 'react-live-runner'
 
-// pseudo code
-render(
-  <LiveProvider code={code}>
-    <LiveEditor />
-    <LiveError />
-    <LivePreview />
-  </LiveProvider>
-)
+...
+<LiveProvider code={code}>
+  <LiveEditor />
+  <LiveError />
+  <LivePreview />
+</LiveProvider>
+...
 ```
 
-or you can use render props
-
-```jsx
-import LiveRunner, { CodeEditor } from 'react-live-runner'
-
-// pseudo code
-render(
-  <LiveRunner sourceCode={sourceCode} scope={scope} type={type}>
-    {({element, error, code, onChange }) => (
-      <div>
-        <CodeEditor code={code} onChange={onChange} />
-        {error ? error : element)}
-      </div>
-    )}
-  </LiveRunner>
-)
-```
-
-or hooks _(require React 16.8 or above)_
+or hooks for better custom rendering
 
 ```jsx
 import { useLiveRunner } from 'react-live-runner'
 
 const { element, error, code, onChange } = useLiveRunner({
-  sourceCode,
+  initialCode,
   scope,
-  type,
+  transformCode,
 })
 ```
 
@@ -116,12 +99,12 @@ or use `react-runner` directly
 import { useState, useEffect } from 'react'
 import { useRunner } from 'react-runner'
 
-const [code, onChange] = useState(sourceCode)
-const { element, error } = useRunner({ code, scope, type })
+const [code, onChange] = useState(initialCode)
+const { element, error } = useRunner({ code, scope })
 
 useEffect(() => {
-  onChange(sourceCode)
-}, [sourceCode])
+  onChange(initialCode)
+}, [initialCode])
 ```
 
 See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.js

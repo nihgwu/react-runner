@@ -1,6 +1,6 @@
 # React Runner
 
-Run your React code on the go [https://nihgwu.github.io/react-runner/](https://nihgwu.github.io/react-runner/)
+Run your React code on the go [https://react-runner.vercel.app](https://react-runner.vercel.app)
 
 ## Features
 
@@ -11,7 +11,7 @@ Run your React code on the go [https://nihgwu.github.io/react-runner/](https://n
 - Support `Typescript`
 - Server Side Rendering
 
-Hacker News [in react-runner](https://nihgwu.github.io/react-runner/#hacker-news) vs [in real world](https://nihgwu.github.io/react-runner/examples/hacker-news), with the same code
+Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
 
 ## Install
 

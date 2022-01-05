@@ -30,9 +30,7 @@ export const examples = [
       <span>Hacker News </span>
       <a href="#hacker-news">in react-runner</a>
       <span> vs </span>
-      <a href="https://nihgwu.github.io/react-runner/examples/hacker-news">
-        in real world
-      </a>
+      <a href="examples/hacker-news">in real world</a>
     </div>
     `,
   },

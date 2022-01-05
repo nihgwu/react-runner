@@ -27,7 +27,7 @@
   "scripts": {
     "test": "jest",
     "test:ci": "jest --coverage",
-    "tsc": "tsc",
+    "typecheck": "tsc --noEmit",
     "build": "microbundle build",
     "watch": "microbundle watch",
     "clean": "rimraf dist",

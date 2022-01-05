@@ -1,13 +1,11 @@
-name: CI
+name: Deploy
 
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,14 +15,11 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
-      - name: Lint
-        run: yarn lint
-
       - name: Build
-        run: yarn build
+        run: yarn build && PREFIX=true yarn --cwd website build
 
-      - name: Type check
-        run: yarn tsc
-
-      - name: Test
-        run: yarn test:ci
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/build

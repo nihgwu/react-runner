@@ -27,7 +27,7 @@
   "scripts": {
     "test": "jest",
     "test:ci": "jest --coverage",
-    "tsc": "tsc",
+    "typecheck": "tsc --noEmit",
     "build": "microbundle build --jsx React.createElement  --jsxFragment React.Fragment",
     "watch": "microbundle watch --jsx React.createElement  --jsxFragment React.Fragment",
     "clean": "rimraf dist",

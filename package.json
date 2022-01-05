@@ -8,7 +8,7 @@
     "start": "yarn --cwd website dev",
     "test": "lerna run test",
     "test:ci": "lerna run test:ci",
-    "tsc": "lerna run tsc",
+    "typecheck": "lerna run typecheck",
     "build": "lerna run build",
     "clean": "lerna run clean",
     "lint": "lerna run lint",

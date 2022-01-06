@@ -4,6 +4,7 @@ import { generateElement } from './utils'
 import { RunnerOptions } from './types'
 
 export type RunnerProps = RunnerOptions & {
+  /** callback on code be rendered, returns error message when code is invalid */
   onRendered?: (error?: string) => void
 }
 

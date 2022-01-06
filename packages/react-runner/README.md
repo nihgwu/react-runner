@@ -23,11 +23,6 @@ yarn add react-runner
 npm install --save react-runner
 ```
 
-## Options
-
-- **code** `string`, _required_ the code to be ran
-- **scope** `object` globals that could be used in `code`
-
 ## Usage
 
 ```jsx
@@ -75,8 +70,8 @@ import {
 ...
 <LiveProvider code={code}>
   <LiveEditor />
-  <LiveError />
   <LivePreview />
+  <LiveError />
 </LiveProvider>
 ...
 ```
@@ -107,7 +102,7 @@ useEffect(() => {
 }, [initialCode])
 ```
 
-See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.js
+See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.tsx
 
 ## License
 

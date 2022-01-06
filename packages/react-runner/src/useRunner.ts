@@ -4,6 +4,7 @@ import { Runner } from './Runner'
 import { RunnerOptions } from './types'
 
 export type UseRunnerProps = RunnerOptions & {
+  /** whether to cache previous element when error occurs with current code */
   disableCache?: boolean
 }
 

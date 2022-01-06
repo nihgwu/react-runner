@@ -6,8 +6,11 @@ import { Language, Theme } from './types'
 import defaultTheme from './defaultTheme'
 
 export type LiveProviderProps = Omit<UseLiveRunnerProps, 'initialCode'> & {
+  /** initial code for the live runner */
   code?: string
+  /** language for syntax highlighting */
   language?: Language
+  /** `prism-react-renderer` theme object */
   theme?: Theme
 }
 

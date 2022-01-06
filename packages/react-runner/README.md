@@ -79,13 +79,21 @@ import {
 or hooks for better custom rendering
 
 ```jsx
-import { useLiveRunner } from 'react-live-runner'
+import { useLiveRunner, CodeEditor } from 'react-live-runner'
 
-const { element, error, code, onChange } = useLiveRunner({
+const { element, error, code, setCode } = useLiveRunner({
   initialCode,
   scope,
   transformCode,
 })
+
+...
+<>
+  <CodeEditor value={code} onChange={setCode}>
+  <div>{element}</div>
+  {error && <pre>{error}</pre>}
+</>
+...
 ```
 
 or use `react-runner` directly
@@ -94,12 +102,20 @@ or use `react-runner` directly
 import { useState, useEffect } from 'react'
 import { useRunner } from 'react-runner'
 
-const [code, onChange] = useState(initialCode)
+const [code, setCode] = useState(initialCode)
 const { element, error } = useRunner({ code, scope })
 
 useEffect(() => {
-  onChange(initialCode)
+  setCode(initialCode)
 }, [initialCode])
+
+...
+<>
+  <CodeEditor value={code} onChange={setCode}>
+  <div>{element}</div>
+  {error && <pre>{error}</pre>}
+</>
+...
 ```
 
 See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.tsx

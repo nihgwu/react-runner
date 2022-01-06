@@ -4,13 +4,13 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { useLiveRunner, UseLiveRunnerProps } from '../useLiveRunner'
 
 const Container = (props: UseLiveRunnerProps) => {
-  const { element, error, code, onChange } = useLiveRunner(props)
+  const { element, error, code, setCode } = useLiveRunner(props)
 
   return (
     <>
       <textarea
         value={code}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => setCode(event.target.value)}
       />
       <div data-testid="preview">{element}</div>
       {error && <pre data-testid="error">{error}</pre>}

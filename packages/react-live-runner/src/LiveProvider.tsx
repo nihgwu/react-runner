@@ -23,7 +23,7 @@ export const LiveProvider: FC<LiveProviderProps> = ({
   disableCache,
   transformCode,
 }) => {
-  const { element, error, code, onChange } = useLiveRunner({
+  const { element, error, code, setCode } = useLiveRunner({
     scope,
     initialCode,
     disableCache,
@@ -32,7 +32,7 @@ export const LiveProvider: FC<LiveProviderProps> = ({
 
   return (
     <LiveContext.Provider
-      value={{ element, error, code, onChange, language, theme }}
+      value={{ element, error, code, onChange: setCode, language, theme }}
     >
       {children}
     </LiveContext.Provider>

@@ -10,7 +10,7 @@ export type UseLiveRunnerProps = Omit<UseRunnerProps, 'code'> & {
 
 export type UseLiveRunnerRetrun = UseRunnerReturn & {
   code: string
-  onChange: (value: string) => void
+  setCode: (value: string) => void
 }
 
 export const useLiveRunner = ({
@@ -19,7 +19,7 @@ export const useLiveRunner = ({
   disableCache,
   transformCode,
 }: UseLiveRunnerProps): UseLiveRunnerRetrun => {
-  const [code, onChange] = useState(initialCode)
+  const [code, setCode] = useState(initialCode)
   const { element, error } = useRunner({
     code: transformCode ? transformCode(code) : code,
     scope,
@@ -27,8 +27,8 @@ export const useLiveRunner = ({
   })
 
   useEffect(() => {
-    onChange(initialCode)
+    setCode(initialCode)
   }, [initialCode])
 
-  return { element, error, code, onChange }
+  return { element, error, code, setCode }
 }

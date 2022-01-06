@@ -101,7 +101,7 @@ export const UseLiveRunner = ({
   scope,
   language,
 }: Props) => {
-  const { element, error, code, onChange } = useLiveRunner({
+  const { element, error, code, setCode } = useLiveRunner({
     initialCode,
     scope,
     transformCode,
@@ -110,7 +110,7 @@ export const UseLiveRunner = ({
   return (
     <Container>
       <EditorContainer>
-        <Editor value={code} language={language} onChange={onChange} />
+        <Editor value={code} onChange={setCode} language={language} />
       </EditorContainer>
       <PreviewContainer>
         <Preview>{element}</Preview>
@@ -127,7 +127,7 @@ export const UseRunner = ({ code: initialCode, scope, language }: Props) => {
   return (
     <Container>
       <EditorContainer>
-        <Editor value={code} language={language} onChange={setCode} />
+        <Editor value={code} onChange={setCode} language={language} />
       </EditorContainer>
       <PreviewContainer>
         <Preview>{element}</Preview>

@@ -3,7 +3,8 @@ import { createContext, useContext } from 'react'
 import { UseLiveRunnerRetrun } from './useLiveRunner'
 import { Language, Theme } from './types'
 
-export type LiveContextProps = UseLiveRunnerRetrun & {
+export type LiveContextProps = Omit<UseLiveRunnerRetrun, 'setCode'> & {
+  onChange: UseLiveRunnerRetrun['setCode']
   language?: Language
   theme?: Theme
 }

@@ -30,7 +30,7 @@ const Container = styled.div`
 `
 
 const Playground = () => {
-  const { element, error, code, onChange } = useLiveRunner({
+  const { element, error, code, setCode } = useLiveRunner({
     scope,
     transformCode,
   })
@@ -41,7 +41,7 @@ const Playground = () => {
   const hashCode = getHashCode()
   useEffect(() => {
     if (hashCode !== undefined) {
-      onChange(getHashCode())
+      setCode(getHashCode())
       resetEditor()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +49,7 @@ const Playground = () => {
 
   useEffect(() => {
     if (hashCode === undefined) {
-      onChange(sampleCode)
+      setCode(sampleCode)
       resetEditor()
     }
     updateHash(code)
@@ -62,7 +62,7 @@ const Playground = () => {
           value={code}
           language="tsx"
           padding={16}
-          onChange={onChange}
+          onChange={setCode}
         />
       </EditorContainer>
       <PreviewContainer>

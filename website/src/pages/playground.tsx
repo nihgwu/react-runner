@@ -1,6 +1,6 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import styled from 'styled-components'
-import { useLiveRunner } from 'react-live-runner'
+import { useAsyncRunner } from 'react-live-runner'
 
 import {
   Editor,
@@ -8,13 +8,11 @@ import {
   Preview,
   PreviewContainer,
   Error,
-  transformCode,
 } from '../components/LiveRunner'
 import { getHashCode, updateHash } from '../utils/urlHash'
-import { scope } from '../constants'
 
 // @ts-ignore
-import sampleCode from '!!raw-loader!./examples/hacker-news.tsx'
+import sampleCode from '!!raw-loader!./examples/dynamic-imports.tsx'
 
 const Container = styled.div`
   position: relative;
@@ -29,10 +27,13 @@ const Container = styled.div`
   }
 `
 
+export const transformCode = (code: string) =>
+  code.replace(/^import ([^']*) from 'react'/gm, 'const $1 = React')
+
 const Playground = () => {
-  const { element, error, code, onChange } = useLiveRunner({
-    scope,
-    transformCode,
+  const [code, onChange] = useState('')
+  const { element, error } = useAsyncRunner({
+    code: transformCode(code),
   })
 
   // reset to clear editing history

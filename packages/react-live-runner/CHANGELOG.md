@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.4](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.3...react-live-runner@1.0.0-alpha.4) (2022-01-08)
+
+### Features
+
+- support imports ([#61](https://github.com/nihgwu/react-runner/issues/61)) ([09efc65](https://github.com/nihgwu/react-runner/commit/09efc654f68d4fa127062cc21fdd32e12623dc2b))
+
 # [1.0.0-alpha.3](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.2...react-live-runner@1.0.0-alpha.3) (2022-01-04)
 
 **Note:** Version bump only for package react-live-runner

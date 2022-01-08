@@ -8,10 +8,9 @@ import {
   Preview,
   PreviewContainer,
   Error,
-  transformCode,
 } from '../components/LiveRunner'
 import { getHashCode, updateHash } from '../utils/urlHash'
-import { scope } from '../constants'
+import { scope, imports } from '../constants'
 
 // @ts-ignore
 import sampleCode from '!!raw-loader!./examples/hacker-news.tsx'
@@ -30,10 +29,7 @@ const Container = styled.div`
 `
 
 const Playground = () => {
-  const { element, error, code, onChange } = useLiveRunner({
-    scope,
-    transformCode,
-  })
+  const { element, error, code, onChange } = useLiveRunner({ scope, imports })
 
   // reset to clear editing history
   const [editorKey, resetEditor] = useReducer((state: number) => state + 1, 0)

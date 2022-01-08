@@ -1,10 +1,12 @@
 import React from 'react'
 import styled, { css, keyframes, createGlobalStyle } from 'styled-components'
+import * as Styled from 'styled-components'
 import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
 export const scope = { ...React, styled, css, keyframes, createGlobalStyle }
+export const imports = { react: React, 'styled-components': Styled }
 
 export const examples = [
   {

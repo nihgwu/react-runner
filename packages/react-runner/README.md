@@ -23,12 +23,18 @@ yarn add react-runner
 npm install --save react-runner
 ```
 
+## Options
+
+- **code** `string`, _required_ the code to be ran
+- **scope** `object` globals that could be used in `code`
+- **imports** `object` imports that could be used in `code`
+
 ## Usage
 
 ```jsx
 import { useRunner } from 'react-runner'
 
-const { element, error } = useRunner({ code, scope })
+const { element, error } = useRunner({ code, scope, imports })
 ```
 
 or use `Runner` as a component directly and handle error with `onRendered`
@@ -36,7 +42,14 @@ or use `Runner` as a component directly and handle error with `onRendered`
 ```jsx
 import { Runner } from 'react-runner'
 
-const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
+const element = (
+  <Runner
+    code={code}
+    scope={scope}
+    imports={imports}
+    onRendered={handleRendered}
+  />
+)
 ```
 
 ## Browser support
@@ -68,7 +81,7 @@ import {
 } from 'react-live-runner'
 
 ...
-<LiveProvider code={code}>
+<LiveProvider code={code} scope={scope} imports={imports}>
   <LiveEditor />
   <LivePreview />
   <LiveError />
@@ -79,13 +92,22 @@ import {
 or hooks for better custom rendering
 
 ```jsx
-import { useLiveRunner } from 'react-live-runner'
+import { useLiveRunner, CodeEditor } from 'react-live-runner'
 
 const { element, error, code, onChange } = useLiveRunner({
   initialCode,
   scope,
+  imports,
   transformCode,
 })
+
+...
+<>
+  <CodeEditor value={code} onChange={onChange}>
+  <div>{element}</div>
+  {error && <pre>{error}</pre>}
+</>
+...
 ```
 
 or use `react-runner` directly
@@ -95,11 +117,19 @@ import { useState, useEffect } from 'react'
 import { useRunner } from 'react-runner'
 
 const [code, onChange] = useState(initialCode)
-const { element, error } = useRunner({ code, scope })
+const { element, error } = useRunner({ code, scope, imports })
 
 useEffect(() => {
   onChange(initialCode)
 }, [initialCode])
+
+...
+<>
+  <textarea value={code} onChange={event => onChange(event.target.value)}>
+  <div>{element}</div>
+  {error && <pre>{error}</pre>}
+</>
+...
 ```
 
 See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.tsx

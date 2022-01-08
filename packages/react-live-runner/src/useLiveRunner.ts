@@ -15,15 +15,13 @@ export type UseLiveRunnerRetrun = UseRunnerReturn & {
 
 export const useLiveRunner = ({
   initialCode = '',
-  scope,
-  disableCache,
   transformCode,
+  ...rest
 }: UseLiveRunnerProps): UseLiveRunnerRetrun => {
   const [code, onChange] = useState(initialCode)
   const { element, error } = useRunner({
     code: transformCode ? transformCode(code) : code,
-    scope,
-    disableCache,
+    ...rest,
   })
 
   useEffect(() => {

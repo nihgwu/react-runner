@@ -16,17 +16,21 @@ export type UseRunnerReturn = {
 export const useRunner = ({
   code,
   scope,
+  imports,
   disableCache,
 }: UseRunnerProps): UseRunnerReturn => {
   const isMountRef = useRef(true)
   const elementRef = useRef<ReactElement | null>(null)
   const scopeRef = useRef(scope)
   scopeRef.current = scope
+  const importsRef = useRef(imports)
+  importsRef.current = imports
 
   const [state, setState] = useState<UseRunnerReturn>(() => {
     const element = createElement(Runner, {
       code,
       scope: scopeRef.current,
+      imports: importsRef.current,
       onRendered: (error) => {
         if (error) {
           setState({
@@ -50,6 +54,7 @@ export const useRunner = ({
     const element = createElement(Runner, {
       code,
       scope: scopeRef.current,
+      imports: importsRef.current,
       onRendered: (error) => {
         if (error) {
           setState({

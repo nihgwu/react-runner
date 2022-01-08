@@ -35,12 +35,23 @@ const evalCode = (code: string, scope: Scope) => {
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
-  const { code, scope } = options
+  const { code, scope, imports } = options
   const trimmedCode = code.trim()
   if (!trimmedCode) return null
 
-  const transformedCode = transform(prepareCode(trimmedCode))
-  const result = evalCode(transformedCode, { React, ...scope })
+  const hasImports = !!imports && Object.keys(imports).length > 0
+  const transformedCode = transform(prepareCode(trimmedCode), hasImports)
+  const evalScope: Scope = { React, ...scope }
+  if (hasImports) {
+    evalScope.require = (module: string) => {
+      if (!imports.hasOwnProperty(module)) {
+        throw new Error(`Module not found: '${module}'`)
+      }
+      return imports[module]
+    }
+  }
+
+  const result = evalCode(transformedCode, evalScope)
 
   if (!result) return null
   if (isValidElement(result)) return result

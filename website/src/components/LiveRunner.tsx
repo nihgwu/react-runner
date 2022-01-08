@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { useRunner, Scope } from 'react-runner'
+import { useRunner, RunnerOptions } from 'react-runner'
 import {
   LiveProvider,
   LiveEditor,
@@ -72,18 +72,13 @@ export const Error = styled.div`
   white-space: pre-wrap;
 `
 
-// remove import statements
-export const transformCode = (code: string) =>
-  code.replace(/^import [^']* from '[^']*'/gm, '')
-
-type Props = {
-  code: string
-  scope?: Scope
+type Props = RunnerOptions & {
+  transformCode?: (code: string) => string
   language?: Language
 }
 
 export const LiveRunner = (props: Props) => (
-  <LiveProvider transformCode={transformCode} {...props}>
+  <LiveProvider {...props}>
     <Container>
       <EditorContainer>
         <Editor as={LiveEditor} />
@@ -98,13 +93,12 @@ export const LiveRunner = (props: Props) => (
 
 export const UseLiveRunner = ({
   code: initialCode,
-  scope,
   language,
+  ...rest
 }: Props) => {
   const { element, error, code, onChange } = useLiveRunner({
     initialCode,
-    scope,
-    transformCode,
+    ...rest,
   })
 
   return (
@@ -120,9 +114,17 @@ export const UseLiveRunner = ({
   )
 }
 
-export const UseRunner = ({ code: initialCode, scope, language }: Props) => {
+export const UseRunner = ({
+  code: initialCode,
+  transformCode,
+  language,
+  ...rest
+}: Props) => {
   const [code, setCode] = useState((initialCode || '').trim())
-  const { element, error } = useRunner({ code: transformCode(code), scope })
+  const { element, error } = useRunner({
+    code: transformCode ? transformCode(code) : code,
+    ...rest,
+  })
 
   return (
     <Container>

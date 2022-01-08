@@ -2,6 +2,41 @@ import { create } from 'react-test-renderer'
 
 import { generateElement } from '../utils'
 
+test('empty code', () => {
+  const element = generateElement({ code: `` })
+  expect(element).toBeNull()
+})
+
+test('console', () => {
+  const element = generateElement({ code: `console` })
+  expect(element).toBeNull()
+})
+
+test('console.log', () => {
+  const element = generateElement({ code: `console.log('react-runner')` })
+  expect(element).toBeNull()
+})
+
+test('invalid code', () => {
+  expect(() =>
+    generateElement({
+      code: `
+      <div>{value}</div>
+      <div>react-runner</div>
+      `,
+    })
+  ).toThrowErrorMatchingInlineSnapshot(`"value is not defined"`)
+})
+
+test('string', () => {
+  const element = generateElement({ code: `"hello"` })
+  expect(element).toMatchInlineSnapshot(`
+    <React.Fragment>
+      hello
+    </React.Fragment>
+  `)
+})
+
 test('inline elements', () => {
   const element = generateElement({
     code: `
@@ -188,37 +223,23 @@ test('scope', () => {
   `)
 })
 
-test('string', () => {
-  const element = generateElement({ code: `"hello"` })
-  expect(element).toMatchInlineSnapshot(`
-    <React.Fragment>
-      hello
-    </React.Fragment>
-  `)
+test('imports', () => {
+  const element = generateElement({
+    code: `import Foo from 'foo'
+render(<Foo />)`,
+    imports: { foo: () => 'hello' },
+  })
+
+  expect(element).toMatchInlineSnapshot(`<foo />`)
+  expect(create(element!)).toMatchInlineSnapshot(`"hello"`)
 })
 
-test('empty code', () => {
-  const element = generateElement({ code: `` })
-  expect(element).toBeNull()
-})
-
-test('console', () => {
-  const element = generateElement({ code: `console` })
-  expect(element).toBeNull()
-})
-
-test('console.log', () => {
-  const element = generateElement({ code: `console.log('react-runner')` })
-  expect(element).toBeNull()
-})
-
-test('invalid code', () => {
+test('invalid imports', () => {
   expect(() =>
     generateElement({
-      code: `
-      <div>{value}</div>
-      <div>react-runner</div>
-      `,
+      code: `import Foo from 'foo'
+render(<Foo />)`,
+      imports: { bar: () => 'hello' },
     })
-  ).toThrowError(new ReferenceError('value is not defined'))
+  ).toThrowErrorMatchingInlineSnapshot(`"Module not found: 'foo'"`)
 })

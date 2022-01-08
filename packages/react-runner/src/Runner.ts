@@ -51,8 +51,10 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     this.props.onRendered?.(this.state.error?.toString())
   }
 
-  shouldComponentUpdate(nextProps: RunnerProps) {
-    return nextProps.code !== this.props.code
+  shouldComponentUpdate(nextProps: RunnerProps, nextState: RunnerState) {
+    return (
+      nextProps.code !== this.props.code || nextState.error !== this.state.error
+    )
   }
 
   componentDidUpdate() {

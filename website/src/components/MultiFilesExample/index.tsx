@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { importCode, Runner, Scope } from 'react-runner'
 
 import {

@@ -1,24 +1,22 @@
 import React from 'react'
-import styled, { css, keyframes, createGlobalStyle } from 'styled-components'
-import * as Styled from 'styled-components'
+import * as EmotionCss from '@emotion/css'
+import * as EmotionReact from '@emotion/react'
+import styled from '@emotion/styled'
 import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
-// mimic babel plugin's behaviour to support SSR
+// mimic the babel plugin's behaviour to support `Components as selectors`
 let counter = 0
-function hijackedStyled(...args: any[]) {
-  // @ts-ignore
-  return styled(...args)
-}
+const hijackedStyled = styled.bind(undefined)
 const hash = 'runner'
 const ignoredProps = Object.getOwnPropertyNames(Function)
 Object.getOwnPropertyNames(styled).forEach((tag) => {
   if (ignoredProps.includes(tag)) return
   Object.defineProperty(hijackedStyled, tag, {
     get() {
-      return styled[tag].withConfig({
-        componentId: `sc-${hash}-${counter++}`,
+      return styled(tag as keyof JSX.IntrinsicElements, {
+        target: `e${hash}${counter++}`,
       })
     },
   })
@@ -28,19 +26,23 @@ export const resetCounter = () => {
   counter = 0
 }
 
-export const scope = {
+const _React = {
   ...React,
+  createElement: EmotionReact.jsx,
+}
+
+export const scope = {
+  React: _React,
+  ..._React,
   styled: hijackedStyled,
-  css,
-  keyframes,
-  createGlobalStyle,
+  css: EmotionReact.css,
+  keyframes: EmotionReact.keyframes,
+  createElement: EmotionReact.jsx,
   import: {
-    react: React,
-    'styled-components': {
-      ...Styled,
-      default: hijackedStyled,
-      __esModule: true,
-    },
+    react: _React,
+    '@emotion/css': EmotionCss,
+    '@emotion/react': EmotionReact,
+    '@emotion/styled': hijackedStyled,
   },
 }
 

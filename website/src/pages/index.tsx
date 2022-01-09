@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { UseRunner as LiveRunner } from '../components/LiveRunner'
 import { MultiFilesExample } from '../components/MultiFilesExample'

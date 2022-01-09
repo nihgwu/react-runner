@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { useRunner, Scope } from 'react-runner'
 import {
   LiveProvider,
@@ -85,11 +85,13 @@ type Props = {
   language?: Language
 }
 
+const StyledEditor = Editor.withComponent(LiveEditor)
+
 export const LiveRunner = (props: Props) => (
   <LiveProvider {...props}>
     <Container>
       <EditorContainer>
-        <Editor as={LiveEditor} />
+        <StyledEditor />
       </EditorContainer>
       <PreviewContainer>
         <Preview as={LivePreview} />

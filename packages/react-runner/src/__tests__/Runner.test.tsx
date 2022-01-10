@@ -138,3 +138,35 @@ test('handle async react error', () => {
   spy.mockRestore()
   jest.useRealTimers()
 })
+
+test('without React in scope', () => {
+  let instance: ReactTestRenderer
+
+  act(() => {
+    instance = create(
+      <Runner code="<div>hello</div>" scope={{ React: undefined }} />
+    )
+  })
+  expect(instance!).toMatchInlineSnapshot(`
+    <div>
+      hello
+    </div>
+  `)
+})
+
+test('jsxFragmentPragma', () => {
+  let instance: ReactTestRenderer
+
+  act(() => {
+    instance = create(
+      <Runner code="<>hello</>" scope={{ jsxFragmentPragma: 'em' }} />
+    )
+  })
+  expect(instance!).toMatchInlineSnapshot(`
+    <em>
+      <em>
+        hello
+      </em>
+    </em>
+  `)
+})

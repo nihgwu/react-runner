@@ -32,6 +32,12 @@ const evalCode = (code: string, scope: Scope) => {
   return fn(...scopeValues)
 }
 
+const baseScope = {
+  React,
+  jsxPragma: React.createElement,
+  jsxFragmentPragma: React.Fragment,
+}
+
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
@@ -41,7 +47,7 @@ export const generateElement = (
 
   const hasImports = !!imports && Object.keys(imports).length > 0
   const transformedCode = transform(prepareCode(trimmedCode), hasImports)
-  const evalScope: Scope = { React, ...scope }
+  const evalScope: Scope = { ...baseScope, ...scope }
   if (hasImports) {
     evalScope.require = (module: string) => {
       if (!imports.hasOwnProperty(module)) {

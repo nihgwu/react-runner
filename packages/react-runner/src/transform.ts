@@ -6,5 +6,7 @@ export const transform = (code: string, hasImports?: boolean) => {
       ? ['jsx', 'typescript', 'imports']
       : ['jsx', 'typescript'],
     production: true,
+    jsxPragma: 'jsxPragma',
+    jsxFragmentPragma: 'jsxFragmentPragma',
   }).code
 }

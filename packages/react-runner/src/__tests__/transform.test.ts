@@ -3,14 +3,14 @@ import { transform } from '../transform'
 test('react component', () => {
   const result = transform(`<div>react-runner</div>`)
   expect(result).toMatchInlineSnapshot(
-    `"React.createElement('div', null, \\"react-runner\\")"`
+    `"jsxPragma('div', null, \\"react-runner\\")"`
   )
 })
 
 test('react component', () => {
   const result = transform(`() => <div>react-runner</div>`)
   expect(result).toMatchInlineSnapshot(
-    `"() => React.createElement('div', null, \\"react-runner\\")"`
+    `"() => jsxPragma('div', null, \\"react-runner\\")"`
   )
 })
 
@@ -19,7 +19,7 @@ test('react component with typescript', () => {
     `(props: { foo?: number }) => <div>react-runner</div>`
   )
   expect(result).toMatchInlineSnapshot(
-    `"(props) => React.createElement('div', null, \\"react-runner\\")"`
+    `"(props) => jsxPragma('div', null, \\"react-runner\\")"`
   )
 })
 
@@ -41,7 +41,7 @@ test('imports', () => {
           color: steelblue;
         \`
         
-        render(React.createElement(Button, null, \\"Click me\\" ))"
+        render(jsxPragma(Button, null, \\"Click me\\" ))"
   `)
   expect(transform(code, true)).toMatchInlineSnapshot(`
     "\\"use strict\\"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -51,6 +51,6 @@ test('imports', () => {
           color: steelblue;
         \`
         
-        render(React.createElement(Button, null, \\"Click me\\" ))"
+        render(jsxPragma(Button, null, \\"Click me\\" ))"
   `)
 })

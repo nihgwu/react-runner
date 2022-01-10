@@ -100,3 +100,41 @@ test('handle react error', () => {
 
   spy.mockRestore()
 })
+
+test('handle async react error', () => {
+  jest.useFakeTimers()
+  const onRendered = jest.fn()
+  const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+  let instance: ReactTestRenderer
+
+  act(() => {
+    instance = create(
+      <Runner
+        code={`export default () => {
+          const [loaded, setLoaded] = React.useState(false)
+        
+          React.useEffect(() => {
+            setTimeout(() => setLoaded(true), 10)
+          })
+        
+          if (!loaded) return 'loading'
+          return <Foo />
+        }`}
+        onRendered={onRendered}
+      />
+    )
+  })
+  expect(instance!).toMatchInlineSnapshot(`"loading"`)
+  expect(onRendered).toHaveBeenCalledTimes(1)
+  expect(onRendered).toHaveBeenLastCalledWith(undefined)
+
+  jest.runOnlyPendingTimers()
+  expect(instance!).toMatchInlineSnapshot(`null`)
+  expect(onRendered).toHaveBeenCalledTimes(2)
+  expect(onRendered).toHaveBeenLastCalledWith(
+    'ReferenceError: Foo is not defined'
+  )
+
+  spy.mockRestore()
+  jest.useRealTimers()
+})

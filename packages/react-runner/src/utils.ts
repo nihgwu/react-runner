@@ -38,26 +38,23 @@ const baseScope = {
   jsxFragmentPragma: React.Fragment,
 }
 
+export const createRequire = (imports: Scope) => (module: string) => {
+  if (!imports.hasOwnProperty(module)) {
+    throw new Error(`Module not found: '${module}'`)
+  }
+  return imports[module]
+}
+
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
-  const { code, scope, imports } = options
+  const { code, scope } = options
   const trimmedCode = code.trim()
   if (!trimmedCode) return null
 
-  const hasImports = !!imports && Object.keys(imports).length > 0
-  const transformedCode = transform(prepareCode(trimmedCode), hasImports)
-  const evalScope: Scope = { ...baseScope, ...scope }
-  if (hasImports) {
-    evalScope.require = (module: string) => {
-      if (!imports.hasOwnProperty(module)) {
-        throw new Error(`Module not found: '${module}'`)
-      }
-      return imports[module]
-    }
-  }
-
-  const result = evalCode(transformedCode, evalScope)
+  const transformImports = scope?.require && typeof scope.require === 'function'
+  const transformedCode = transform(prepareCode(trimmedCode), transformImports)
+  const result = evalCode(transformedCode, { ...baseScope, ...scope })
 
   if (!result) return null
   if (isValidElement(result)) return result

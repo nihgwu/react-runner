@@ -5,6 +5,4 @@ export type RunnerOptions = {
   code: string
   /** globals that could be used in code */
   scope?: Scope
-  /** imports that could be used in code */
-  imports?: Scope
 }

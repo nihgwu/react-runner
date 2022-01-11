@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import { UseRunner as LiveRunner } from '../components/LiveRunner'
-import { scope, imports, examples } from '../constants'
+import { scope, examples } from '../constants'
 
 const Container = styled.div`
   max-width: 1024px;
@@ -24,12 +24,7 @@ const Page = () => (
     {examples.map(({ key, title, code }) => (
       <Fragment key={key}>
         <Title id={key}>{title}</Title>
-        <LiveRunner
-          code={code}
-          scope={scope}
-          imports={imports}
-          language="tsx"
-        />
+        <LiveRunner code={code} scope={scope} language="tsx" />
       </Fragment>
     ))}
   </Container>

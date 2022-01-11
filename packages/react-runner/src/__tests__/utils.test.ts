@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
 
-import { generateElement } from '../utils'
+import { generateElement, createRequire } from '../utils'
 
 test('empty code', () => {
   const element = generateElement({ code: `` })
@@ -227,7 +227,7 @@ test('imports', () => {
   const element = generateElement({
     code: `import Foo from 'foo'
 render(<Foo />)`,
-    imports: { foo: () => 'hello' },
+    scope: { require: createRequire({ foo: () => 'hello' }) },
   })
 
   expect(element).toMatchInlineSnapshot(`<foo />`)
@@ -239,7 +239,7 @@ test('invalid imports', () => {
     generateElement({
       code: `import Foo from 'foo'
 render(<Foo />)`,
-      imports: { bar: () => 'hello' },
+      scope: { require: createRequire({ bar: () => 'hello' }) },
     })
   ).toThrowErrorMatchingInlineSnapshot(`"Module not found: 'foo'"`)
 })

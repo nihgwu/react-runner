@@ -1,8 +1,8 @@
 import { transform as _transform } from 'sucrase'
 
-export const transform = (code: string, hasImports?: boolean) => {
+export const transform = (code: string, transformImports?: boolean) => {
   return _transform(code, {
-    transforms: hasImports
+    transforms: transformImports
       ? ['jsx', 'typescript', 'imports']
       : ['jsx', 'typescript'],
     production: true,

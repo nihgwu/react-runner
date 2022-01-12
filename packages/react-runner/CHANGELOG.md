@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-alpha.4...react-runner@1.0.0-alpha.5) (2022-01-12)
+
+### Bug Fixes
+
+- catch update error ([#62](https://github.com/nihgwu/react-runner/issues/62)) ([9c4b86b](https://github.com/nihgwu/react-runner/commit/9c4b86ba794f19fc18316183c2cb032d971c8bfa))
+
+### Features
+
+- add createRequire and remove imports ([#65](https://github.com/nihgwu/react-runner/issues/65)) ([de96dac](https://github.com/nihgwu/react-runner/commit/de96dac64fa78d443e1ef668c68c3f2b9ee78a6b))
+- support custom jsxPragma via scope ([#64](https://github.com/nihgwu/react-runner/issues/64)) ([cf98e42](https://github.com/nihgwu/react-runner/commit/cf98e42baa9a745b3ec4bc074661ba36dbf2bbcf))
+
 # [1.0.0-alpha.4](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-alpha.3...react-runner@1.0.0-alpha.4) (2022-01-08)
 
 ### Features

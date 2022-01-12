@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.4...react-live-runner@1.0.0-alpha.5) (2022-01-12)
+
+### Features
+
+- add createRequire and remove imports ([#65](https://github.com/nihgwu/react-runner/issues/65)) ([de96dac](https://github.com/nihgwu/react-runner/commit/de96dac64fa78d443e1ef668c68c3f2b9ee78a6b))
+
 # [1.0.0-alpha.4](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.3...react-live-runner@1.0.0-alpha.4) (2022-01-08)
 
 ### Features

@@ -10,18 +10,20 @@ import { RunnerOptions, Scope } from './types'
 
 const exportRegexp = /^export default(?=\s+)/m
 const renderRegexp = /^render(?=\s*\([^)])/m
-const elementRegexp = /^</
+const elementRegexp = /^<[^>]*>/
+const componentRegexp = /^(function|\(\)|class)[^\w]+/
 
 const prepareCode = (code: string) => {
+  // inline elements
+  if (elementRegexp.test(code)) return `return (<>${code}</>)`
   // export default Component
   if (exportRegexp.test(code)) return code.replace(exportRegexp, 'return')
   // render(<Component />)
   if (renderRegexp.test(code)) return code.replace(renderRegexp, 'return')
+  // inline component
   // remove trailing comma for expression
-  code = code.replace(/;$/, '')
-  // inline elements
-  if (elementRegexp.test(code)) code = `<>${code}</>`
-  return `return (${code})`
+  if (componentRegexp.test(code)) return `return (${code.replace(/;$/, '')})`
+  return code
 }
 
 const evalCode = (code: string, scope: Scope) => {

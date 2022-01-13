@@ -15,7 +15,7 @@ test('code update', () => {
   expect(instance!).toMatchInlineSnapshot(`null`)
   expect(onRendered).toHaveBeenCalledTimes(1)
   expect(onRendered).toHaveBeenLastCalledWith(
-    'ReferenceError: hello is not defined'
+    new ReferenceError('hello is not defined')
   )
   expect(spy).toHaveBeenCalledTimes(1)
 
@@ -95,7 +95,7 @@ test('handle react error', () => {
   expect(instance!).toMatchInlineSnapshot(`null`)
   expect(onRendered).toHaveBeenCalledTimes(1)
   expect(onRendered).toHaveBeenLastCalledWith(
-    'ReferenceError: value is not defined'
+    new ReferenceError('value is not defined')
   )
 
   spy.mockRestore()
@@ -132,7 +132,7 @@ test('handle async react error', () => {
   expect(instance!).toMatchInlineSnapshot(`null`)
   expect(onRendered).toHaveBeenCalledTimes(2)
   expect(onRendered).toHaveBeenLastCalledWith(
-    'ReferenceError: Foo is not defined'
+    new ReferenceError('Foo is not defined')
   )
 
   spy.mockRestore()

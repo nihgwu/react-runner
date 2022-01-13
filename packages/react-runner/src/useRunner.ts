@@ -31,7 +31,7 @@ export const useRunner = ({
         if (error) {
           setState({
             element: disableCache ? null : elementRef.current,
-            error,
+            error: error.toString(),
           })
         } else {
           elementRef.current = element
@@ -54,7 +54,7 @@ export const useRunner = ({
         if (error) {
           setState({
             element: disableCache ? null : elementRef.current,
-            error,
+            error: error.toString(),
           })
         } else {
           elementRef.current = element

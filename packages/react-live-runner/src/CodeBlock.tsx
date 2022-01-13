@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef, CSSProperties } from 'react'
-import Highlight, { Prism } from 'prism-react-renderer'
+import Highlight, { Prism as defaultPrism } from 'prism-react-renderer'
 
-import { Language, Theme } from './types'
+import { Language, Theme, PrismLib } from './types'
 import defaultTheme from './defaultTheme'
 
 export type CodeBlockProps = Omit<
@@ -11,6 +11,7 @@ export type CodeBlockProps = Omit<
   children?: string
   language?: Language
   theme?: Theme
+  Prism?: PrismLib
   noWrapper?: boolean
   noWrap?: boolean
   padding?: number
@@ -20,6 +21,7 @@ export const CodeBlock = ({
   children,
   language = 'jsx',
   theme = defaultTheme,
+  Prism = defaultPrism,
   padding = 10,
   noWrapper,
   noWrap,

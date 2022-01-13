@@ -5,12 +5,12 @@ import { RunnerOptions } from './types'
 
 export type RunnerProps = RunnerOptions & {
   /** callback on code be rendered, returns error message when code is invalid */
-  onRendered?: (error?: string) => void
+  onRendered?: (error?: Error) => void
 }
 
 type RunnerState = {
   element: ReactElement | null
-  error: string | null
+  error: Error | null
   prevCode: string | null
 }
 
@@ -37,18 +37,18 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     } catch (error: unknown) {
       return {
         element: null,
-        error: (error as Error).toString(),
+        error: error as Error,
         prevCode: props.code,
       }
     }
   }
 
   static getDerivedStateFromError(error: Error): Partial<RunnerState> {
-    return { error: error.toString() }
+    return { error }
   }
 
   componentDidMount() {
-    this.props.onRendered?.(this.state.error?.toString())
+    this.props.onRendered?.(this.state.error || undefined)
   }
 
   shouldComponentUpdate(nextProps: RunnerProps, nextState: RunnerState) {
@@ -58,7 +58,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
   }
 
   componentDidUpdate() {
-    this.props.onRendered?.(this.state.error?.toString())
+    this.props.onRendered?.(this.state.error || undefined)
   }
 
   render() {

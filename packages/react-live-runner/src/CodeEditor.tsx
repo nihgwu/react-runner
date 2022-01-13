@@ -8,7 +8,7 @@ import React, {
 import Editor from 'react-simple-code-editor'
 
 import { CodeBlock } from './CodeBlock'
-import { Language, Theme } from './types'
+import { Language, Theme, PrismLib } from './types'
 import defaultTheme from './defaultTheme'
 
 type EditorProps = ComponentPropsWithoutRef<typeof Editor>
@@ -22,6 +22,7 @@ export type CodeEditorProps = Omit<
   language?: Language
   padding?: number
   theme?: Theme
+  Prism?: PrismLib
   onChange?: (value: string) => void
 }
 
@@ -30,6 +31,7 @@ export const CodeEditor = ({
   value: controlledValue,
   language = 'jsx',
   theme = defaultTheme,
+  Prism,
   padding = 10,
   onChange,
   ...rest
@@ -39,11 +41,11 @@ export const CodeEditor = ({
 
   const highlightCode = useCallback(
     (code: string) => (
-      <CodeBlock language={language} theme={theme} noWrapper>
+      <CodeBlock language={language} theme={theme} Prism={Prism} noWrapper>
         {code}
       </CodeBlock>
     ),
-    [language, theme]
+    [language, theme, Prism]
   )
 
   const onChangeRef = useRef(onChange)

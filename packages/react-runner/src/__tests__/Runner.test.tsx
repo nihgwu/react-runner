@@ -58,10 +58,10 @@ test('scope update', () => {
   expect(instance!).toMatchInlineSnapshot(`
     <div>
       hello 
-      react
+      react-runner
     </div>
   `)
-  expect(spy).toHaveBeenCalledTimes(1)
+  expect(spy).toHaveBeenCalledTimes(2)
 
   act(() =>
     instance.update(
@@ -77,7 +77,7 @@ test('scope update', () => {
       react-runner
     </div>
   `)
-  expect(spy).toHaveBeenCalledTimes(2)
+  expect(spy).toHaveBeenCalledTimes(3)
 
   spy.mockRestore()
 })

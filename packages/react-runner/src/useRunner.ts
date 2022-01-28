@@ -20,13 +20,11 @@ export const useRunner = ({
 }: UseRunnerProps): UseRunnerReturn => {
   const isMountRef = useRef(true)
   const elementRef = useRef<ReactElement | null>(null)
-  const scopeRef = useRef(scope)
-  scopeRef.current = scope
 
   const [state, setState] = useState<UseRunnerReturn>(() => {
     const element = createElement(Runner, {
       code,
-      scope: scopeRef.current,
+      scope,
       onRendered: (error) => {
         if (error) {
           setState({
@@ -49,7 +47,7 @@ export const useRunner = ({
 
     const element = createElement(Runner, {
       code,
-      scope: scopeRef.current,
+      scope,
       onRendered: (error) => {
         if (error) {
           setState({
@@ -62,7 +60,7 @@ export const useRunner = ({
       },
     })
     setState({ element, error: null })
-  }, [code, disableCache])
+  }, [code, scope, disableCache])
 
   return state
 }

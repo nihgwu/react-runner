@@ -40,13 +40,6 @@ const baseScope = {
   jsxFragmentPragma: React.Fragment,
 }
 
-export const createRequire = (imports: Scope) => (module: string) => {
-  if (!imports.hasOwnProperty(module)) {
-    throw new Error(`Module not found: '${module}'`)
-  }
-  return imports[module]
-}
-
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
@@ -65,4 +58,18 @@ export const generateElement = (
     return createElement(Fragment, undefined, result)
   }
   return null
+}
+
+export const createRequire = (imports: Scope) => (module: string) => {
+  if (!imports.hasOwnProperty(module)) {
+    throw new Error(`Module not found: '${module}'`)
+  }
+  return imports[module]
+}
+
+export const importCode = (code: string, scope?: Scope) => {
+  const exports: Scope = {}
+  evalCode(transform(code, true), { ...baseScope, ...scope, exports })
+
+  return exports
 }

@@ -140,16 +140,15 @@ test('class component', () => {
 
 test('export default', () => {
   const element = generateElement({
-    // indent is important for regexp match
     code: `
-const value = 'react-runner'
+    const value = 'react-runner'
 
-export default () => (
-  <>
-    <div>Hello</div>
-    <div>{value}</div>
-  </>
-)
+    export default () => (
+      <>
+        <div>Hello</div>
+        <div>{value}</div>
+      </>
+    )
     `,
   })
 
@@ -168,16 +167,15 @@ export default () => (
 
 test('render', () => {
   const element = generateElement({
-    // indent is important for regexp match
     code: `
-const value = 'react-runner'
+    const value = 'react-runner'
 
-render(
-  <>
-    <div>Hello</div>
-    <div>{value}</div>
-  </>
-)
+    render(
+      <>
+        <div>Hello</div>
+        <div>{value}</div>
+      </>
+    )
     `,
   })
 
@@ -231,7 +229,7 @@ test('scope', () => {
 test('imports', () => {
   const element = generateElement({
     code: `import Foo from 'foo'
-render(<Foo />)`,
+    render(<Foo />)`,
     scope: { require: createRequire({ foo: () => 'hello' }) },
   })
 
@@ -243,7 +241,7 @@ test('invalid imports', () => {
   expect(() =>
     generateElement({
       code: `import Foo from 'foo'
-render(<Foo />)`,
+      render(<Foo />)`,
       scope: { require: createRequire({ bar: () => 'hello' }) },
     })
   ).toThrowErrorMatchingInlineSnapshot(`"Module not found: 'foo'"`)
@@ -263,8 +261,8 @@ test('importCode with scope', () => {
     importCode(
       `import bar from 'bar'
   
-export const foo='Foo'
-export default bar`,
+      export const foo='Foo'
+      export default bar`,
       {
         require: createRequire({
           bar: 'Bar',

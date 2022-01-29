@@ -8,21 +8,21 @@ import React, {
 import { transform } from './transform'
 import { RunnerOptions, Scope } from './types'
 
-const exportRegexp = /^export default(?=\s+)/m
-const renderRegexp = /^render(?=\s*\([^)])/m
 const elementRegexp = /^<[^>]*>/
 const componentRegexp = /^(function|\(\)|class)[^\w]+/
 
-const prepareCode = (code: string) => {
+const normalizeCode = (code: string) => {
+  const trimmedCode = code.trim()
+
+  if (!trimmedCode) return trimmedCode
   // inline elements
-  if (elementRegexp.test(code)) return `return (<>${code}</>)`
-  // export default Component
-  if (exportRegexp.test(code)) return code.replace(exportRegexp, 'return')
-  // render(<Component />)
-  if (renderRegexp.test(code)) return code.replace(renderRegexp, 'return')
-  // inline component
-  // remove trailing comma for expression
-  if (componentRegexp.test(code)) return `return (${code.replace(/;$/, '')})`
+  if (elementRegexp.test(trimmedCode)) {
+    return `export default <>${trimmedCode}</>`
+  }
+  // inline component or fallback if there is no default export
+  if (componentRegexp.test(trimmedCode)) {
+    return `export default ${trimmedCode}`
+  }
   return code
 }
 
@@ -44,13 +44,18 @@ export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
   const { code, scope } = options
-  const trimmedCode = code.trim()
-  if (!trimmedCode) return null
 
-  const transformImports = scope?.require && typeof scope.require === 'function'
-  const transformedCode = transform(prepareCode(trimmedCode), transformImports)
-  const result = evalCode(transformedCode, { ...baseScope, ...scope })
+  const normalizedCode = normalizeCode(code)
+  if (!normalizedCode) return null
 
+  const transformedCode = transform(normalizedCode)
+  const exports: Scope = {}
+  const render = (value: unknown) => {
+    exports.default = value
+  }
+  evalCode(transformedCode, { render, ...baseScope, ...scope, exports })
+
+  const result = exports.default
   if (!result) return null
   if (isValidElement(result)) return result
   if (typeof result === 'function') return createElement(result)
@@ -69,7 +74,7 @@ export const createRequire = (imports: Scope) => (module: string) => {
 
 export const importCode = (code: string, scope?: Scope) => {
   const exports: Scope = {}
-  evalCode(transform(code, true), { ...baseScope, ...scope, exports })
+  evalCode(transform(code), { ...baseScope, ...scope, exports })
 
   return exports
 }

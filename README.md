@@ -32,16 +32,6 @@ npm install --save react-runner
 - **code** `string`, _required_ the code to be ran
 - **scope** `object` globals that could be used in `code`
 
-### Predefined scope
-
-```js
-{
-  React,
-  jsxPragma: React.createElement, // useful if you are using Emotion with `css` prop
-  jsxFragmentPragma: React.Fragment,
-}
-```
-
 ## Usage
 
 ```jsx

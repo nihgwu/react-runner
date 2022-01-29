@@ -147,19 +147,18 @@ test('without React in scope', () => {
       <Runner code="<div>hello</div>" scope={{ React: undefined }} />
     )
   })
-  expect(instance!).toMatchInlineSnapshot(`
-    <div>
-      hello
-    </div>
-  `)
+  expect(instance!).toMatchInlineSnapshot(`null`)
 })
 
-test('jsxFragmentPragma', () => {
+test('custom jsxFragmentPragma', () => {
   let instance: ReactTestRenderer
 
   act(() => {
     instance = create(
-      <Runner code="<>hello</>" scope={{ jsxFragmentPragma: 'em' }} />
+      <Runner
+        code="<>hello</>"
+        scope={{ React: { ...React, Fragment: 'em' } }}
+      />
     )
   })
   expect(instance!).toMatchInlineSnapshot(`

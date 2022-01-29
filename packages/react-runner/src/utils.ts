@@ -34,12 +34,6 @@ const evalCode = (code: string, scope: Scope) => {
   return fn(...scopeValues)
 }
 
-const baseScope = {
-  React,
-  jsxPragma: React.createElement,
-  jsxFragmentPragma: React.Fragment,
-}
-
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
@@ -53,7 +47,7 @@ export const generateElement = (
   const render = (value: unknown) => {
     exports.default = value
   }
-  evalCode(transformedCode, { render, ...baseScope, ...scope, exports })
+  evalCode(transformedCode, { React, render, ...scope, exports })
 
   const result = exports.default
   if (!result) return null
@@ -74,7 +68,7 @@ export const createRequire = (imports: Scope) => (module: string) => {
 
 export const importCode = (code: string, scope?: Scope) => {
   const exports: Scope = {}
-  evalCode(transform(code), { ...baseScope, ...scope, exports })
+  evalCode(transform(code), { React, ...scope, exports })
 
   return exports
 }

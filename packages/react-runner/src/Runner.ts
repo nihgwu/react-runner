@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react'
 
 import { generateElement } from './utils'
-import { RunnerOptions } from './types'
+import { RunnerOptions, Scope } from './types'
 
 export type RunnerProps = RunnerOptions & {
   /** callback on code be rendered, returns error message when code is invalid */
@@ -12,6 +12,7 @@ type RunnerState = {
   element: ReactElement | null
   error: Error | null
   prevCode: string | null
+  prevScope: Scope | null
 }
 
 export class Runner extends Component<RunnerProps, RunnerState> {
@@ -19,26 +20,31 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     element: null,
     error: null,
     prevCode: null,
+    prevScope: null,
   }
 
   static getDerivedStateFromProps(
     props: RunnerProps,
     state: RunnerState
   ): Partial<RunnerState> | null {
-    // only regenerate on code change
-    if (state.prevCode === props.code) return null
+    // only regenerate on code/scope change
+    if (state.prevCode === props.code && state.prevScope === props.scope) {
+      return null
+    }
+
     try {
       return {
         element: generateElement(props),
-        error:
-          state.error && props.code !== state.prevCode ? null : state.error,
+        error: null,
         prevCode: props.code,
+        prevScope: props.scope,
       }
     } catch (error: unknown) {
       return {
         element: null,
         error: error as Error,
         prevCode: props.code,
+        prevScope: props.scope,
       }
     }
   }
@@ -53,7 +59,9 @@ export class Runner extends Component<RunnerProps, RunnerState> {
 
   shouldComponentUpdate(nextProps: RunnerProps, nextState: RunnerState) {
     return (
-      nextProps.code !== this.props.code || nextState.error !== this.state.error
+      nextProps.code !== this.props.code ||
+      nextProps.scope !== this.props.scope ||
+      nextState.error !== this.state.error
     )
   }
 

@@ -87,7 +87,7 @@ test('scope update', () => {
   expect(create(result.element!)).toMatchInlineSnapshot(`
     <div>
       hello 
-      react
+      react-runner
     </div>
   `)
 

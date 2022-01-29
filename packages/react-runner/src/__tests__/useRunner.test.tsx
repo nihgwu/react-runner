@@ -210,7 +210,7 @@ test('toggle cache', () => {
 test('multi files', () => {
   const { result, update } = setup({
     code: `import { foo } from 'foo'
-export default () => <>{foo}</>`,
+    export default () => <>{foo}</>`,
     scope: {
       require: createRequire({
         foo: importCode(`export const foo = 'Foo'`),
@@ -221,7 +221,7 @@ export default () => <>{foo}</>`,
 
   update({
     code: `import { foo } from 'foo'
-export default () => <>{foo}</>`,
+    export default () => <>{foo}</>`,
     scope: {
       require: createRequire({
         foo: importCode(`export const foo = 'Bar'`),

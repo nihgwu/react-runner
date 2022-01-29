@@ -1,12 +1,10 @@
 import { transform as _transform } from 'sucrase'
 
-export const transform = (code: string, transformImports?: boolean) => {
+export const transform = (code: string) => {
   return _transform(code, {
-    transforms: transformImports
-      ? ['jsx', 'typescript', 'imports']
-      : ['jsx', 'typescript'],
+    transforms: ['jsx', 'typescript', 'imports'],
     production: true,
     jsxPragma: 'jsxPragma',
     jsxFragmentPragma: 'jsxFragmentPragma',
-  }).code
+  }).code.substring(13) // remove leading `"use strict";`
 }

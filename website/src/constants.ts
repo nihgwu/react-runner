@@ -35,6 +35,7 @@ export const examples = [
         Support <b>Typescript</b>
       </li>
       <li>Server Side Rendering</li>
+      <li><a href="#multi-files">Multi files</a></li>
     </ul>
     <div>
       <span>Hacker News </span>

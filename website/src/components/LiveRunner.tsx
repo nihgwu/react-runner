@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { useRunner, RunnerOptions } from 'react-runner'
+import { useRunner, Scope } from 'react-runner'
 import {
   LiveProvider,
   LiveEditor,
@@ -72,7 +72,9 @@ export const Error = styled.div`
   white-space: pre-wrap;
 `
 
-type Props = RunnerOptions & {
+type Props = {
+  code?: string
+  scope?: Scope
   transformCode?: (code: string) => string
   language?: Language
 }

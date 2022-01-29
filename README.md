@@ -11,6 +11,7 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 - Server Side Rendering
 - Support `Typescript`
 - Support `import` statement via `createRequire` utility
+- [Support multi files via `importCode` utility](https://react-runner.vercel.app/#multi-files)
 
 Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
 
@@ -59,17 +60,25 @@ const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
 
 ```js
 // you can define your own version of `createRequire`
-import { createRequire } from 'react-runner'
+import { createRequire, importCode } from 'react-runner'
 import * as YourPkg from 'your-pkg'
 
 const scope = {
   require: createRquire({
+    constants: { A: 'a' },
     'your-pkg': YourPkg,
+    './local-file': importCode(localFileContent),
   }),
 }
 ```
 
-then in your code you can use `import Foo, { Bar } from 'your-pkg'`
+then in your code you can use
+
+```js
+import { A } from 'constants'
+import Foo, { Bar } from 'your-pkg'
+import What, { Ever } from './local-file'
+```
 
 ## Browser support
 

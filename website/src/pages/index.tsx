@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import { UseRunner as LiveRunner } from '../components/LiveRunner'
+import { MultiFilesExample } from '../components/MultiFilesExample'
 import { scope, examples } from '../constants'
 
 const Container = styled.div`
@@ -27,6 +28,8 @@ const Page = () => (
         <LiveRunner code={code} scope={scope} language="tsx" />
       </Fragment>
     ))}
+    <Title id="multi-files">Multi files</Title>
+    <MultiFilesExample />
   </Container>
 )
 

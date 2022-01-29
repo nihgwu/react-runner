@@ -14,6 +14,7 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 - [Support multi files via `importCode` utility](https://react-runner.vercel.app/#multi-files)
 
 Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
+You can even build your own async runner which support dynamic imports, try [Play React](https://play-react.vercel.app)
 
 ## Install
 

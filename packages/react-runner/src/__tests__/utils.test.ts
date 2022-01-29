@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
 
-import { generateElement, createRequire } from '../utils'
+import { generateElement, createRequire, importCode } from '../utils'
 
 test('empty code', () => {
   const element = generateElement({ code: `` })
@@ -247,4 +247,34 @@ render(<Foo />)`,
       scope: { require: createRequire({ bar: () => 'hello' }) },
     })
   ).toThrowErrorMatchingInlineSnapshot(`"Module not found: 'foo'"`)
+})
+
+test('importCode', () => {
+  expect(importCode('')).toEqual({})
+  expect(importCode(`export const Foo='react'`)).toMatchInlineSnapshot(`
+    Object {
+      "Foo": "react",
+    }
+  `)
+})
+
+test('importCode with scope', () => {
+  expect(
+    importCode(
+      `import bar from 'bar'
+  
+export const foo='Foo'
+export default bar`,
+      {
+        require: createRequire({
+          bar: 'Bar',
+        }),
+      }
+    )
+  ).toMatchInlineSnapshot(`
+    Object {
+      "default": "Bar",
+      "foo": "Foo",
+    }
+  `)
 })

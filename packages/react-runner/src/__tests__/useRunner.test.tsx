@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { create, act, ReactTestRenderer } from 'react-test-renderer'
 
 import { useRunner, UseRunnerProps, UseRunnerReturn } from '../useRunner'
+import { createRequire, importCode } from '../utils'
 
 const Container = ({
   onRendered,
@@ -204,4 +205,28 @@ test('toggle cache', () => {
   expect(result.error).toBe('ReferenceError: hello is not defined')
 
   spy.mockRestore()
+})
+
+test('multi files', () => {
+  const { result, update } = setup({
+    code: `import { foo } from 'foo'
+export default () => <>{foo}</>`,
+    scope: {
+      require: createRequire({
+        foo: importCode(`export const foo = 'Foo'`),
+      }),
+    },
+  })
+  expect(create(result.element!)).toMatchInlineSnapshot(`"Foo"`)
+
+  update({
+    code: `import { foo } from 'foo'
+export default () => <>{foo}</>`,
+    scope: {
+      require: createRequire({
+        foo: importCode(`export const foo = 'Bar'`),
+      }),
+    },
+  })
+  expect(create(result.element!)).toMatchInlineSnapshot(`"Bar"`)
 })

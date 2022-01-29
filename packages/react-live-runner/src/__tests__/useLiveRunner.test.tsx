@@ -27,7 +27,7 @@ test('initialCode', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>react-runner</div>`,
+      value: `<><div>hello</div><div>react-runner</div></>`,
     },
   })
 

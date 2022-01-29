@@ -18,31 +18,33 @@ export const scope = {
 
 export const examples = [
   {
-    key: 'inline-elements',
-    title: 'Inline elements',
+    key: 'inline-element',
+    title: 'Inline element',
     code: codeBlock`
-    <h2>React Runner</h2>
-    <ul>
-      <li>Inline element(s)</li>
-      <li>Function component</li>
-      <li>
-        Class component, <b>with class fields support</b>
-      </li>
-      <li>
-        Composing components with <b>render</b> or <b>export default</b>
-      </li>
-      <li>
-        Support <b>Typescript</b>
-      </li>
-      <li>Server Side Rendering</li>
-      <li><a href="#multi-files">Multi files</a></li>
-    </ul>
-    <div>
-      <span>Hacker News </span>
-      <a href="#hacker-news">in react-runner</a>
-      <span> vs </span>
-      <a href="examples/hacker-news">in real world</a>
-    </div>
+    <>
+      <h2>React Runner</h2>
+      <ul>
+        <li>Inline element</li>
+        <li>Function component</li>
+        <li>
+          Class component, <b>with class fields support</b>
+        </li>
+        <li>
+          Composing components with <b>render</b> or <b>export default</b>
+        </li>
+        <li>
+          Support <b>Typescript</b>
+        </li>
+        <li>Server Side Rendering</li>
+        <li><a href="#multi-files">Multi files</a></li>
+      </ul>
+      <div>
+        <span>Hacker News </span>
+        <a href="#hacker-news">in react-runner</a>
+        <span> vs </span>
+        <a href="examples/hacker-news">in real world</a>
+      </div>
+    </>
     `,
   },
   {

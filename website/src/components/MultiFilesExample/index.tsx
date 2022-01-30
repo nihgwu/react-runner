@@ -18,15 +18,10 @@ import todoTaskList from '!!raw-loader!./TaskList.js'
 // @ts-ignore
 import todoAddTask from '!!raw-loader!./AddTask.js'
 
-const Header = styled.div`
-  display: flex;
-  overflow: auto;
-
-  & > * {
-    flex: 1;
-    color: gray;
-    margin-bottom: 4px;
-  }
+const Tab = styled.div`
+  display: inline-block;
+  color: ${(props) => (props['aria-current'] ? 'steelblue' : 'gray')};
+  padding: 4px;
 `
 
 const importFiles = (files: Record<string, string>) => {
@@ -52,6 +47,7 @@ export const MultiFilesExample = () => {
   const [addTaskCode, setAddTaskCode] = useState<string>(todoAddTask)
   const [importsError, setImportsError] = useState<string | null>(null)
   const [renderError, setRenderError] = useState<string | null>(null)
+  const [tab, setTab] = useState(0)
 
   const scope = useMemo(() => {
     try {
@@ -72,24 +68,20 @@ export const MultiFilesExample = () => {
 
   return (
     <>
-      <Header>
-        <div>AddTask.js</div>
-        <div>TaskList.js</div>
-      </Header>
       <Container>
         <EditorContainer>
-          <Editor value={addTaskCode} onChange={setAddTaskCode} />
+          <Editor hidden={tab !== 0} value={appCode} onChange={setAppCode} />
+          <Editor
+            hidden={tab !== 1}
+            value={addTaskCode}
+            onChange={setAddTaskCode}
+          />
+          <Editor
+            hidden={tab !== 2}
+            value={taskListCode}
+            onChange={setTaskListCode}
+          />
         </EditorContainer>
-        <EditorContainer>
-          <Editor value={taskListCode} onChange={setTaskListCode} />
-        </EditorContainer>
-      </Container>
-      <br />
-      <Header>
-        <div>Preview</div>
-        <div>App.js</div>
-      </Header>
-      <Container>
         <PreviewContainer>
           <Preview>
             {importsError ? (
@@ -110,10 +102,18 @@ export const MultiFilesExample = () => {
           </Preview>
           {renderError && <Error>{renderError}</Error>}
         </PreviewContainer>
-        <EditorContainer>
-          <Editor value={appCode} onChange={setAppCode} />
-        </EditorContainer>
       </Container>
+      <div>
+        {['App.js', 'AddTask.js', 'TaskList.js'].map((item, idx) => (
+          <Tab
+            key={item}
+            aria-current={idx === tab}
+            onClick={() => setTab(idx)}
+          >
+            {item}
+          </Tab>
+        ))}
+      </div>
     </>
   )
 }

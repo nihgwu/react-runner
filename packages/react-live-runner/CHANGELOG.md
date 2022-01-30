@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.7...react-live-runner@1.0.0-alpha.8) (2022-01-30)
+
+**Note:** Version bump only for package react-live-runner
+
 # [1.0.0-alpha.7](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.0-alpha.6...react-live-runner@1.0.0-alpha.7) (2022-01-30)
 
 **Note:** Version bump only for package react-live-runner

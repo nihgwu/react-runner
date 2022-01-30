@@ -163,9 +163,7 @@ test('custom jsxFragmentPragma', () => {
   })
   expect(instance!).toMatchInlineSnapshot(`
     <em>
-      <em>
-        hello
-      </em>
+      hello
     </em>
   `)
 })

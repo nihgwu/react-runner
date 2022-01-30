@@ -21,18 +21,22 @@ test('invalid code', () => {
   expect(() =>
     generateElement({
       code: `
-      <div>{value}</div>
-      <div>react-runner</div>
+      <>
+        <div>{value}</div>
+        <div>react-runner</div>
+      </>
       `,
     })
   ).toThrowErrorMatchingInlineSnapshot(`"value is not defined"`)
 })
 
-test('inline elements', () => {
+test('inline element', () => {
   const element = generateElement({
     code: `
-    <div>Hello</div>
-    <div>react-runner</div>
+    <>
+      <div>Hello</div>
+      <div>react-runner</div>
+    </>
     `,
   })
 
@@ -193,11 +197,7 @@ test('render', () => {
 
 test('render string', () => {
   const element = generateElement({ code: `render("hello")` })
-  expect(element).toMatchInlineSnapshot(`
-    <React.Fragment>
-      hello
-    </React.Fragment>
-  `)
+  expect(element).toMatchInlineSnapshot(`"hello"`)
 })
 
 test('render object', () => {
@@ -208,9 +208,10 @@ test('render object', () => {
 test('scope', () => {
   const element = generateElement({
     code: `
-    <div>{value}</div>
-    <div>react-runner</div>
-    `,
+    <>
+      <div>{value}</div>
+      <div>react-runner</div>
+    </>`,
     scope: { value: 'Hello' },
   })
 

@@ -4,7 +4,7 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 
 ## Features
 
-- Inline element(s)
+- Inline element
 - Function component
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`

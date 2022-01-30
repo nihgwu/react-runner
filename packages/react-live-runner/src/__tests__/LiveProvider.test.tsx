@@ -29,7 +29,7 @@ test('edit', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>react-runner</div>`,
+      value: `<><div>hello</div><div>react-runner</div></>`,
     },
   })
 
@@ -39,7 +39,7 @@ test('edit', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>{react-runner}</div>`,
+      value: `<><div>hello</div><div>{react-runner}</div></>`,
     },
   })
 
@@ -79,7 +79,7 @@ test('disableCache', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>react-runner</div>`,
+      value: `<><div>hello</div><div>react-runner</div></>`,
     },
   })
 
@@ -89,7 +89,7 @@ test('disableCache', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>{react-runner}</div>`,
+      value: `<><div>hello</div><div>{react-runner}</div></>`,
     },
   })
 
@@ -130,7 +130,7 @@ test('transform code', () => {
 
   fireEvent.change(editor, {
     target: {
-      value: `<div>hello</div><div>react-runner</div>`,
+      value: `<><div>hello</div><div>react-runner</div></>`,
     },
   })
 

@@ -1,9 +1,4 @@
-import React, {
-  createElement,
-  isValidElement,
-  Fragment,
-  ReactElement,
-} from 'react'
+import React, { createElement, isValidElement, ReactElement } from 'react'
 
 import { transform } from './transform'
 import { RunnerOptions, Scope } from './types'
@@ -13,16 +8,12 @@ const componentRegexp = /^(function|\(\)|class)[^\w]+/
 
 const normalizeCode = (code: string) => {
   const trimmedCode = code.trim()
-
   if (!trimmedCode) return trimmedCode
-  // inline elements
-  if (elementRegexp.test(trimmedCode)) {
-    return `export default <>${trimmedCode}</>`
-  }
-  // inline component or fallback if there is no default export
-  if (componentRegexp.test(trimmedCode)) {
+  // inline element/component or fallback if there is no default export
+  if (elementRegexp.test(trimmedCode) || componentRegexp.test(trimmedCode)) {
     return `export default ${trimmedCode}`
   }
+
   return code
 }
 
@@ -54,7 +45,7 @@ export const generateElement = (
   if (isValidElement(result)) return result
   if (typeof result === 'function') return createElement(result)
   if (typeof result === 'string') {
-    return createElement(Fragment, undefined, result)
+    return result as unknown as ReactElement
   }
   return null
 }

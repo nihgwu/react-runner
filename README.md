@@ -35,31 +35,36 @@ npm install --save react-runner
 ## Usage
 
 ```jsx
-import { useRunner } from 'react-runner'
-
-const { element, error } = useRunner({ code, scope })
-```
-
-or use `Runner` as a component directly and handle error with `onRendered`
-
-```jsx
 import { Runner } from 'react-runner'
 
 const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
 ```
 
-### `import` statement
+or use hook `useRunner` with cache support
+
+```jsx
+import { useRunner } from 'react-runner'
+
+const { element, error } = useRunner({ code, scope })
+```
+
+### `import` statement and multi files
 
 ```js
 // you can define your own version of `createRequire`
 import { createRequire, importCode } from 'react-runner'
 import * as YourPkg from 'your-pkg'
 
+const baseScope = {
+  ...
+}
+
 const scope = {
+  ...baseScope,
   require: createRquire({
     constants: { A: 'a' },
     'your-pkg': YourPkg,
-    './local-file': importCode(localFileContent),
+    './local-file': importCode(localFileContent, baseScope),
   }),
 }
 ```
@@ -151,7 +156,7 @@ useEffect(() => {
 ...
 ```
 
-See the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.tsx
+Check the real world usage here https://github.com/nihgwu/react-runner/blob/master/website/src/components/LiveRunner.tsx
 
 ## License
 

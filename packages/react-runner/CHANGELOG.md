@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-alpha.6...react-runner@1.0.0-alpha.7) (2022-01-30)
+
+### Features
+
+- add importCode ([#71](https://github.com/nihgwu/react-runner/issues/71)) ([aeed8d7](https://github.com/nihgwu/react-runner/commit/aeed8d78a0126c6af889cec7d57ef5ceed3572ff))
+
 # [1.0.0-alpha.6](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-alpha.5...react-runner@1.0.0-alpha.6) (2022-01-16)
 
 **Note:** Version bump only for package react-runner

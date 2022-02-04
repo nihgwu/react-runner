@@ -50,12 +50,14 @@ export const generateElement = (
   return null
 }
 
-export const createRequire = (imports: Scope) => (module: string) => {
-  if (!imports.hasOwnProperty(module)) {
-    throw new Error(`Module not found: '${module}'`)
+export const createRequire =
+  (imports: Scope) =>
+  (module: string): Scope => {
+    if (!imports.hasOwnProperty(module)) {
+      throw new Error(`Module not found: '${module}'`)
+    }
+    return imports[module]
   }
-  return imports[module]
-}
 
 export const importCode = (code: string, scope?: Scope) => {
   const exports: Scope = {}

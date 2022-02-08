@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const Title = styled.h3`
   color: steelblue;
+  margin: 24px 0 12px 0;
 `
 
 const Description = styled.div`
@@ -28,7 +29,7 @@ const Page = () => (
         <LiveRunner code={code} scope={scope} language="tsx" />
       </Fragment>
     ))}
-    <Title id="multi-files">Multi files</Title>
+    <Title id="multi-files">Multi files (using CodeMirror)</Title>
     <MultiFilesExample />
   </Container>
 )

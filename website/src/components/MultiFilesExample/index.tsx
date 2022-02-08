@@ -4,8 +4,7 @@ import { createRequire, importCode, Runner } from 'react-runner'
 
 import {
   Container,
-  EditorContainer,
-  Editor,
+  CodeMirror,
   PreviewContainer,
   Preview,
   Error,
@@ -22,6 +21,7 @@ const Tab = styled.div`
   display: inline-block;
   color: ${(props) => (props['aria-current'] ? 'steelblue' : 'gray')};
   padding: 4px;
+  cursor: pointer;
 `
 
 const importFiles = (files: Record<string, string>) => {
@@ -42,9 +42,11 @@ const importFiles = (files: Record<string, string>) => {
 }
 
 export const MultiFilesExample = () => {
-  const [appCode, setAppCode] = useState<string>(todoApp)
-  const [taskListCode, setTaskListCode] = useState<string>(todoTaskList)
-  const [addTaskCode, setAddTaskCode] = useState<string>(todoAddTask)
+  const [codes, setCodes] = useState<string[]>([
+    todoApp,
+    todoAddTask,
+    todoTaskList,
+  ])
   const [importsError, setImportsError] = useState<string | null>(null)
   const [renderError, setRenderError] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
@@ -54,8 +56,8 @@ export const MultiFilesExample = () => {
       const scope = {
         require: createRequire(
           importFiles({
-            './TaskList.js': taskListCode,
-            './AddTask.js': addTaskCode,
+            './AddTask.js': codes[1],
+            './TaskList.js': codes[2],
           })
         ),
       }
@@ -64,31 +66,27 @@ export const MultiFilesExample = () => {
     } catch ([name, error]) {
       setImportsError(`[${name.substring(2)}] ${error.toString()}`)
     }
-  }, [taskListCode, addTaskCode])
+  }, [codes])
 
   return (
     <>
       <Container>
-        <EditorContainer>
-          <Editor hidden={tab !== 0} value={appCode} onChange={setAppCode} />
-          <Editor
-            hidden={tab !== 1}
-            value={addTaskCode}
-            onChange={setAddTaskCode}
-          />
-          <Editor
-            hidden={tab !== 2}
-            value={taskListCode}
-            onChange={setTaskListCode}
-          />
-        </EditorContainer>
+        <CodeMirror
+          filename={`${tab}`}
+          defaultValue={codes[tab]}
+          onChange={(newCode) => {
+            const newCodes = [...codes]
+            newCodes[tab] = newCode
+            setCodes(newCodes)
+          }}
+        />
         <PreviewContainer>
           <Preview>
             {importsError ? (
               <Error>{importsError}</Error>
             ) : (
               <Runner
-                code={appCode}
+                code={codes[0]}
                 scope={scope}
                 onRendered={(error) => {
                   if (error) {

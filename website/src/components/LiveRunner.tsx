@@ -10,6 +10,7 @@ import {
   useLiveRunner,
   Language,
 } from 'react-live-runner'
+import { CodeMirror as CM } from 'react-runner-codemirror'
 
 export const Container = styled.div`
   display: flex;
@@ -42,6 +43,12 @@ export const Editor = styled(CodeEditor)`
     outline: none;
     white-space: pre !important;
   }
+`
+
+export const CodeMirror = styled(CM)`
+  font-size: 14px;
+  flex: 0 1 720px;
+  overflow: hidden;
 `
 
 export const PreviewContainer = styled.div`

@@ -20,7 +20,7 @@ export type CodeEditorProps = Omit<
   defaultValue?: string
   value?: string
   language?: Language
-  padding?: number
+  padding?: string | number
   theme?: Theme
   Prism?: PrismLib
   onChange?: (value: string) => void

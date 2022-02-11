@@ -19,6 +19,10 @@ module.exports = {
         __dirname,
         '../packages/react-live-runner'
       ),
+      'react-runner-codemirror': path.resolve(
+        __dirname,
+        '../packages/react-runner-codemirror'
+      ),
       react: path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
     }

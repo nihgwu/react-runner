@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { useLiveRunner } from 'react-live-runner'
 
 import {
-  Editor,
-  EditorContainer,
+  CodeMirror,
   Preview,
   PreviewContainer,
   Error,
@@ -52,15 +51,13 @@ const Playground = () => {
   })
   return (
     <Container>
-      <EditorContainer>
-        <Editor
-          key={editorKey}
-          value={code}
-          language="tsx"
-          padding={16}
-          onChange={onChange}
-        />
-      </EditorContainer>
+      <CodeMirror
+        key={editorKey}
+        value={code}
+        padding={16}
+        showLineNumbers
+        onChange={onChange}
+      />
       <PreviewContainer>
         <Preview>{element}</Preview>
         {error && <Error>{error}</Error>}

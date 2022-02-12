@@ -1,3 +1,3 @@
 # React Runner CodeMirror
 
-An React wrapper for CodeMirror6
+React wrapper of CodeMirror6 for React code editing [https://react-runner-codemirror.vercel.app/](https://react-runner-codemirror.vercel.app/)

@@ -1,21 +1,7 @@
 import React, { createElement, isValidElement, ReactElement } from 'react'
 
-import { transform } from './transform'
+import { transform, normalizeCode } from './transform'
 import { RunnerOptions, Scope } from './types'
-
-const elementRegexp = /^<[^>]*>/
-const componentRegexp = /^(function|\(\)|class)[^\w]+/
-
-const normalizeCode = (code: string) => {
-  const trimmedCode = code.trim()
-  if (!trimmedCode) return trimmedCode
-  // inline element/component or fallback if there is no default export
-  if (elementRegexp.test(trimmedCode) || componentRegexp.test(trimmedCode)) {
-    return `export default ${trimmedCode}`
-  }
-
-  return code
-}
 
 const evalCode = (code: string, scope: Scope) => {
   // `default` is not allowed in `new Function`
@@ -33,14 +19,13 @@ export const generateElement = (
 ): ReactElement | null => {
   const { code, scope } = options
 
-  const normalizedCode = normalizeCode(code)
-  if (!normalizedCode) return null
+  if (!code.trim()) return null
 
   const exports: Scope = {}
   const render = (value: unknown) => {
     exports.default = value
   }
-  evalCode(transform(normalizedCode), { render, ...scope, exports })
+  evalCode(transform(normalizeCode(code)), { render, ...scope, exports })
 
   const result = exports.default
   if (!result) return null

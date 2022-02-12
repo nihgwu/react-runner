@@ -1,4 +1,4 @@
-import { transform } from '../transform'
+import { transform, normalizeCode } from '../transform'
 
 test('react component', () => {
   const result = transform(`<div>react-runner</div>`)
@@ -42,5 +42,173 @@ test('imports', () => {
         \`
         
         render(React.createElement(Button, null, \\"Click me\\" ))"
+  `)
+})
+
+test('normalize inline JSX', () => {
+  expect(
+    normalizeCode(`
+  
+  <>`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default <>"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  a<>`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      a<>"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  <a>`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default <a>"
+  `)
+})
+
+test('normalize inline function component', () => {
+  expect(
+    normalizeCode(`
+  
+  function`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      function"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  function(`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default function("
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  function `)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default function "
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  function A`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default function A"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  functionA`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      functionA"
+  `)
+})
+
+test('normalize inline arrow function component', () => {
+  expect(
+    normalizeCode(`
+  
+  ()=>`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default ()=>"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  () a`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default () a"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  (a) `)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      (a) "
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  ()a`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      ()a"
+  `)
+})
+
+test('normalize inline class component', () => {
+  expect(
+    normalizeCode(`
+  
+  class`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      class"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  classA`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      classA"
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  class `)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default class "
+  `)
+
+  expect(
+    normalizeCode(`
+  
+  class A`)
+  ).toMatchInlineSnapshot(`
+    "
+      
+      export default class A"
   `)
 })

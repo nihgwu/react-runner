@@ -9,9 +9,9 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 - Class component, **with class fields support**
 - Composing components with `render` or `export default`
 - Server Side Rendering
-- Support `Typescript`
-- Support `import` statement via `createRequire` utility
-- [Support multi files via `importCode` utility](https://react-runner.vercel.app/#multi-files)
+- `import` statement
+- [Multi files](https://react-runner.vercel.app/#multi-files)
+- Typescript
 
 With React Runner, you can write your live code in the real world way, check out Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
 
@@ -30,7 +30,7 @@ npm install --save react-runner
 ## Options
 
 - **code** `string`, _required_ the code to be ran
-- **scope** `object` globals that could be used in `code`
+- **scope** `object` globals that could be used in `code`, **must be memoized**
 
 ## Usage
 
@@ -51,25 +51,25 @@ const { element, error } = useRunner({ code, scope })
 ### `import` statement and multi files
 
 ```js
-// you can define your own version of `createRequire`
-import { createRequire, importCode } from 'react-runner'
+import { importCode } from 'react-runner'
 import * as YourPkg from 'your-pkg'
 
 const baseScope = {
-  ...
+  /* base globals */
 }
 
 const scope = {
   ...baseScope,
-  require: createRquire({
+  // scope used by import statement
+  import: {
     constants: { A: 'a' },
     'your-pkg': YourPkg,
     './local-file': importCode(localFileContent, baseScope),
-  }),
+  },
 }
 ```
 
-then in your live code you can use them
+then in your live code you can import them
 
 ```js
 import { A } from 'constants'
@@ -77,7 +77,7 @@ import Foo, { Bar } from 'your-pkg'
 import What, { Ever } from './local-file'
 
 export default function Demo() {
-  ...
+  /* render */
 }
 ```
 

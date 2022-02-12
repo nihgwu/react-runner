@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { createRequire, importCode, Runner } from 'react-runner'
+import { importCode, Runner } from 'react-runner'
 
 import {
   Container,
@@ -30,7 +30,7 @@ const importFiles = (files: Record<string, string>) => {
   }
   Object.entries(files).forEach(([name, content]) => {
     try {
-      const exports = importCode(content, { require: createRequire(imports) })
+      const exports = importCode(content, { import: imports })
       imports[name] = exports
       imports[name.replace(/\.[jt]sx?$/, '')] = exports
     } catch (error) {
@@ -54,12 +54,10 @@ export const MultiFilesExample = () => {
   const scope = useMemo(() => {
     try {
       const scope = {
-        require: createRequire(
-          importFiles({
-            './AddTask.js': codes[1],
-            './TaskList.js': codes[2],
-          })
-        ),
+        import: importFiles({
+          './AddTask.js': codes[1],
+          './TaskList.js': codes[2],
+        }),
       }
       if (importsError) setImportsError(null)
       return scope

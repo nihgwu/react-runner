@@ -227,11 +227,20 @@ test('scope', () => {
   `)
 })
 
+test('default in scope', () => {
+  const element = generateElement({
+    code: ``,
+    scope: { default: 'Hello' },
+  })
+
+  expect(element).toMatchInlineSnapshot(`null`)
+})
+
 test('imports', () => {
   const element = generateElement({
     code: `import Foo from 'foo'
     render(<Foo />)`,
-    scope: { require: createRequire({ foo: () => 'hello' }) },
+    scope: { import: { foo: () => 'hello' } },
   })
 
   expect(element).toMatchInlineSnapshot(`<foo />`)
@@ -243,9 +252,23 @@ test('invalid imports', () => {
     generateElement({
       code: `import Foo from 'foo'
       render(<Foo />)`,
-      scope: { require: createRequire({ bar: () => 'hello' }) },
+      scope: { import: { bar: () => 'hello' } },
     })
   ).toThrowErrorMatchingInlineSnapshot(`"Module not found: 'foo'"`)
+})
+
+test('override imports via require', () => {
+  const element = generateElement({
+    code: `import Foo from 'foo'
+      render(<Foo />)`,
+    scope: {
+      import: { bar: () => 'hello' },
+      require: createRequire({ foo: () => 'hello' }),
+    },
+  })
+
+  expect(element).toMatchInlineSnapshot(`<foo />`)
+  expect(create(element!)).toMatchInlineSnapshot(`"hello"`)
 })
 
 test('importCode', () => {
@@ -265,9 +288,9 @@ test('importCode with scope', () => {
       export const foo='Foo'
       export default bar`,
       {
-        require: createRequire({
+        import: {
           bar: 'Bar',
-        }),
+        },
       }
     )
   ).toMatchInlineSnapshot(`

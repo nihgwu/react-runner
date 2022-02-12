@@ -1,19 +1,20 @@
 import React from 'react'
-import { createRequire } from 'react-live-runner'
 import styled, { css, keyframes, createGlobalStyle } from 'styled-components'
 import * as Styled from 'styled-components'
 import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
-const imports = { react: React, 'styled-components': Styled }
 export const scope = {
   ...React,
   styled,
   css,
   keyframes,
   createGlobalStyle,
-  require: createRequire(imports),
+  import: {
+    react: React,
+    'styled-components': Styled,
+  },
 }
 
 export const examples = [
@@ -32,11 +33,10 @@ export const examples = [
         <li>
           Composing components with <b>render</b> or <b>export default</b>
         </li>
-        <li>
-          Support <b>Typescript</b>
-        </li>
         <li>Server Side Rendering</li>
+        <li><b>import</b> statement</li>
         <li><a href="#multi-files">Multi files</a></li>
+        <li>Typescript</li>
       </ul>
       <div>
         <span>Hacker News </span>

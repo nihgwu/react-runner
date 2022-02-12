@@ -64,7 +64,7 @@ export const MultiFilesExample = () => {
     } catch ([name, error]) {
       setImportsError(`[${name.substring(2)}] ${error.toString()}`)
     }
-  }, [codes])
+  }, [codes, importsError])
 
   return (
     <>

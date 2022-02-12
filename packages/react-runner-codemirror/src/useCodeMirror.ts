@@ -5,42 +5,25 @@ import { EditorView } from '@codemirror/view'
 import { basicSetup } from './basicSetup'
 import { getConfig, useConfig, Config } from './config'
 
-export type UseCodeMirrorOptions = Config & {
-  defaultValue?: string
-  value?: string
-  onChange?: (value: string) => void
+export type UseCodeMirrorProps = Config & {
+  parentRef: RefObject<Element | DocumentFragment | undefined>
+  code?: string
+  onChange?: (code: string) => void
 }
 
-export const useCodeMirror = (
-  parentRef: RefObject<Element | DocumentFragment | undefined>,
-  {
-    defaultValue,
-    value,
-    onChange,
-    padding,
-    readOnly,
-    showLineNumbers,
-    wrapLine,
-    extensions,
-    filename,
-  }: UseCodeMirrorOptions
-) => {
+export const useCodeMirror = ({
+  parentRef,
+  code,
+  onChange,
+  padding,
+  readOnly,
+  showLineNumbers,
+  wrapLine,
+  extensions,
+  filename,
+}: UseCodeMirrorProps) => {
   const viewRef = useRef<EditorView | null>(null)
-
-  useEffect(() => {
-    if (!viewRef.current || value === undefined) return
-
-    const currentCode = viewRef.current.state.sliceDoc()
-    if (value === currentCode) return
-
-    viewRef.current.dispatch({
-      changes: {
-        from: 0,
-        to: viewRef.current.state.doc.length,
-        insert: value,
-      },
-    })
-  }, [value])
+  const internalCode = useRef(code)
 
   useConfig(viewRef, 'padding', padding)
   useConfig(viewRef, 'readOnly', readOnly)
@@ -55,6 +38,25 @@ export const useCodeMirror = (
   onChangeRef.current = onChange
 
   useEffect(() => {
+    if (
+      !viewRef.current ||
+      code === undefined ||
+      code === internalCode.current ||
+      filename !== prevFilename.current
+    ) {
+      return
+    }
+
+    viewRef.current.dispatch({
+      changes: {
+        from: 0,
+        to: viewRef.current.state.doc.length,
+        insert: code,
+      },
+    })
+  }, [code, filename])
+
+  useEffect(() => {
     if (!parentRef.current) return
 
     if (prevFilename.current && viewRef.current) {
@@ -67,12 +69,14 @@ export const useCodeMirror = (
       viewRef.current.scrollPosIntoView(cachedState.selection.main.from)
     } else {
       const state = EditorState.create({
-        doc: value !== undefined ? value : defaultValue,
+        doc: code,
         extensions: [
           basicSetup,
           EditorView.updateListener.of((update) => {
             if (update.docChanged) {
-              onChangeRef.current?.(update.state.sliceDoc())
+              const newCode = update.state.sliceDoc()
+              internalCode.current = newCode
+              onChangeRef.current?.(newCode)
             }
           }),
           getConfig('padding', padding),

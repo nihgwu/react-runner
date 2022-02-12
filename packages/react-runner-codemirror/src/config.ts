@@ -24,6 +24,13 @@ const compartments: Record<keyof Config, Compartment> = {
   filename: new Compartment(),
 }
 
+export const defaultParentStyle = {
+  fontFamily:
+    'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
+  color: '#abb2bf',
+  backgroundColor: '#282c34',
+}
+
 const getBaseTheme = (padding: Config['padding'] = 10) =>
   EditorView.theme({
     '&.cm-editor': {
@@ -36,6 +43,9 @@ const getBaseTheme = (padding: Config['padding'] = 10) =>
       overflow: 'auto',
       fontFamily:
         'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
+    },
+    '&.cm-editor .cm-line': {
+      padding: 0,
     },
     '&.cm-editor .cm-content': {
       padding: typeof padding === 'string' ? padding : `${padding}px`,

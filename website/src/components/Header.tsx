@@ -6,14 +6,9 @@ const Container = styled.header`
   color: #fff;
   position: sticky;
   top: 0;
-  width: 100%;
   z-index: 1;
-`
-
-const Head = styled.div`
-  max-width: 1024px;
+  width: 100%;
   height: 48px;
-  margin: auto;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -42,18 +37,16 @@ const Title = styled.h1`
 
 export const Header = () => (
   <Container>
-    <Head>
-      <NextLink href="/" passHref>
-        <Link>
-          <Title>React Runner</Title>
-        </Link>
+    <NextLink href="/" passHref>
+      <Link>
+        <Title>React Runner</Title>
+      </Link>
+    </NextLink>
+    <Nav>
+      <NextLink href="/playground" passHref>
+        <Link>Playground</Link>
       </NextLink>
-      <Nav>
-        <NextLink href="/playground" passHref>
-          <Link>Playground</Link>
-        </NextLink>
-        <Link href="https://github.com/nihgwu/react-runner">Github</Link>
-      </Nav>
-    </Head>
+      <Link href="https://github.com/nihgwu/react-runner">Github</Link>
+    </Nav>
   </Container>
 )

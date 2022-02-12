@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { create, act, ReactTestRenderer } from 'react-test-renderer'
 
 import { useRunner, UseRunnerProps, UseRunnerReturn } from '../useRunner'
-import { createRequire, importCode } from '../utils'
+import { importCode } from '../utils'
 
 const Container = ({
   onRendered,
@@ -212,9 +212,9 @@ test('multi files', () => {
     code: `import { foo } from 'foo'
     export default () => <>{foo}</>`,
     scope: {
-      require: createRequire({
+      import: {
         foo: importCode(`export const foo = 'Foo'`),
-      }),
+      },
     },
   })
   expect(create(result.element!)).toMatchInlineSnapshot(`"Foo"`)
@@ -223,9 +223,9 @@ test('multi files', () => {
     code: `import { foo } from 'foo'
     export default () => <>{foo}</>`,
     scope: {
-      require: createRequire({
+      import: {
         foo: importCode(`export const foo = 'Bar'`),
-      }),
+      },
     },
   })
   expect(create(result.element!)).toMatchInlineSnapshot(`"Bar"`)

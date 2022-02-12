@@ -18,8 +18,11 @@ const normalizeCode = (code: string) => {
 }
 
 const evalCode = (code: string, scope: Scope) => {
-  const scopeKeys = Object.keys(scope)
-  const scopeValues = scopeKeys.map((key) => scope[key])
+  // `default` is not allowed in `new Function`
+  const { default: _, import: imports, ...rest } = scope
+  const finalScope: Scope = { React, require: createRequire(imports), ...rest }
+  const scopeKeys = Object.keys(finalScope)
+  const scopeValues = scopeKeys.map((key) => finalScope[key])
   // eslint-disable-next-line no-new-func
   const fn = new Function(...scopeKeys, code)
   return fn(...scopeValues)
@@ -33,12 +36,11 @@ export const generateElement = (
   const normalizedCode = normalizeCode(code)
   if (!normalizedCode) return null
 
-  const transformedCode = transform(normalizedCode)
   const exports: Scope = {}
   const render = (value: unknown) => {
     exports.default = value
   }
-  evalCode(transformedCode, { React, render, ...scope, exports })
+  evalCode(transform(normalizedCode), { render, ...scope, exports })
 
   const result = exports.default
   if (!result) return null
@@ -51,7 +53,7 @@ export const generateElement = (
 }
 
 export const createRequire =
-  (imports: Scope) =>
+  (imports: Scope = {}) =>
   (module: string): Scope => {
     if (!imports.hasOwnProperty(module)) {
       throw new Error(`Module not found: '${module}'`)
@@ -61,7 +63,7 @@ export const createRequire =
 
 export const importCode = (code: string, scope?: Scope) => {
   const exports: Scope = {}
-  evalCode(transform(code), { React, ...scope, exports })
+  evalCode(transform(code), { ...scope, exports })
 
   return exports
 }

@@ -1,0 +1,21 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: black;
+}
+
+button[aria-selected='true'] {
+  background-color: darkgray;
+}
+
+.CodeMirror {
+  max-width: 600px;
+  width: 100%;
+  height: 400px;
+}

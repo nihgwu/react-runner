@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/react-runner",
+    "packages/react-live-runner"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",

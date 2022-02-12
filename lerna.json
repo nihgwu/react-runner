@@ -1,6 +1,5 @@
 {
   "version": "independent",
-  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -10,8 +9,5 @@
       "message": "chore(release): publish"
     }
   },
-  "ignoreChanges": [
-    "**/__tests__/**",
-    "**/*.md"
-  ]
+  "ignoreChanges": ["**/__tests__/**", "**/*.md"]
 }

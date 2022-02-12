@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.2](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-rc.1...react-runner@1.0.0-rc.2) (2022-02-12)
+
+### Features
+
+- add scope.import ([#85](https://github.com/nihgwu/react-runner/issues/85)) ([aef571d](https://github.com/nihgwu/react-runner/commit/aef571db71415f916d6a524dfd41435a68d9be5f))
+
 # [1.0.0-rc.1](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.0-rc.0...react-runner@1.0.0-rc.1) (2022-02-03)
 
 **Note:** Version bump only for package react-runner

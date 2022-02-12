@@ -13,9 +13,9 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 - Support `import` statement via `createRequire` utility
 - [Support multi files via `importCode` utility](https://react-runner.vercel.app/#multi-files)
 
-Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
+With React Runner, you can write your live code in the real world way, check out Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
 
-You can even build your own async runner which support dynamic imports, try [Play React](https://play-react.vercel.app)
+You can even build your own async runner to support dynamic imports, try [Play React](https://play-react.vercel.app)
 
 ## Install
 
@@ -69,12 +69,16 @@ const scope = {
 }
 ```
 
-then in your code you can use
+then in your live code you can use them
 
 ```js
 import { A } from 'constants'
 import Foo, { Bar } from 'your-pkg'
 import What, { Ever } from './local-file'
+
+export default function Demo() {
+  ...
+}
 ```
 
 ## Browser support
@@ -87,6 +91,11 @@ import What, { Ever } from './local-file'
   "Safari > 10.1"
 ]
 ```
+
+## Resources
+
+- [Storybook Addon](https://github.com/nihgwu/storybook-addon-react-runner)
+- [CodeMirror for React Runner](https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-codemirror)
 
 ## react-live-runner
 

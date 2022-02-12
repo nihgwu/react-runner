@@ -17,7 +17,8 @@
     "postinstall": "yarn --cwd website",
     "prepush": "yarn lint",
     "prerelease": "yarn clean & yarn build",
-    "release": "lerna publish"
+    "release": "lerna publish",
+    "sync:readme": "cp README.md packages/react-runner/ && cp README.md packages/react-live-runner/"
   },
   "husky": {
     "hooks": {
@@ -27,13 +28,11 @@
   "lint-staged": {
     "packages/**/*.{js,ts,tsx}": [
       "prettier --write",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "website/**/*.{js,ts,tsx}": [
       "prettier --write",
-      "yarn --cwd website eslint --fix",
-      "git add"
+      "yarn --cwd website eslint --fix"
     ],
     "*.{md,json,yml}": [
       "prettier --write"

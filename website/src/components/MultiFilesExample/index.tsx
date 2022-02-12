@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { createRequire, importCode, Runner } from 'react-runner'
+import { createRequire, importCode, Runner, Scope } from 'react-runner'
 
 import {
   Container,
@@ -25,12 +25,12 @@ const Tab = styled.div`
 `
 
 const importFiles = (files: Record<string, string>) => {
-  const imports = {
+  const imports: Scope = {
     react: React,
   }
   Object.entries(files).forEach(([name, content]) => {
     try {
-      const exports = importCode(content, { require: createRequire(imports) })
+      const exports = importCode({ code: content, imports })
       imports[name] = exports
       imports[name.replace(/\.[jt]sx?$/, '')] = exports
     } catch (error) {
@@ -51,18 +51,14 @@ export const MultiFilesExample = () => {
   const [renderError, setRenderError] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
 
-  const scope = useMemo(() => {
+  const imports = useMemo(() => {
     try {
-      const scope = {
-        require: createRequire(
-          importFiles({
-            './AddTask.js': codes[1],
-            './TaskList.js': codes[2],
-          })
-        ),
-      }
+      const imports = importFiles({
+        './AddTask.js': codes[1],
+        './TaskList.js': codes[2],
+      })
       if (importsError) setImportsError(null)
-      return scope
+      return imports
     } catch ([name, error]) {
       setImportsError(`[${name.substring(2)}] ${error.toString()}`)
     }
@@ -87,7 +83,7 @@ export const MultiFilesExample = () => {
             ) : (
               <Runner
                 code={codes[0]}
-                scope={scope}
+                imports={imports}
                 onRendered={(error) => {
                   if (error) {
                     setRenderError(error.toString())

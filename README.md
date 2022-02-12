@@ -10,8 +10,8 @@ Run your React code on the go [https://react-runner.vercel.app](https://react-ru
 - Composing components with `render` or `export default`
 - Server Side Rendering
 - Support `Typescript`
-- Support `import` statement via `createRequire` utility
-- [Support multi files via `importCode` utility](https://react-runner.vercel.app/#multi-files)
+- Support `import` statement
+- [Support multi files](https://react-runner.vercel.app/#multi-files)
 
 With React Runner, you can write your live code in the real world way, check out Hacker News [in react-runner](https://react-runner.vercel.app/#hacker-news) vs [in real world](https://react-runner.vercel.app/examples/hacker-news), with the same code
 
@@ -30,14 +30,22 @@ npm install --save react-runner
 ## Options
 
 - **code** `string`, _required_ the code to be ran
-- **scope** `object` globals that could be used in `code`
+- **scope** `object` globals that could be used in `code`, **must be memoized**
+- **imports** `object` imports that could be used in `code`, **must be memoized**
 
 ## Usage
 
 ```jsx
 import { Runner } from 'react-runner'
 
-const element = <Runner code={code} scope={scope} onRendered={handleRendered} />
+const element = (
+  <Runner
+    code={code}
+    scope={scope}
+    imports={imports}
+    onRendered={handleRendered}
+  />
+)
 ```
 
 or use hook `useRunner` with cache support
@@ -45,27 +53,23 @@ or use hook `useRunner` with cache support
 ```jsx
 import { useRunner } from 'react-runner'
 
-const { element, error } = useRunner({ code, scope })
+const { element, error } = useRunner({ code, scope, imports })
 ```
 
 ### `import` statement and multi files
 
 ```js
-// you can define your own version of `createRequire`
-import { createRequire, importCode } from 'react-runner'
+import { importCode } from 'react-runner'
 import * as YourPkg from 'your-pkg'
 
-const baseScope = {
-  ...
+const scope = {
+  /* globals */
 }
 
-const scope = {
-  ...baseScope,
-  require: createRquire({
-    constants: { A: 'a' },
-    'your-pkg': YourPkg,
-    './local-file': importCode(localFileContent, baseScope),
-  }),
+const imports = {
+  constants: { A: 'a' },
+  'your-pkg': YourPkg,
+  './local-file': importCode(localFileContent, scope),
 }
 ```
 
@@ -77,7 +81,7 @@ import Foo, { Bar } from 'your-pkg'
 import What, { Ever } from './local-file'
 
 export default function Demo() {
-  ...
+  /* ... */
 }
 ```
 
@@ -115,7 +119,7 @@ import {
 } from 'react-live-runner'
 
 ...
-<LiveProvider code={code} scope={scope}>
+<LiveProvider code={code} scope={scope} imports={imports}>
   <LiveEditor />
   <LivePreview />
   <LiveError />
@@ -131,6 +135,7 @@ import { useLiveRunner, CodeEditor } from 'react-live-runner'
 const { element, error, code, onChange } = useLiveRunner({
   initialCode,
   scope,
+  imports,
   transformCode,
 })
 
@@ -150,7 +155,7 @@ import { useState, useEffect } from 'react'
 import { useRunner } from 'react-runner'
 
 const [code, onChange] = useState(initialCode)
-const { element, error } = useRunner({ code, scope })
+const { element, error } = useRunner({ code, scope, imports })
 
 useEffect(() => {
   onChange(initialCode)

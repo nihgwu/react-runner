@@ -28,17 +28,22 @@ const evalCode = (code: string, scope: Scope) => {
 export const generateElement = (
   options: RunnerOptions
 ): ReactElement | null => {
-  const { code, scope } = options
+  const { code, scope, imports } = options
 
   const normalizedCode = normalizeCode(code)
   if (!normalizedCode) return null
 
-  const transformedCode = transform(normalizedCode)
   const exports: Scope = {}
   const render = (value: unknown) => {
     exports.default = value
   }
-  evalCode(transformedCode, { React, render, ...scope, exports })
+  evalCode(transform(normalizedCode), {
+    React,
+    render,
+    require: createRequire(imports),
+    ...scope,
+    exports,
+  })
 
   const result = exports.default
   if (!result) return null
@@ -51,7 +56,7 @@ export const generateElement = (
 }
 
 export const createRequire =
-  (imports: Scope) =>
+  (imports: Scope = {}) =>
   (module: string): Scope => {
     if (!imports.hasOwnProperty(module)) {
       throw new Error(`Module not found: '${module}'`)
@@ -59,9 +64,14 @@ export const createRequire =
     return imports[module]
   }
 
-export const importCode = (code: string, scope?: Scope) => {
+export const importCode = ({ code, scope, imports }: RunnerOptions) => {
   const exports: Scope = {}
-  evalCode(transform(code), { React, ...scope, exports })
+  evalCode(transform(code), {
+    React,
+    require: createRequire(imports),
+    ...scope,
+    exports,
+  })
 
   return exports
 }

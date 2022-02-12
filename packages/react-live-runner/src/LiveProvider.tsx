@@ -16,18 +16,14 @@ export type LiveProviderProps = Omit<UseLiveRunnerProps, 'initialCode'> & {
 
 export const LiveProvider: FC<LiveProviderProps> = ({
   children,
-  scope,
   code: initialCode = '',
   language = 'jsx',
   theme = defaultTheme,
-  disableCache,
-  transformCode,
+  ...rest
 }) => {
   const { element, error, code, onChange } = useLiveRunner({
-    scope,
     initialCode,
-    disableCache,
-    transformCode,
+    ...rest,
   })
 
   return (

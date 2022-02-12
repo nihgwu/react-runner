@@ -82,6 +82,7 @@ export const Error = styled.div`
 type Props = {
   code?: string
   scope?: Scope
+  imports?: Scope
   transformCode?: (code: string) => string
   language?: Language
 }

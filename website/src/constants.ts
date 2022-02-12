@@ -6,14 +6,13 @@ import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
-const imports = { react: React, 'styled-components': Styled }
+export const imports = { react: React, 'styled-components': Styled }
 export const scope = {
   ...React,
   styled,
   css,
   keyframes,
   createGlobalStyle,
-  require: createRequire(imports),
 }
 
 export const examples = [

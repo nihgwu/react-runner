@@ -13,6 +13,7 @@ type RunnerState = {
   error: Error | null
   prevCode: string | null
   prevScope: Scope | null
+  prevImports: Scope | null
 }
 
 export class Runner extends Component<RunnerProps, RunnerState> {
@@ -21,14 +22,19 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     error: null,
     prevCode: null,
     prevScope: null,
+    prevImports: null,
   }
 
   static getDerivedStateFromProps(
     props: RunnerProps,
     state: RunnerState
   ): Partial<RunnerState> | null {
-    // only regenerate on code/scope change
-    if (state.prevCode === props.code && state.prevScope === props.scope) {
+    // only regenerate on code/scope/imports change
+    if (
+      state.prevCode === props.code &&
+      state.prevScope === props.scope &&
+      state.prevImports === props.imports
+    ) {
       return null
     }
 
@@ -38,6 +44,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
         error: null,
         prevCode: props.code,
         prevScope: props.scope,
+        prevImports: props.imports,
       }
     } catch (error: unknown) {
       return {
@@ -45,6 +52,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
         error: error as Error,
         prevCode: props.code,
         prevScope: props.scope,
+        prevImports: props.imports,
       }
     }
   }
@@ -61,6 +69,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     return (
       nextProps.code !== this.props.code ||
       nextProps.scope !== this.props.scope ||
+      nextProps.imports !== this.props.imports ||
       nextState.error !== this.state.error
     )
   }

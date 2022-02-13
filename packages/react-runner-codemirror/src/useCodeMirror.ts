@@ -7,6 +7,15 @@ import { getConfig, useConfig, Config } from './config'
 
 const defaultFilename = '__default_filename__'
 
+const scrollIntoView = (view: EditorView) => {
+  view.dispatch({
+    effects: EditorView.scrollIntoView(view.state.selection.main, {
+      xMargin: 30,
+      yMargin: 30,
+    }),
+  })
+}
+
 export type UseCodeMirrorProps = Config & {
   parentRef: RefObject<Element | DocumentFragment | undefined>
   code?: string
@@ -42,6 +51,7 @@ export const useCodeMirror = ({
     if (viewRef.current && filename && stateCache.current.has(filename)) {
       const cachedState = stateCache.current.get(filename)!
       viewRef.current.setState(cachedState)
+      scrollIntoView(viewRef.current)
     } else {
       const state = EditorState.create({
         doc: code,
@@ -69,17 +79,12 @@ export const useCodeMirror = ({
         })
       } else {
         viewRef.current.setState(state)
+        scrollIntoView(viewRef.current)
       }
     }
     if (!codeCache.current.has(filename)) {
       codeCache.current.set(filename, code)
     }
-    viewRef.current.dispatch({
-      effects: EditorView.scrollIntoView(viewRef.current.state.selection.main, {
-        xMargin: 30,
-        yMargin: 30,
-      }),
-    })
     prevFilename.current = filename
   }, [filename])
 

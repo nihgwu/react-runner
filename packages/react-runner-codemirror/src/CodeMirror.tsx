@@ -8,7 +8,7 @@ import React, {
 import { EditorView } from '@codemirror/view'
 
 import { useCodeMirror } from './useCodeMirror'
-import { defaultParentStyle, Config } from './config'
+import { Config } from './config'
 
 export type CodeMirrorProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -26,6 +26,7 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
       defaultValue,
       value,
       onChange,
+      theme,
       padding,
       readOnly,
       showLineNumbers,
@@ -44,6 +45,7 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
       parentRef: parentRef,
       code: value !== undefined ? value : unControlledValue,
       onChange,
+      theme,
       padding,
       readOnly,
       showLineNumbers,
@@ -69,8 +71,25 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
     }, [])
 
     const mergedStyle = useMemo(
-      () => ({ ...defaultParentStyle, ...style }),
-      [style]
+      () => ({
+        fontFamily:
+          'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
+        backgroundColor:
+          theme === 'dark'
+            ? '#282c34'
+            : theme === 'light'
+            ? 'white'
+            : undefined,
+        ...style,
+        color:
+          theme === 'dark'
+            ? '#abb2bf'
+            : theme === 'light'
+            ? '#282c34'
+            : undefined,
+        ...style,
+      }),
+      [style, theme]
     )
     return <div ref={parentRef} style={mergedStyle} {...rest} />
   }

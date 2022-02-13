@@ -26,6 +26,7 @@ export const useCodeMirror = ({
   parentRef,
   code,
   onChange,
+  theme,
   padding,
   readOnly,
   showLineNumbers,
@@ -64,6 +65,7 @@ export const useCodeMirror = ({
               onChangeRef.current?.(newCode)
             }
           }),
+          getConfig('theme', theme),
           getConfig('padding', padding),
           getConfig('readOnly', readOnly),
           getConfig('showLineNumbers', showLineNumbers),
@@ -106,11 +108,12 @@ export const useCodeMirror = ({
     })
   }, [code, filename])
 
-  useConfig(viewRef, 'padding', padding)
-  useConfig(viewRef, 'readOnly', readOnly)
-  useConfig(viewRef, 'showLineNumbers', showLineNumbers)
-  useConfig(viewRef, 'wrapLine', wrapLine)
-  useConfig(viewRef, 'extensions', extensions)
+  useConfig(viewRef, 'theme', theme, [filename])
+  useConfig(viewRef, 'padding', padding, [filename])
+  useConfig(viewRef, 'readOnly', readOnly, [filename])
+  useConfig(viewRef, 'showLineNumbers', showLineNumbers, [filename])
+  useConfig(viewRef, 'wrapLine', wrapLine, [filename])
+  useConfig(viewRef, 'extensions', extensions, [filename])
   useConfig(viewRef, 'filename', filename)
 
   useEffect(

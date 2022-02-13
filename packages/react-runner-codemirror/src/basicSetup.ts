@@ -7,7 +7,6 @@ import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets'
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete'
 import { commentKeymap } from '@codemirror/comment'
 import { defaultHighlightStyle } from '@codemirror/highlight'
-import { oneDark } from '@codemirror/theme-one-dark'
 
 const insertSoftTab = ({ state, dispatch }: EditorView) => {
   if (state.selection.ranges.some((r) => !r.empty)) {
@@ -24,7 +23,6 @@ const insertSoftTab = ({ state, dispatch }: EditorView) => {
 }
 
 export const basicSetup: Extension = [
-  oneDark,
   history(),
   EditorState.tabSize.of(2),
   EditorState.allowMultipleSelections.of(true),

@@ -17,6 +17,7 @@ const appCode = `function Counter() {
 
 function App() {
   const [config, setConfig] = useState({
+    theme: 'dark' as 'dark' | 'light',
     padding: 10,
     readOnly: false,
     showLineNumbers: false,
@@ -95,6 +96,19 @@ function App() {
             })
           }
         />
+        <label>
+          <input
+            type="checkbox"
+            checked={config.theme === 'light'}
+            onChange={(event) =>
+              setConfig({
+                ...config,
+                theme: event.currentTarget.checked ? 'light' : 'dark',
+              })
+            }
+          />
+          light
+        </label>
         <label>
           <input
             type="checkbox"

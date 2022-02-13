@@ -67,7 +67,7 @@ export const Preview = styled.div`
   overflow: auto;
 `
 
-export const Error = styled.div`
+export const PreviewError = styled.div`
   background: #fcc;
   position: absolute;
   top: 0;
@@ -94,7 +94,7 @@ export const LiveRunner = (props: Props) => (
       </EditorContainer>
       <PreviewContainer>
         <Preview as={LivePreview} />
-        <Error as={LiveError} />
+        <PreviewError as={LiveError} />
       </PreviewContainer>
     </Container>
   </LiveProvider>
@@ -117,7 +117,7 @@ export const UseLiveRunner = ({
       </EditorContainer>
       <PreviewContainer>
         <Preview>{element}</Preview>
-        {error && <Error>{error}</Error>}
+        {error && <PreviewError>{error}</PreviewError>}
       </PreviewContainer>
     </Container>
   )
@@ -142,7 +142,7 @@ export const UseRunner = ({
       </EditorContainer>
       <PreviewContainer>
         <Preview>{element}</Preview>
-        {error && <Error>{error}</Error>}
+        {error && <PreviewError>{error}</PreviewError>}
       </PreviewContainer>
     </Container>
   )

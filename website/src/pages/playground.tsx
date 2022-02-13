@@ -6,7 +6,7 @@ import {
   CodeMirror,
   Preview,
   PreviewContainer,
-  Error,
+  PreviewError,
 } from '../components/LiveRunner'
 import { getHashCode, updateHash } from '../utils/urlHash'
 import { scope } from '../constants'
@@ -60,7 +60,7 @@ const Playground = () => {
       />
       <PreviewContainer>
         <Preview>{element}</Preview>
-        {error && <Error>{error}</Error>}
+        {error && <PreviewError>{error}</PreviewError>}
       </PreviewContainer>
     </Container>
   )

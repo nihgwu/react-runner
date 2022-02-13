@@ -1,21 +1,21 @@
 import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { importCode, Runner } from 'react-runner'
+import { importCode, Runner, Scope } from 'react-runner'
 
 import {
   Container,
   CodeMirror,
   PreviewContainer,
   Preview,
-  Error,
+  PreviewError,
 } from '../LiveRunner'
 
 // @ts-ignore
 import todoApp from '!!raw-loader!./App.js'
 // @ts-ignore
-import todoTaskList from '!!raw-loader!./TaskList.js'
-// @ts-ignore
 import todoAddTask from '!!raw-loader!./AddTask.js'
+// @ts-ignore
+import todoTaskList from '!!raw-loader!./TaskList.js'
 
 const Tab = styled.div`
   display: inline-block;
@@ -24,21 +24,52 @@ const Tab = styled.div`
   cursor: pointer;
 `
 
-const importFiles = (files: Record<string, string>) => {
-  const imports = {
-    react: React,
-  }
-  Object.entries(files).forEach(([name, content]) => {
+const withFiles = (scope: Scope, files: Record<string, string>) => {
+  const imports: Scope = { ...scope.import }
+  const lookup = new Set<string>()
+  const importsProxy = new Proxy(imports, {
+    getOwnPropertyDescriptor(target, prop) {
+      if (target.hasOwnProperty(prop)) {
+        return Object.getOwnPropertyDescriptor(target, prop)
+      }
+      if (files.hasOwnProperty(prop)) {
+        return { writable: true, enumerable: true, configurable: true }
+      }
+    },
+    get(target, prop: string) {
+      if (prop in target) return target[prop]
+      if (files.hasOwnProperty(prop)) {
+        if (lookup.has(prop)) {
+          throw new Error(
+            `Circular dependency detected: ${[...lookup, prop].join(' -> ')}`
+          )
+        }
+        lookup.add(prop)
+        return (target[prop] = importCode(files[prop], {
+          ...scope,
+          import: importsProxy,
+        }))
+      }
+    },
+  })
+
+  Object.keys(files).forEach((file) => {
     try {
-      const exports = importCode(content, { import: imports })
-      imports[name] = exports
-      imports[name.replace(/\.[jt]sx?$/, '')] = exports
+      imports[file] = importsProxy[file]
+      lookup.clear()
     } catch (error) {
-      throw [name, error]
+      error.filename = file
+      throw error
     }
   })
 
-  return imports
+  return { ...scope, import: imports }
+}
+
+const baseScope = {
+  import: {
+    react: React,
+  },
 }
 
 export const MultiFilesExample = () => {
@@ -53,16 +84,16 @@ export const MultiFilesExample = () => {
 
   const scope = useMemo(() => {
     try {
-      const scope = {
-        import: importFiles({
-          './AddTask.js': codes[1],
-          './TaskList.js': codes[2],
-        }),
-      }
+      const scope = withFiles(baseScope, {
+        './AddTask.js': codes[1],
+        './TaskList.js': codes[2],
+      })
       if (importsError) setImportsError(null)
       return scope
-    } catch ([name, error]) {
-      setImportsError(`[${name.substring(2)}] ${error.toString()}`)
+    } catch (error) {
+      setImportsError(
+        `${error.filename ? `[${error.filename}] ` : ''}${error.toString()}`
+      )
     }
   }, [codes, importsError])
 
@@ -81,7 +112,7 @@ export const MultiFilesExample = () => {
         <PreviewContainer>
           <Preview>
             {importsError ? (
-              <Error>{importsError}</Error>
+              <PreviewError>{importsError}</PreviewError>
             ) : (
               <Runner
                 code={codes[0]}
@@ -96,7 +127,7 @@ export const MultiFilesExample = () => {
               />
             )}
           </Preview>
-          {renderError && <Error>{renderError}</Error>}
+          {renderError && <PreviewError>{renderError}</PreviewError>}
         </PreviewContainer>
       </Container>
       <div>

@@ -60,8 +60,10 @@ const getTheme = (theme: Config['theme'] = 'dark') => {
     return [
       oneDark,
       EditorView.theme({
-        '&.cm-editor.cm-focused .cm-activeLineGutter': {
+        '&.cm-editor .cm-activeLineGutter': {
           backgroundColor: 'inherit',
+        },
+        '&.cm-editor.cm-focused .cm-activeLineGutter': {
           color: 'white',
         },
         '&.cm-editor .cm-tooltip-autocomplete > ul > li[aria-selected]': {
@@ -77,12 +79,14 @@ const getTheme = (theme: Config['theme'] = 'dark') => {
   if (theme === 'light')
     return [
       EditorView.theme({
+        '&.cm-editor .cm-activeLineGutter': {
+          backgroundColor: 'white',
+        },
         '&.cm-editor.cm-focused .cm-activeLineGutter': {
-          backgroundColor: 'inherit',
           color: 'black',
         },
         '&.cm-editor .cm-gutters': {
-          backgroundColor: 'inherit',
+          backgroundColor: 'white',
           border: 'none',
         },
       }),

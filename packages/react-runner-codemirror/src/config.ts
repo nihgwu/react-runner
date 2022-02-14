@@ -104,7 +104,22 @@ const config: {
       ? EditorView.editable.of(false)
       : [highlightActiveLine(), highlightActiveLineGutter()],
   showLineNumbers: (showLineNumbers) => (showLineNumbers ? lineNumbers() : []),
-  wrapLine: (wrapLine) => (wrapLine ? EditorView.lineWrapping : []),
+
+  wrapLine: (wrapLine) =>
+    wrapLine
+      ? [
+          EditorView.lineWrapping,
+          // currently lineWrapping only works when creating state
+          // add this workaround to make it configurable
+          EditorView.theme({
+            '&.cm-editor .cm-content': {
+              whiteSpace: 'break-spaces',
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
+            },
+          }),
+        ]
+      : [],
   extensions: (extensions) => extensions || [],
   filename: (filename) => (filename?.endsWith('.css') ? css() : javascript()),
 }

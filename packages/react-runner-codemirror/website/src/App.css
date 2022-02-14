@@ -16,9 +16,9 @@ a {
 }
 
 .CodeMirror {
-  max-width: 480px;
+  max-width: 600px;
   width: 100%;
-  height: 360px;
+  height: 400px;
 }
 
 .Tabs {
@@ -31,6 +31,7 @@ a {
 .Tabs button {
   border: none;
   background-color: lightgray;
+  padding: 2px 8px;
 }
 
 .Tabs button[aria-selected='true'] {
@@ -54,6 +55,7 @@ a {
 .Bar input[type='number'] {
   width: 40px;
   height: 16px;
+  margin: 3px;
 }
 
 .Bar label {

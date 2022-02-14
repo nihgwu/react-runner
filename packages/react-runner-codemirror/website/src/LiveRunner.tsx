@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Runner, importCode, Scope } from 'react-runner'
+import { ShadowRoot } from './ShadowRoot'
 
 const withFiles = (scope: Scope, files: Record<string, string>) => {
   const imports: Scope = { ...scope.import }
@@ -35,7 +36,7 @@ const withFiles = (scope: Scope, files: Record<string, string>) => {
       imports[file] = importsProxy[file]
       lookup.clear()
     } catch (error: any) {
-      error.filename = file
+      error.name = file
       throw error
     }
   })
@@ -52,7 +53,7 @@ const baseScope = {
 export const LiveRunner = ({
   files,
 }: {
-  files: Array<{ filename: string; code: string }>
+  files: Array<{ name: string; content: string }>
 }) => {
   const [importsError, setImportsError] = useState<string | null>(null)
   const [renderError, setRenderError] = useState<string | null>(null)
@@ -62,7 +63,8 @@ export const LiveRunner = ({
       const scope = withFiles(
         baseScope,
         files.slice(1).reduce((acc, item) => {
-          acc[`./${item.filename}`] = item.code
+          if (item.name.endsWith('.css')) return acc
+          acc[`./${item.name}`] = item.content
           return acc
         }, {} as Record<string, string>)
       )
@@ -70,19 +72,19 @@ export const LiveRunner = ({
       return scope
     } catch (error: any) {
       setImportsError(
-        `${error.filename ? `[${error.filename}] ` : ''}${error.toString()}`
+        `${error.name ? `[${error.name}] ` : ''}${error.toString()}`
       )
     }
   }, [files, importsError])
 
   return (
     <div className="Preview">
-      <div>
-        {importsError ? (
-          <pre className="Preview-error">{importsError}</pre>
-        ) : (
+      {importsError ? (
+        <pre className="Preview-error">{importsError}</pre>
+      ) : (
+        <ShadowRoot>
           <Runner
-            code={files[0].code}
+            code={files[0].content}
             scope={scope}
             onRendered={(error) => {
               if (error) {
@@ -92,8 +94,14 @@ export const LiveRunner = ({
               }
             }}
           />
-        )}
-      </div>
+          {files.map(
+            (file) =>
+              file.name.endsWith('.css') && (
+                <style key={file.name}>{file.content}</style>
+              )
+          )}
+        </ShadowRoot>
+      )}
       {renderError && <pre className="Preview-error">{renderError}</pre>}
     </div>
   )

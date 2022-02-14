@@ -94,8 +94,9 @@ export default function Demo() {
 
 ## Resources
 
-- [Storybook Addon](https://github.com/nihgwu/storybook-addon-react-runner)
-- [CodeMirror for React Runner](https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-codemirror)
+- [Play React](https://play-react.vercel.app/)
+- [CodeMirror for React Runner](https://react-runner-codemirror.vercel.app/)
+- [Storybook Addon](https://storybook.js.org/addons/storybook-addon-react-runner/)
 
 ## react-live-runner
 

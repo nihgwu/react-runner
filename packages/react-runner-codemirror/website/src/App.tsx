@@ -2,27 +2,8 @@ import { useState } from 'react'
 
 import { CodeMirror } from '../../src/CodeMirror'
 import { LiveRunner } from './LiveRunner'
+import { TicTacToe } from './examples'
 import './App.css'
-
-const appCode = `import { Counter } from './Counter.tsx'
-
-export default function App() {
-  return <Counter />
-}`
-
-const counterCode = `import {useState} from 'react'
-
-export function Counter() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>{count}</div>
-      <button onClick={() => setCount(count => count + 1)}>+</button>
-      <button onClick={() => setCount(count => count - 1)}>-</button>
-    </>
-  )
-}`
 
 function App() {
   const [config, setConfig] = useState({
@@ -32,35 +13,30 @@ function App() {
     showLineNumbers: false,
     wrapLine: false,
   })
-  const [files, setFiles] = useState([
-    {
-      filename: 'App.tsx',
-      code: appCode,
-    },
-    {
-      filename: 'Counter.tsx',
-      code: counterCode,
-    },
-  ])
+  const [files, setFiles] = useState(TicTacToe)
   const [current, setCurrent] = useState(0)
   const currentFile = files[current]
   return (
     <div className="App">
       <h1>
-        <a href="https://github.com/nihgwu/react-runner">
+        <a href="https://github.com/nihgwu/react-runner/tree/master/packages/react-runner-codemirror">
           react-runner-codemirror
         </a>
       </h1>
-      <p>React wrapper of CodeMirror6 for React code editing</p>
+      <div>React wrapper of CodeMirror6 for React code editing</div>
+      <div>
+        Live preview powered by
+        <a href="https://github.com/nihgwu/react-runner">React Runner</a>
+      </div>
       <LiveRunner files={files} />
       <div className="Tabs">
         {files.map((file, idx) => (
           <button
-            key={file.filename}
+            key={file.name}
             aria-selected={idx === current}
             onClick={() => setCurrent(idx)}
           >
-            {file.filename}
+            {file.name}
             {idx > 0 && (
               <>
                 <span
@@ -68,7 +44,7 @@ function App() {
                   onClick={(event) => {
                     event.stopPropagation()
                     setCurrent(current > 0 ? current - 1 : 0)
-                    setFiles(files.filter((x) => x.filename !== file.filename))
+                    setFiles(files.filter((x) => x.name !== file.name))
                   }}
                 >
                   x
@@ -79,14 +55,14 @@ function App() {
         ))}
         <button
           onClick={() => {
-            let filename = window.prompt('Filename')
-            if (!filename) return
-            if (filename.indexOf('.') < 0) filename += '.js'
-            if (files.some((x) => x.filename === filename)) {
-              window.alert(`${filename} already exists`)
+            let name = window.prompt('Filename')
+            if (!name) return
+            if (name.indexOf('.') < 0) name += '.js'
+            if (files.some((x) => x.name === name)) {
+              window.alert(`${name} already exists`)
               return
             }
-            setFiles([...files, { filename, code: '' }])
+            setFiles([...files, { name, content: '' }])
             setCurrent(files.length)
           }}
         >
@@ -95,11 +71,11 @@ function App() {
       </div>
       <CodeMirror
         className="CodeMirror"
-        value={currentFile.code}
-        filename={currentFile.filename}
+        value={currentFile.content}
+        filename={currentFile.name}
         onChange={(newCode) => {
           const newFiles = [...files]
-          newFiles[current] = { ...currentFile, code: newCode }
+          newFiles[current] = { ...currentFile, content: newCode }
           setFiles(newFiles)
         }}
         {...config}

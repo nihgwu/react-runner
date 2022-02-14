@@ -1,10 +1,19 @@
 import { useState } from 'react'
 
 import { CodeMirror } from '../../src/CodeMirror'
+import { LiveRunner } from './LiveRunner'
 import './App.css'
 
-const appCode = `function Counter() {
-  const [count, setCount] = React.useState(0)
+const appCode = `import { Counter } from './Counter.tsx'
+
+export default function App() {
+  return <Counter />
+}`
+
+const counterCode = `import {useState} from 'react'
+
+export function Counter() {
+  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -28,6 +37,10 @@ function App() {
       filename: 'App.tsx',
       code: appCode,
     },
+    {
+      filename: 'Counter.tsx',
+      code: counterCode,
+    },
   ])
   const [current, setCurrent] = useState(0)
   const currentFile = files[current]
@@ -39,7 +52,8 @@ function App() {
         </a>
       </h1>
       <p>React wrapper of CodeMirror6 for React code editing</p>
-      <div>
+      <LiveRunner files={files} />
+      <div className="Tabs">
         {files.map((file, idx) => (
           <button
             key={file.filename}
@@ -49,8 +63,8 @@ function App() {
             {file.filename}
             {idx > 0 && (
               <>
-                {'   '}
                 <span
+                  className="delete"
                   onClick={(event) => {
                     event.stopPropagation()
                     setCurrent(current > 0 ? current - 1 : 0)
@@ -65,8 +79,13 @@ function App() {
         ))}
         <button
           onClick={() => {
-            const filename = window.prompt('Filename')
-            if (!filename || files.some((x) => x.filename === filename)) return
+            let filename = window.prompt('Filename')
+            if (!filename) return
+            if (filename.indexOf('.') < 0) filename += '.js'
+            if (files.some((x) => x.filename === filename)) {
+              window.alert(`${filename} already exists`)
+              return
+            }
             setFiles([...files, { filename, code: '' }])
             setCurrent(files.length)
           }}
@@ -80,22 +99,12 @@ function App() {
         filename={currentFile.filename}
         onChange={(newCode) => {
           const newFiles = [...files]
-          files[current] = { ...currentFile, code: newCode }
+          newFiles[current] = { ...currentFile, code: newCode }
           setFiles(newFiles)
         }}
         {...config}
       />
-      <div>
-        <input
-          type="number"
-          value={config.padding}
-          onChange={(event) =>
-            setConfig({
-              ...config,
-              padding: Number(event.currentTarget.value),
-            })
-          }
-        />
+      <div className="Bar">
         <label>
           <input
             type="checkbox"
@@ -108,6 +117,19 @@ function App() {
             }
           />
           light
+        </label>
+        <label>
+          <input
+            type="number"
+            value={config.padding}
+            onChange={(event) =>
+              setConfig({
+                ...config,
+                padding: Number(event.currentTarget.value),
+              })
+            }
+          />
+          padding
         </label>
         <label>
           <input

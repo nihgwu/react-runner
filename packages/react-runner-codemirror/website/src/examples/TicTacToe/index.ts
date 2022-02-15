@@ -1,6 +1,6 @@
 import App from './App?raw'
 import utils from './utils?raw'
-import style from './style.css?inline'
+import style from './style.css.txt?raw'
 
 export default [
   {

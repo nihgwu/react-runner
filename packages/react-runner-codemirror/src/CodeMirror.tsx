@@ -4,11 +4,12 @@ import React, {
   useRef,
   useMemo,
   HTMLAttributes,
+  CSSProperties,
 } from 'react'
 import { EditorView } from '@codemirror/view'
 
 import { useCodeMirror } from './useCodeMirror'
-import { Config } from './config'
+import { Config, Theme } from './config'
 
 export type CodeMirrorProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -26,8 +27,8 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
       defaultValue,
       value,
       onChange,
-      theme,
-      padding,
+      theme = 'dark',
+      padding = 10,
       readOnly,
       showLineNumbers,
       wrapLine,
@@ -74,19 +75,7 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
       () => ({
         fontFamily:
           'source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace',
-        backgroundColor:
-          theme === 'dark'
-            ? '#282c34'
-            : theme === 'light'
-            ? 'white'
-            : undefined,
-        ...style,
-        color:
-          theme === 'dark'
-            ? '#abb2bf'
-            : theme === 'light'
-            ? '#282c34'
-            : undefined,
+        ...getThemeStyle(theme),
         ...style,
       }),
       [style, theme]
@@ -94,3 +83,19 @@ export const CodeMirror = forwardRef<EditorView, CodeMirrorProps>(
     return <div ref={parentRef} style={mergedStyle} {...rest} />
   }
 )
+
+const getThemeStyle = (theme: Theme): CSSProperties => {
+  if (theme === 'dark') {
+    return {
+      backgroundColor: '#282c34',
+      color: '#abb2bf',
+    }
+  }
+  if (theme === 'light') {
+    return {
+      backgroundColor: 'white',
+      color: '#282c34',
+    }
+  }
+  return {}
+}

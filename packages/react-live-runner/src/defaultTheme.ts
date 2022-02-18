@@ -40,7 +40,7 @@ const theme: Theme = {
         'deleted',
       ],
       style: {
-        color: colors.comment,
+        color: colors.primitive,
       },
     },
     {
@@ -56,7 +56,7 @@ const theme: Theme = {
       },
     },
     {
-      types: ['string'],
+      types: ['string', 'attr-value'],
       style: {
         color: colors.string,
       },
@@ -92,7 +92,7 @@ const theme: Theme = {
       },
     },
     {
-      types: ['class-name'],
+      types: ['atrule', 'class-name'],
       style: {
         color: colors.className,
       },

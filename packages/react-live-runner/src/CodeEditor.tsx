@@ -64,10 +64,10 @@ export const CodeEditor = ({
 
   return (
     <Editor
+      highlight={highlightCode}
       {...rest}
       padding={padding}
       value={isControlled ? controlledValue : uncontrolledValue}
-      highlight={highlightCode}
       onValueChange={handleChange}
       style={style}
     />

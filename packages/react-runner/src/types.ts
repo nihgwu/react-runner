@@ -1,6 +1,6 @@
 export type Scope = Record<string, any> & {
   /** scope used by import statement */
-  import?: Scope
+  import?: Record<string, any>
 }
 
 export type RunnerOptions = {

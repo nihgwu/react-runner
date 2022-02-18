@@ -7,8 +7,10 @@ import { css } from '@codemirror/lang-css'
 
 import { javascript } from './javascript'
 
+export type Theme = 'dark' | 'light' | Extension
+
 export type Config = {
-  theme?: 'dark' | 'light' | Extension
+  theme?: Theme
   padding?: number | string
   readOnly?: boolean
   showLineNumbers?: boolean
@@ -105,19 +107,7 @@ const config: {
       : [highlightActiveLine(), highlightActiveLineGutter()],
   showLineNumbers: (showLineNumbers) => (showLineNumbers ? lineNumbers() : []),
 
-  wrapLine: (wrapLine) =>
-    wrapLine
-      ? // EditorView.lineWrapping,
-        // currently lineWrapping only works when creating state
-        // add this workaround to make it configurable
-        EditorView.theme({
-          '&.cm-editor .cm-content': {
-            whiteSpace: 'break-spaces',
-            wordBreak: 'break-word',
-            overflowWrap: 'anywhere',
-          },
-        })
-      : [],
+  wrapLine: (wrapLine) => (wrapLine ? EditorView.lineWrapping : []),
   extensions: (extensions) => extensions || [],
   filename: (filename) => (filename?.endsWith('.css') ? css() : javascript()),
 }

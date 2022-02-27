@@ -78,7 +78,7 @@ const Container = styled.div`
   padding: 16px;
   max-width: 640px;
   margin: auto;
-  background: white;
+  background: Canvas;
 `
 
 const Header = styled.header`

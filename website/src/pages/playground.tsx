@@ -17,10 +17,8 @@ import sampleCode from '!!raw-loader!./examples/hacker-news.tsx'
 const Container = styled.div`
   position: relative;
   display: flex;
-  box-shadow: 0 0 8px 0 lightsteelblue;
   overflow: hidden;
-  margin: 16px;
-  height: calc(100vh - 80px);
+  height: calc(100% - var(--header-height));
 
   @media (max-width: 960px) {
     flex-direction: column-reverse;

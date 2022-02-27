@@ -6,8 +6,7 @@ const shouldPrefix = process.env.PREFIX === 'true'
 module.exports = {
   assetPrefix: shouldPrefix ? '/react-runner/' : '',
   basePath: shouldPrefix ? '/react-runner' : '',
-  experimental: {
-    // ssr and displayName are configured by default
+  compiler: {
     styledComponents: true,
   },
   reactStrictMode: true,

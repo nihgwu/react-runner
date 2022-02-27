@@ -14,7 +14,7 @@ import { CodeMirror as CM } from 'react-runner-codemirror'
 
 export const Container = styled.div`
   display: flex;
-  box-shadow: 0 0 8px 0 lightsteelblue;
+  box-shadow: 0 0 2px 0 lightsteelblue;
   height: 300px;
   overflow: hidden;
 
@@ -55,7 +55,6 @@ export const PreviewContainer = styled.div`
   flex: 1 1 720px;
   position: relative;
   display: flex;
-  background: #fff;
   overflow: hidden;
 `
 

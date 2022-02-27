@@ -6985,10 +6985,10 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-app-rewired@^2.1.11:
-  version "2.1.11"
-  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.1.11.tgz#ad5781e3ef5e506be935898bb7642f7f9d50b61a"
-  integrity sha512-zRIqJUPsCoPnfYtea3xgPbKR42vx0NoH5oo8R8FELXqzkjJHa39V6zD8CAdkLJoYL8V3JScWHAfKMZOzi1Ydmw==
+react-app-rewired@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.2.1.tgz#84901ee1e3f26add0377ebec0b41bcdfce9fc211"
+  integrity sha512-uFQWTErXeLDrMzOJHKp0h8P1z0LV9HzPGsJ6adOtGlA/B9WfT6Shh4j2tLTTGlXOfiVx6w6iWpp7SOC5pvk+gA==
   dependencies:
     semver "^5.6.0"
 
@@ -7046,13 +7046,13 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-live-runner@^1.0.0-rc.1:
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.0-rc.1.tgz#e936c108c059168f8e9c2902d0bc025711e4cf6d"
-  integrity sha512-F6kumGzdC9wuapj1xry4PG7afpmLM5bHh4OxCwbtmO1peSsd4NdEhK/9Y3IHpHjpQytyD4j2bJ7+AoqGB3VzbQ==
+react-live-runner@^1.0.0-rc.2:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.0-rc.2.tgz#68fcab1738110e4aca34dadcac633b7708447bf5"
+  integrity sha512-R0kIdKU0pmtXrk9E6a2yAOJ7Pj7dqh/jDGdNcu/pmrxt5ig8GWOZ2s4sFGnD1hVl7uB4Sci47eKcqhBnEqcmVw==
   dependencies:
     prism-react-renderer "^1.2.1"
-    react-runner "^1.0.0-rc.1"
+    react-runner "^1.0.0-rc.2"
     react-simple-code-editor "^0.11.0"
 
 react-refresh@^0.11.0:
@@ -7060,10 +7060,10 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-react-runner@^1.0.0-rc.1:
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0-rc.1.tgz#500c8c459ee9c18ead8b1a0e1d2928f1d83db31d"
-  integrity sha512-+oPTr2h6CYqAsxaDmaMa2WxkUlA6zVVlNt+odem7jYUFQB2+awBrDUBdFByMCkjguPRJatg9mLtzOBpqorWBlQ==
+react-runner@^1.0.0-rc.2:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0-rc.2.tgz#3591d3893a6262af345154292627e76612968850"
+  integrity sha512-caUnpbSawzX1cF7f38tmM9+CMDNZNUypIeYPROWKW5UALmo28pfHrad7XL2HRbTku76hiGE60Kxp6CWItW1jRg==
   dependencies:
     sucrase "^3.10.1"
 

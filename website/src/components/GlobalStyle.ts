@@ -5,9 +5,9 @@ export const GlobalStyle = createGlobalStyle`
     --header-height: 48px;
   }
 
-  html {
-    height: 100%;
-    overflow: hidden;
+  [data-theme='dark'] [data-hide='dark'],
+  [data-theme='light'] [data-hide='light'] {
+    display: none;
   }
 
   body {
@@ -18,12 +18,6 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
-    height: 100%;
-    overflow: auto;
-  }
-
-  #__next {
-    height: 100%;
     overflow: auto;
   }
 

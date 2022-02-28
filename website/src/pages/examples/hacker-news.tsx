@@ -78,7 +78,6 @@ const Container = styled.div`
   padding: 16px;
   max-width: 640px;
   margin: auto;
-  background: Canvas;
 `
 
 const Header = styled.header`
@@ -89,6 +88,9 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  backdrop-filter: blur(5px);
+  margin: 0 -16px;
+  padding: 0 16px;
 `
 
 const Button = styled.button`

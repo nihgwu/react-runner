@@ -7,7 +7,7 @@ import { scope, examples } from '../constants'
 
 const Container = styled.div`
   max-width: 1024px;
-  margin: 0 auto;
+  margin: var(--header-height) auto 0;
   padding: 24px 16px;
 `
 

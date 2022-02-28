@@ -5,9 +5,21 @@ export const GlobalStyle = createGlobalStyle`
     --header-height: 48px;
   }
 
-  html {
-    height: 100%;
-    overflow: hidden;
+  [data-theme='dark'] [data-hide='dark'],
+  [data-theme='light'] [data-hide='light'] {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme='system'] [data-hide='dark'] {
+      display: none;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    [data-theme='system'] [data-hide='light'] {
+      display: none;
+    }
   }
 
   body {
@@ -15,16 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
-    height: 100%;
-    overflow: auto;
-  }
-
-  #__next {
-    height: 100%;
-    overflow: auto;
   }
 
   * {

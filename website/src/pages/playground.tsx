@@ -15,10 +15,13 @@ import { scope } from '../constants'
 import sampleCode from '!!raw-loader!./examples/hacker-news.tsx'
 
 const Container = styled.div`
-  position: relative;
   display: flex;
   overflow: hidden;
-  height: calc(100% - var(--header-height));
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   @media (max-width: 960px) {
     flex-direction: column-reverse;

@@ -56,7 +56,7 @@ export const examples = [
 
       return (
         <>
-          <div>{count}</div>
+          <input value={count} readOnly />
           <button onClick={() => setCount(count => count + 1)}>+</button>
           <button onClick={() => setCount(count => count - 1)}>-</button>
         </>
@@ -87,11 +87,11 @@ export const examples = [
 
       render() {
         return (
-          <div>
-            <div>{this.state.count}</div>
+          <>
+            <input value={this.state.count} readOnly />
             <button onClick={this.onIncrement}>+</button>
             <button onClick={this.onDecrement}>-</button>
-          </div>
+          </>
         )
       }
     }

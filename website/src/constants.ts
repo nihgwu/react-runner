@@ -5,15 +5,42 @@ import { codeBlock } from 'common-tags'
 // @ts-ignore
 import hn from '!!raw-loader!./pages/examples/hacker-news.tsx'
 
+// mimic babel plugin's behaviour to support SSR
+let counter = 0
+function hijackedStyled(...args: any[]) {
+  // @ts-ignore
+  return styled(...args)
+}
+const hash = 'runner'
+const ignoredProps = Object.getOwnPropertyNames(Function)
+Object.getOwnPropertyNames(styled).forEach((tag) => {
+  if (ignoredProps.includes(tag)) return
+  Object.defineProperty(hijackedStyled, tag, {
+    get() {
+      return styled[tag].withConfig({
+        componentId: `sc-${hash}-${counter++}`,
+      })
+    },
+  })
+})
+
+export const resetCounter = () => {
+  counter = 0
+}
+
 export const scope = {
   ...React,
-  styled,
+  styled: hijackedStyled,
   css,
   keyframes,
   createGlobalStyle,
   import: {
     react: React,
-    'styled-components': Styled,
+    'styled-components': {
+      ...Styled,
+      default: hijackedStyled,
+      __esModule: true,
+    },
   },
 }
 

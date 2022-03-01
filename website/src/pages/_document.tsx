@@ -7,6 +7,8 @@ import Document, {
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
+import { resetCounter } from '../constants'
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
@@ -35,6 +37,8 @@ export default class MyDocument extends Document {
   }
 
   render() {
+    // reset counter for SSR
+    resetCounter()
     return (
       <Html lang="en" data-theme="system">
         <Head />

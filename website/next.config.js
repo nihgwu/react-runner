@@ -6,9 +6,6 @@ const shouldPrefix = process.env.PREFIX === 'true'
 module.exports = {
   assetPrefix: shouldPrefix ? '/react-runner/' : '',
   basePath: shouldPrefix ? '/react-runner' : '',
-  compiler: {
-    styledComponents: true,
-  },
   // ensure counter won't be incremented twice
   reactStrictMode: false,
   webpack: (config, options) => {

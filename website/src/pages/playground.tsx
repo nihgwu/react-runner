@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { useLiveRunner } from 'react-live-runner'
 
 import {

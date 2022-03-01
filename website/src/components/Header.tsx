@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useTheme } from 'next-themes'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 const Container = styled.header`
   background: steelblue;
@@ -93,6 +93,8 @@ const ThemeToggle = () => {
   )
 }
 
+const GithubButton = IconButton.withComponent(Link)
+
 export const Header = ({ isExample }: { isExample: boolean }) => {
   if (isExample) {
     return (
@@ -129,7 +131,7 @@ export const Header = ({ isExample }: { isExample: boolean }) => {
       <NextLink href="/playground" passHref>
         <Link>Playground</Link>
       </NextLink>
-      <IconButton as={Link} href="https://github.com/nihgwu/react-runner">
+      <GithubButton href="https://github.com/nihgwu/react-runner">
         <svg
           width="20"
           height="20"
@@ -144,7 +146,7 @@ export const Header = ({ isExample }: { isExample: boolean }) => {
             clipRule="evenodd"
           />
         </svg>
-      </IconButton>
+      </GithubButton>
       <ThemeToggle />
     </Container>
   )

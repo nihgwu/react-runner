@@ -9,7 +9,8 @@ module.exports = {
   compiler: {
     styledComponents: true,
   },
-  reactStrictMode: true,
+  // ensure counter won't be incremented twice
+  reactStrictMode: false,
   webpack: (config, options) => {
     config.resolve.alias = {
       ...config.resolve.alias,

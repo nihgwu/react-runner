@@ -1,0 +1,38 @@
+@import 'modern-normalize/modern-normalize.css';
+
+:root {
+  --header-height: 48px;
+  --tabbar-height: 32px;
+  --border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+[data-theme='dark'] [data-hide='dark'],
+[data-theme='light'] [data-hide='light'] {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme='system'] [data-hide='dark'] {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  [data-theme='system'] [data-hide='light'] {
+    display: none;
+  }
+}
+
+[data-theme='dark'] {
+  & .cm-editor,
+  & .cm-gutters {
+    background-color: initial !important;
+  }
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: initial !important;
+  background-color: initial !important;
+}

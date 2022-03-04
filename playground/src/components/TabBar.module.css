@@ -1,0 +1,66 @@
+.TabItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &[aria-selected='true']::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: steelblue;
+  }
+}
+
+.TabButton {
+  appearance: none;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.AddButton {
+  appearance: none;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  margin-left: 8px;
+  padding: 2px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.RemoveButton {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  opacity: 0.7;
+  & > svg {
+    display: block;
+    width: 12px;
+    height: 12px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.TabBar {
+  display: flex;
+  align-items: center;
+  border-bottom: var(--border);
+  padding: 0 8px;
+}

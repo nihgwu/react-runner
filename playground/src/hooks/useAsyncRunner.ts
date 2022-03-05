@@ -127,6 +127,7 @@ export const useAsyncRunner = ({
   })
 
   useEffect(() => {
+    const controller = new AbortController()
     const code = Object.values(files).join('\n\n')
     const trimmedCode = code.trim()
     const extractedImports = extractImports(
@@ -143,6 +144,7 @@ export const useAsyncRunner = ({
     }
     resolveImports(...extractedImports)
       .then(([importsMap, styleSheets]) => {
+        if (controller.signal.aborted) return
         const jsFiles: Record<string, string> = {}
         const cssFiles: Record<string, string> = {}
         Object.keys(files).forEach((name) => {
@@ -157,6 +159,7 @@ export const useAsyncRunner = ({
             styleSheets.push(style)
           } catch {}
         })
+        if (controller.signal.aborted) return
         const element = createElement(Runner, {
           code: jsFiles['App.tsx'],
           scope: withFiles(
@@ -172,6 +175,7 @@ export const useAsyncRunner = ({
             'App.tsx'
           ),
           onRendered: (error) => {
+            if (controller.signal.aborted) return
             if (error) {
               setState({
                 isLoading: false,
@@ -185,6 +189,7 @@ export const useAsyncRunner = ({
             }
           },
         })
+        if (controller.signal.aborted) return
         setState({ isLoading: false, element, styleSheets, error: null })
       })
       .catch((error: Error) => {
@@ -195,6 +200,8 @@ export const useAsyncRunner = ({
           error: error.toString().replace(remoteCDN, ''),
         })
       })
+
+      return () => controller.abort()
   }, [files, disableCache])
 
   useUncaughtError((error) => {

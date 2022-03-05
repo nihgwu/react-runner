@@ -18,6 +18,11 @@
       margin-left: 8px;
     }
   }
+
+  & button, & select, & a {
+    outline: revert;
+    outline-color: steelblue;
+  }
 }
 
 .Link {

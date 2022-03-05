@@ -3,7 +3,7 @@
 :root {
   --header-height: 48px;
   --tabbar-height: 32px;
-  --border: 1px solid rgba(128, 128, 128, 0.2);
+  --border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 [data-theme='dark'] [data-hide='dark'],

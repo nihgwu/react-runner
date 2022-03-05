@@ -73,4 +73,9 @@
   align-items: center;
   border-bottom: var(--border);
   padding: 0 8px;
+
+  & button {
+    outline: revert;
+    outline-color: steelblue;
+  }
 }

@@ -12,7 +12,7 @@ export const Header = () => {
   return (
     <header className={styles.Header}>
       <h1 className={styles.Title}>
-        <a className={styles.Link} href="/">
+        <a className={styles.Link} href="#">
           React Runner
         </a>
       </h1>
@@ -20,13 +20,14 @@ export const Header = () => {
       <ShareButton className={styles.IconButton} />
       <LayoutButton className={styles.IconButtonRotate} />
       <ContrastButton className={styles.IconButtonRotate} />
-      <button className={styles.IconButton} onClick={toggleTheme}>
+      <button title="Toggle theme" className={styles.IconButton} onClick={toggleTheme}>
         <MoonIcon data-hide="light" />
         <SunIcon data-hide="dark" />
       </button>
       <a
         className={clsx(styles.IconButton, styles.Link)}
         href="https://github.com/nihgwu/react-runner"
+        title="Github"
       >
         <GitHubLogoIcon />
       </a>

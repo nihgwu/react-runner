@@ -4,6 +4,7 @@ export const ExampleSelect = (props: any) => {
   return (
     <select
       {...props}
+      title="Examples"
       name="examples"
       value={'placeholder'}
       onChange={(event) => {
@@ -15,7 +16,6 @@ export const ExampleSelect = (props: any) => {
       <option hidden value="placeholder">
         Select example...
       </option>
-      <option value="">Empty</option>
       {examples.map((item) => (
         <option key={item.hash} value={item.hash}>
           {item.name}

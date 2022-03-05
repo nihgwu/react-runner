@@ -1,10 +1,10 @@
-import { useEffect, useState, useReducer, lazy, Suspense } from 'react'
-import { Resizable } from 're-resizable'
+import { useEffect, useState, useReducer, lazy } from 'react'
 
 import { Header } from './components/Header'
 import { TabBar } from './components/TabBar'
 import { Preview } from './components/Preview'
-import { useMediaQuery } from './hooks/useMediaQuery'
+import { ResizePane } from './components/ResizePane'
+import { SafeSuspense } from './components/SafeSuspense'
 import { getHash, getHashFiles, updateHash } from './utils/urlHash'
 import { defaultHash } from './utils/examples'
 import styles from './App.module.css'
@@ -15,8 +15,6 @@ const supportedExts = ['js', 'jsx', 'ts', 'tsx', 'css']
 const supportedExtsText = supportedExts.map((x) => `.${x}`).join(' ,')
 
 function App() {
-  const matches = useMediaQuery('(min-width: 960px)')
-
   // reset to clear editing history
   const [editorKey, resetEditor] = useReducer((state: number) => state + 1, 0)
   const [files, setFiles] = useState(getHashFiles)
@@ -40,22 +38,7 @@ function App() {
     <>
       <Header />
       <div className={styles.Body}>
-        <Resizable
-          key={String(matches)}
-          className={styles.EditorPane}
-          handleClasses={{
-            right: styles.ResizeHandle,
-            top: styles.ResizeHandle,
-          }}
-          enable={{
-            right: matches,
-            top: !matches,
-          }}
-          defaultSize={{
-            width: matches ? '50%' : '100%',
-            height: matches ? '100%' : '50%',
-          }}
-        >
+        <ResizePane className={styles.EditorPane}>
           <TabBar
             className={styles.TabBar}
             tabs={filenames}
@@ -100,7 +83,7 @@ function App() {
               setCurrentFile(name)
             }}
           />
-          <Suspense fallback={<div className={styles.Editor} />}>
+          <SafeSuspense fallback={<div className={styles.Editor} />}>
             <Editor
               key={editorKey}
               className={styles.Editor}
@@ -112,8 +95,8 @@ function App() {
                 setFiles(newFiles)
               }}
             />
-          </Suspense>
-        </Resizable>
+          </SafeSuspense>
+        </ResizePane>
         <div className={styles.PreviewPane}>
           <Preview files={files} />
         </div>

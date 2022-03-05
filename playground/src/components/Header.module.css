@@ -1,0 +1,93 @@
+.Header {
+  all: unset;
+  box-sizing: border-box;
+  border-bottom: var(--border);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > :not(:first-child) {
+    margin-left: 16px;
+
+    @media (max-width: 480px) {
+      margin-left: 8px;
+    }
+  }
+
+  & button, & select, & a {
+    outline: revert;
+    outline-color: steelblue;
+  }
+}
+
+.Link {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: currentColor;
+  text-decoration: none;
+}
+
+.Title {
+  all: unset;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 auto 0 0;
+}
+
+.IconButton {
+  all: unset;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 2px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  overflow: hidden;
+
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.IconButtonRotate {
+  composes: IconButton;
+  transition: transform ease-in 0.15s;
+
+  @media (max-width: 960px) {
+    transform: rotate(-90deg);
+  }
+}
+
+[data-layout='preview'] .IconButtonRotate {
+  transform: rotate(90deg);
+
+  @media (max-width: 960px) {
+    transform: rotate(90deg);
+  }
+}
+
+.Select {
+  all: unset;
+  box-sizing: border-box;
+  appearance: none;
+  padding: 2px 4px;
+  background-color: unset;
+  color: gray;
+  border: var(--border);
+
+  @media (max-width: 540px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+  }
+}

@@ -1,20 +1,31 @@
 .Preview {
+  all: unset;
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.PreviewElement {
+.PreviewElementContainer {
+  all: unset;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   overflow: auto;
   padding: 16px;
   position: relative;
   z-index: 0;
+  display: flex;
+}
+
+.PreviewElement {
+  width: 100%;
 }
 
 .PreviewError {
+  all: unset;
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
@@ -28,6 +39,8 @@
 }
 
 .PreviewLoading {
+  all: unset;
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
@@ -37,7 +50,7 @@
   &::after {
     content: '';
     display: block;
-    height: 8px;
+    height: 4px;
     background-color: steelblue;
 
     animation: progress 1s infinite ease-in-out;

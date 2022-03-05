@@ -1,4 +1,6 @@
 .TabItem {
+  all: unset;
+  box-sizing: border-box;
   position: relative;
   display: flex;
   align-items: center;
@@ -14,6 +16,8 @@
 }
 
 .TabButton {
+  all: unset;
+  box-sizing: border-box;
   appearance: none;
   background-color: transparent;
   color: inherit;
@@ -25,6 +29,8 @@
 }
 
 .AddButton {
+  all: unset;
+  box-sizing: border-box;
   appearance: none;
   background-color: transparent;
   color: inherit;
@@ -41,6 +47,8 @@
 }
 
 .RemoveButton {
+  all: unset;
+  box-sizing: border-box;
   appearance: none;
   background-color: transparent;
   border: none;
@@ -59,6 +67,8 @@
 }
 
 .TabBar {
+  all: unset;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   border-bottom: var(--border);

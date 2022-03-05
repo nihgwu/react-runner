@@ -13,8 +13,9 @@ export const ExampleSelect = (props: any) => {
       }}
     >
       <option hidden value="placeholder">
-        {examples[0].name}
+        Select example...
       </option>
+      <option value="">Empty</option>
       {examples.map((item) => (
         <option key={item.hash} value={item.hash}>
           {item.name}

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { ShadowRoot } from './ShadowRoot'
 import { useAsyncRunner } from '../hooks/useAsyncRunner'
 import styles from './Preview.module.css'
 
@@ -21,15 +20,17 @@ export const Preview = ({ files }: { files: Record<string, string> }) => {
     scope: baseScope,
   })
 
+  if (typeof document !== 'undefined') {
+    document.adoptedStyleSheets = styleSheets
+  }
+
   return (
     <div className={styles.Preview}>
       {isLoading && <div className={styles.PreviewLoading}></div>}
-      <div className={styles.PreviewElement}>
-        {styleSheets.length > 0 ? (
-          <ShadowRoot styleSheets={styleSheets}>{element}</ShadowRoot>
-        ) : (
-          element
-        )}
+      <div className={styles.PreviewElementContainer}>
+        <div id="data-preview-element" className={styles.PreviewElement}>
+          {element}
+        </div>
       </div>
       {error && <pre className={styles.PreviewError}>{error}</pre>}
     </div>

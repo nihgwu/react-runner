@@ -69,7 +69,8 @@ const normalizeModule = (module: string) => {
 }
 
 const normalizeJs = (code: string) => code.replace(importCssRegexp, '')
-const normalizeCss = (code: string) => code.replace(/\bbody\b/g, ':host')
+const normalizeCss = (code: string) =>
+  code.replace(/\bbody\b/g, '#data-preview-element')
 
 const defaultImportsRevolvor = (
   moduleImports: string[],

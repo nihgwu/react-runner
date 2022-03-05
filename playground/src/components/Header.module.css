@@ -1,8 +1,9 @@
 .Header {
+  all: unset;
+  box-sizing: border-box;
   border-bottom: var(--border);
   position: fixed;
   top: 0;
-  z-index: 1;
   width: 100%;
   height: var(--header-height);
   padding: 0 16px;
@@ -20,17 +21,24 @@
 }
 
 .Link {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
   color: currentColor;
   text-decoration: none;
 }
 
 .Title {
+  all: unset;
+  box-sizing: border-box;
   font-size: 24px;
   font-weight: 500;
   margin: 0 auto 0 0;
 }
 
 .IconButton {
+  all: unset;
+  box-sizing: border-box;
   appearance: none;
   background-color: transparent;
   border: none;
@@ -64,6 +72,8 @@
 }
 
 .Select {
+  all: unset;
+  box-sizing: border-box;
   appearance: none;
   padding: 2px 4px;
   background-color: unset;

@@ -20,7 +20,11 @@ export const Header = () => {
       <ShareButton className={styles.IconButton} />
       <LayoutButton className={styles.IconButtonRotate} />
       <ContrastButton className={styles.IconButtonRotate} />
-      <button title="Toggle theme" className={styles.IconButton} onClick={toggleTheme}>
+      <button
+        title="Toggle theme"
+        className={styles.IconButton}
+        onClick={toggleTheme}
+      >
         <MoonIcon data-hide="light" />
         <SunIcon data-hide="dark" />
       </button>

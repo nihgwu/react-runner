@@ -6,7 +6,7 @@ import { Preview } from './components/Preview'
 import { ResizePane } from './components/ResizePane'
 import { SafeSuspense } from './components/SafeSuspense'
 import { getHash, getHashFiles, updateHash } from './utils/urlHash'
-import { defaultHash } from './utils/examples'
+import { defaultHash } from './utils/defaultHash'
 import styles from './App.module.css'
 
 const Editor = lazy(() => import('./components/Editor'))
@@ -33,6 +33,10 @@ function App() {
     window.addEventListener('hashchange', handleChange)
     return () => window.removeEventListener('hashchange', handleChange)
   }, [])
+
+  useEffect(() => {
+    if (!filenames.includes(currentFile)) setCurrentFile(filenames[0])
+  }, [filenames.join('!')])
 
   return (
     <>

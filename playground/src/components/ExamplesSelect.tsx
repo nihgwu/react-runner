@@ -1,6 +1,10 @@
-import { examples } from '../utils/examples'
+import { useEffect, useState } from 'react'
 
 export const ExampleSelect = (props: any) => {
+  const [examples, setExamples] = useState<{ name: string; hash: string }[]>([])
+  useEffect(() => {
+    import('../utils/examples').then((m) => setExamples(m.examples)).catch()
+  }, [])
   return (
     <select
       {...props}

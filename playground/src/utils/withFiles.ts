@@ -46,6 +46,7 @@ export const withFiles = (
         try {
           return (target[prop] = importCode(files[prop], {
             ...scope,
+            // entry file can use `render` but `importCode` doesn't provide it
             render: () => {},
             import: importsProxy,
           }))

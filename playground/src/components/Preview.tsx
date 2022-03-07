@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDom from 'react-dom'
 
 import { useAsyncRunner } from '../hooks/useAsyncRunner'
 import styles from './Preview.module.css'
@@ -11,6 +12,14 @@ if (typeof window !== 'undefined') {
 const baseScope = {
   import: {
     react: React,
+    'react-dom': {
+      ...ReactDom,
+      render: (element: Parameters<typeof ReactDom.render>[0]) =>
+        ReactDom.render(
+          element,
+          document.getElementById('data-preview-element')
+        ),
+    },
   },
 }
 

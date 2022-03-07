@@ -57,6 +57,7 @@ const ThemeToggle = () => {
   const { setTheme, resolvedTheme } = useTheme()
   return (
     <IconButton
+      title="Toggle theme"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
       <svg
@@ -126,10 +127,13 @@ export const Header = ({ isExample }: { isExample: boolean }) => {
           <Link>React Runner</Link>
         </NextLink>
       </Title>
-      <NextLink href="/playground" passHref>
-        <Link>Playground</Link>
-      </NextLink>
-      <IconButton as={Link} href="https://github.com/nihgwu/react-runner">
+      <Link href="https://play-react.vercel.app">Playground</Link>
+      <ThemeToggle />
+      <IconButton
+        as={Link}
+        href="https://github.com/nihgwu/react-runner"
+        title="Github"
+      >
         <svg
           width="20"
           height="20"
@@ -145,7 +149,6 @@ export const Header = ({ isExample }: { isExample: boolean }) => {
           />
         </svg>
       </IconButton>
-      <ThemeToggle />
     </Container>
   )
 }

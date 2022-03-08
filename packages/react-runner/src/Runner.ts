@@ -12,7 +12,7 @@ type RunnerState = {
   element: ReactElement | null
   error: Error | null
   prevCode: string | null
-  prevScope: Scope | null
+  prevScope: Scope | undefined
 }
 
 export class Runner extends Component<RunnerProps, RunnerState> {
@@ -20,7 +20,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     element: null,
     error: null,
     prevCode: null,
-    prevScope: null,
+    prevScope: undefined,
   }
 
   static getDerivedStateFromProps(

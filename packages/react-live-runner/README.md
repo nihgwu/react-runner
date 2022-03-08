@@ -30,7 +30,7 @@ npm install --save react-runner
 ## Options
 
 - **code** `string`, _required_ the code to be ran
-- **scope** `object` globals that could be used in `code`, **must be memoized**
+- **scope** `object` globals that could be used in `code`
 
 ## Usage
 

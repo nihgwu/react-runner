@@ -1,5 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { config } from 'dotenv'
+
+config()
+const esmCDN = process.env.VITE_ESM_CDN
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
@@ -13,8 +17,8 @@ export default defineConfig(({ command }) => ({
   ],
   resolve: {
     alias: {
-      react: 'https://esm.sh/react',
-      'react-dom': 'https://esm.sh/react-dom',
+      react: `${esmCDN}react`,
+      'react-dom': `${esmCDN}react-dom`,
       sucrase: 'sucrase/dist/index.js',
     },
   },

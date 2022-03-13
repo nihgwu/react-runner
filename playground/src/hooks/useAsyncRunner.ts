@@ -11,11 +11,12 @@ import { Runner, UseRunnerProps, UseRunnerReturn } from 'react-runner'
 import { withFiles } from '../utils/withFiles'
 import { useUncaughtError } from './useUncaughtError'
 
+const esmCDN = import.meta.env.VITE_ESM_CDN
+const cssCDN = import.meta.env.VITE_CSS_CDN
+
 const importModuleRegexp = /^import [^'"]* from ['"]([^\.'"\n ][^'"\n ]*)['"]/gm
 const importCssRegexp = /^import +['"]([^\.'"\n ][^'"\n ]*\.css)['"]/gm
 const remoteRegexp = /^https?:\/\//
-const remoteCDN = 'https://esm.sh/'
-const cssCDN = 'https://cdn.jsdelivr.net/npm/'
 
 const extractImports = (
   code: string,
@@ -65,7 +66,7 @@ const interopRequireDefault = (obj: any) => {
 const normalizeModule = (module: string) => {
   if (remoteRegexp.test(module)) return module
   if (module.endsWith('.css')) return `${cssCDN}${module}`
-  return `${remoteCDN}${module}`
+  return `${esmCDN}${module}`
 }
 
 const normalizeJs = (code: string) => code.replace(importCssRegexp, '')
@@ -197,7 +198,7 @@ export const useAsyncRunner = ({
           isLoading: false,
           element: disableCache ? null : elementRef.current,
           styleSheets: disableCache ? [] : styleSheetsRef.current,
-          error: error.toString().replace(remoteCDN, ''),
+          error: error.toString().replace(esmCDN, ''),
         })
       })
 
@@ -209,7 +210,7 @@ export const useAsyncRunner = ({
       isLoading: false,
       element: elementRef.current,
       styleSheets: styleSheetsRef.current,
-      error: error.replace(remoteCDN, ''),
+      error: error.replace(esmCDN, ''),
     })
   })
 

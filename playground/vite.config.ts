@@ -17,8 +17,8 @@ export default defineConfig(({ command }) => ({
   ],
   resolve: {
     alias: {
-      react: `${esmCDN}react`,
-      'react-dom': `${esmCDN}react-dom`,
+      react: `${esmCDN}react?pin=v68`,
+      'react-dom': `${esmCDN}react-dom?pin=v68`,
       sucrase: 'sucrase/dist/index.js',
     },
   },

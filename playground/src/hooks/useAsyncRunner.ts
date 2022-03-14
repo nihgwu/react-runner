@@ -66,7 +66,7 @@ const interopRequireDefault = (obj: any) => {
 const normalizeModule = (module: string) => {
   if (remoteRegexp.test(module)) return module
   if (module.endsWith('.css')) return `${cssCDN}${module}`
-  return `${esmCDN}${module}`
+  return `${esmCDN}${module}?pin=v68`
 }
 
 const normalizeJs = (code: string) => code.replace(importCssRegexp, '')

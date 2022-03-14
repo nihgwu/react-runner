@@ -6,13 +6,13 @@ config()
 const esmCDN = process.env.VITE_ESM_CDN
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => ({
+export default defineConfig(() => ({
   define: {
     'process.env': {},
   },
   plugins: [
     react({
-      jsxRuntime: command === 'serve' ? 'classic' : 'automatic',
+      jsxRuntime: 'classic',
     }),
   ],
   resolve: {

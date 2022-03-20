@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import React, { StrictMode } from 'react'
 import ReactDOMServer from 'react-dom/server'
 
 import './index.css'

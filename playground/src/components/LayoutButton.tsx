@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ViewVerticalIcon, BoxIcon } from '@radix-ui/react-icons'
 
 export const LayoutButton = (props: JSX.IntrinsicElements['button']) => {

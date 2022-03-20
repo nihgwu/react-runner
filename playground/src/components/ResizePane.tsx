@@ -1,3 +1,4 @@
+import React from 'react'
 import { Resizable } from 're-resizable'
 
 import { useMediaQuery } from '../hooks/useMediaQuery'

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const ExampleSelect = (props: any) => {
   const [examples, setExamples] = useState<{ name: string; hash: string }[]>([])

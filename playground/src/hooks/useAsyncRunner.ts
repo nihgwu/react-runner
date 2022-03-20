@@ -12,6 +12,7 @@ import { withFiles } from '../utils/withFiles'
 import { useUncaughtError } from './useUncaughtError'
 
 const esmCDN = import.meta.env.VITE_ESM_CDN
+const esmCDNQuery = import.meta.env.VITE_ESM_CDN_QUERY
 const cssCDN = import.meta.env.VITE_CSS_CDN
 
 const importModuleRegexp = /^import [^'"]* from ['"]([^\.'"\n ][^'"\n ]*)['"]/gm
@@ -66,7 +67,7 @@ const interopRequireDefault = (obj: any) => {
 const normalizeModule = (module: string) => {
   if (remoteRegexp.test(module)) return module
   if (module.endsWith('.css')) return `${cssCDN}${module}`
-  return `${esmCDN}${module}`
+  return `${esmCDN}${module}${esmCDNQuery}`
 }
 
 const normalizeJs = (code: string) => code.replace(importCssRegexp, '')

@@ -4,6 +4,7 @@ import { config } from 'dotenv'
 
 config()
 const esmCDN = process.env.VITE_ESM_CDN
+const esmCDNQuery = process.env.VITE_ESM_CDN_QUERY
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
@@ -17,8 +18,9 @@ export default defineConfig(({ command }) => ({
   ],
   resolve: {
     alias: {
-      react: `${esmCDN}react`,
-      'react-dom': `${esmCDN}react-dom`,
+      react: `${esmCDN}react${esmCDNQuery}`,
+      'react/jsx-runtime': `${esmCDN}react/jsx-runtime${esmCDNQuery}`,
+      'react-dom': `${esmCDN}react-dom${esmCDNQuery}`,
       sucrase: 'sucrase/dist/index.js',
     },
   },

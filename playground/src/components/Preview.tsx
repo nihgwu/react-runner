@@ -17,7 +17,7 @@ const baseScope = {
       render: (element: Parameters<typeof ReactDom.render>[0]) =>
         ReactDom.render(
           element,
-          document.getElementById('data-preview-element')
+          document.getElementById('root')
         ),
     },
   },
@@ -37,7 +37,7 @@ export const Preview = ({ files }: { files: Record<string, string> }) => {
     <div className={styles.Preview}>
       {isLoading && <div className={styles.PreviewLoading}></div>}
       <div className={styles.PreviewElementContainer}>
-        <div id="data-preview-element" className={styles.PreviewElement}>
+        <div id="root" className={styles.PreviewElement}>
           {element}
         </div>
       </div>

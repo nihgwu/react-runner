@@ -28,6 +28,10 @@
   & .cm-gutters {
     background-color: unset;
   }
+
+  & .cm-gutters {
+    backdrop-filter: blur(5px);
+  }
 }
 
 body {

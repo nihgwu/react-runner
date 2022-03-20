@@ -2,11 +2,7 @@ import { importCode, Scope } from 'react-runner'
 
 import { splitFileName } from './filename'
 
-export const withFiles = (
-  scope: Scope,
-  filesMap: Record<string, string>,
-  entry?: string
-) => {
+export const withFiles = (scope: Scope, filesMap: Record<string, string>) => {
   const files: Record<string, string> = Object.fromEntries(
     Object.entries(filesMap)
       .map(([key, value]) => {
@@ -61,14 +57,10 @@ export const withFiles = (
     },
   })
 
-  if (entry) {
-    importsProxy[`./${entry}`]
-  } else {
-    Object.keys(files).forEach((file) => {
-      imports[file] = importsProxy[file]
-      lookup.clear()
-    })
-  }
+  Object.keys(files).forEach((file) => {
+    imports[file] = importsProxy[file]
+    lookup.clear()
+  })
 
   return { ...scope, import: imports }
 }

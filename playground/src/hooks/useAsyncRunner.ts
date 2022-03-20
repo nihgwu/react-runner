@@ -65,14 +65,14 @@ const interopRequireDefault = (obj: any) => {
 }
 
 const normalizeModule = (module: string) => {
+  console.log(module)
   if (remoteRegexp.test(module)) return module
   if (module.endsWith('.css')) return `${cssCDN}${module}`
   return `${esmCDN}${module}${esmCDNQuery}`
 }
 
 const normalizeJs = (code: string) => code.replace(importCssRegexp, '')
-const normalizeCss = (code: string) =>
-  code.replace(/\bbody\b/g, '#data-preview-element')
+const normalizeCss = (code: string) => code.replace(/\bbody\b/g, '#root')
 
 const defaultImportsRevolvor = (
   moduleImports: string[],
@@ -147,11 +147,13 @@ export const useAsyncRunner = ({
     resolveImports(...extractedImports)
       .then(([importsMap, styleSheets]) => {
         if (controller.signal.aborted) return
+
+        const code = normalizeJs(files['App.tsx'])
         const jsFiles: Record<string, string> = {}
         const cssFiles: Record<string, string> = {}
         Object.keys(files).forEach((name) => {
           if (name.endsWith('.css')) cssFiles[name] = normalizeCss(files[name])
-          else jsFiles[name] = normalizeJs(files[name])
+          else if (name !== 'App.tsx') jsFiles[name] = normalizeJs(files[name])
         })
         Object.values(cssFiles).forEach((css) => {
           try {
@@ -163,7 +165,7 @@ export const useAsyncRunner = ({
         })
         if (controller.signal.aborted) return
         const element = createElement(Runner, {
-          code: jsFiles['App.tsx'],
+          code,
           scope: withFiles(
             {
               ...scopeRef.current,
@@ -173,8 +175,7 @@ export const useAsyncRunner = ({
                 ...importsMap,
               },
             },
-            jsFiles,
-            'App.tsx'
+            jsFiles
           ),
           onRendered: (error) => {
             if (controller.signal.aborted) return

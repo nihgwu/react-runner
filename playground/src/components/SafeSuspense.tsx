@@ -1,4 +1,4 @@
-import { Suspense, SuspenseProps } from 'react'
+import React, { Suspense, SuspenseProps } from 'react'
 
 import { useMounted } from '../hooks/useMounted'
 

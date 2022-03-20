@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, lazy } from 'react'
+import React, { useEffect, useState, useReducer, lazy } from 'react'
 
 import { Header } from './components/Header'
 import { TabBar } from './components/TabBar'

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Half1Icon, Half2Icon } from '@radix-ui/react-icons'
 
 export const ContrastButton = (props: JSX.IntrinsicElements['button']) => {

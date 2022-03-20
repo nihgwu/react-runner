@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Share1Icon, CopyIcon } from '@radix-ui/react-icons'
 
 export const ShareButton = (props: JSX.IntrinsicElements['button']) => {

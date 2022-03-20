@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import React, { MouseEvent } from 'react'
 import { PlusIcon, Cross1Icon } from '@radix-ui/react-icons'
 
 import styles from './TabBar.module.css'

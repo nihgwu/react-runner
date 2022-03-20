@@ -1,3 +1,4 @@
+import React from 'react'
 import clsx from 'clsx'
 import { GitHubLogoIcon, SunIcon, MoonIcon } from '@radix-ui/react-icons'
 

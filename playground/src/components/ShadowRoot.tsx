@@ -1,6 +1,6 @@
 // this component is not used anymore, keep it for reference
 
-import { useEffect, useRef, useState, FC } from "react";
+import React, { useEffect, useRef, useState, FC } from "react";
 import { createPortal } from "react-dom";
 
 type ShadowRootProps = JSX.IntrinsicElements["div"] & {

@@ -1,6 +1,6 @@
 {
   "name": "react-runner-codemirror",
-  "version": "0.2.2-alpha.0",
+  "version": "0.3.0",
   "description": "CodeMirror6 for react code editing",
   "homepage": "https://react-runner.vercel.app",
   "repository": {

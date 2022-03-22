@@ -12,7 +12,7 @@
     "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-live-runner": "^1.0.0-rc.2",
+    "react-live-runner": "latest",
     "react-scripts": "5.0.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"

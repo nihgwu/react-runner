@@ -734,10 +734,10 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-react-runner@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0-rc.2.tgz#3591d3893a6262af345154292627e76612968850"
-  integrity sha512-caUnpbSawzX1cF7f38tmM9+CMDNZNUypIeYPROWKW5UALmo28pfHrad7XL2HRbTku76hiGE60Kxp6CWItW1jRg==
+react-runner@latest:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0.tgz#297a4e0e6a784c1befc874cd88e3e9b3d5d40444"
+  integrity sha512-rkcWe7MZpUxsqQ6m7NzwPi99hd/CQYXgw/VEdyUDyuhdaLoskVg02tbG6+DDrIvL5HquVIJjnxlARM0fE+3Oyg==
   dependencies:
     sucrase "^3.10.1"
 

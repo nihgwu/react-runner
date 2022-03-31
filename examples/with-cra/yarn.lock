@@ -7029,13 +7029,6 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-app-rewired@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.2.1.tgz#84901ee1e3f26add0377ebec0b41bcdfce9fc211"
-  integrity sha512-uFQWTErXeLDrMzOJHKp0h8P1z0LV9HzPGsJ6adOtGlA/B9WfT6Shh4j2tLTTGlXOfiVx6w6iWpp7SOC5pvk+gA==
-  dependencies:
-    semver "^5.6.0"
-
 react-dev-utils@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-12.0.0.tgz#4eab12cdb95692a077616770b5988f0adf806526"
@@ -7090,13 +7083,13 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-live-runner@latest:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.0.tgz#f38ea23b81f73e1e7f8fc7c397558b82986575c9"
-  integrity sha512-ZeZ/huaDWQqpazBwOeGwc7FwDuyzTDuVohmF2Y4MO2Z7aucs/AmP68vH9/qyF/gfv12DpNJFrV+pylvKbwvEhA==
+react-live-runner@^1.0.1-alpha.1:
+  version "1.0.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.1-alpha.1.tgz#cad1f79b19739fcc655d9da640c920b86f711496"
+  integrity sha512-siujfKaqCXMGrFRXsQVpwRuf32K+E2T4JTmRxBa1pSzWDPnhRvCZ0fVK33yUvy/zONbHy3x8+gHrpr8qTMxHsg==
   dependencies:
     prism-react-renderer "^1.2.1"
-    react-runner "^1.0.0"
+    react-runner "^1.0.1-alpha.1"
     react-simple-code-editor "^0.11.0"
 
 react-refresh@^0.11.0:
@@ -7104,12 +7097,12 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-react-runner@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0.tgz#297a4e0e6a784c1befc874cd88e3e9b3d5d40444"
-  integrity sha512-rkcWe7MZpUxsqQ6m7NzwPi99hd/CQYXgw/VEdyUDyuhdaLoskVg02tbG6+DDrIvL5HquVIJjnxlARM0fE+3Oyg==
+react-runner@^1.0.1-alpha.1:
+  version "1.0.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.1-alpha.1.tgz#826e219a40c66966ccc20123682cc122f8b6dc0d"
+  integrity sha512-de61CvKuckz0c/gL/f2u0HKi4kuNBk9GzU7Pw3ZdhLITT7lfbvo6/Pv/IBURHhFk7vuO+wkYXjnStGMdwZAP1A==
   dependencies:
-    sucrase "^3.10.1"
+    sucrase-esm "^3.20.4"
 
 react-scripts@5.0.0:
   version "5.0.0"
@@ -7513,11 +7506,6 @@ semver@7.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
 
-semver@^5.6.0:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
-  integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
-
 semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
@@ -7905,10 +7893,10 @@ stylehacks@^5.1.0:
     browserslist "^4.16.6"
     postcss-selector-parser "^6.0.4"
 
-sucrase@^3.10.1:
-  version "3.20.3"
-  resolved "https://registry.yarnpkg.com/sucrase/-/sucrase-3.20.3.tgz#424f1e75b77f955724b06060f1ae708f5f0935cf"
-  integrity sha512-azqwq0/Bs6RzLAdb4dXxsCgMtAaD2hzmUr4UhSfsxO46JFPAwMnnb441B/qsudZiS6Ylea3JXZe3Q497lsgXzQ==
+sucrase-esm@^3.20.4:
+  version "3.20.4"
+  resolved "https://registry.yarnpkg.com/sucrase-esm/-/sucrase-esm-3.20.4.tgz#e1aac929c165483d69a1bb4cf237234051c9c55b"
+  integrity sha512-AT7yL3rXZqph/j8wKhgpvJNrUfhp1rcLWism5iaT9SZ7cutg+HCvkDhuEDXLjhdwsUz6/f8hw8kBfgQWqeoDsQ==
   dependencies:
     commander "^4.0.0"
     glob "7.1.6"

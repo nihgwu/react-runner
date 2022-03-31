@@ -1412,21 +1412,21 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-live-runner@latest:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.0.tgz#f38ea23b81f73e1e7f8fc7c397558b82986575c9"
-  integrity sha512-ZeZ/huaDWQqpazBwOeGwc7FwDuyzTDuVohmF2Y4MO2Z7aucs/AmP68vH9/qyF/gfv12DpNJFrV+pylvKbwvEhA==
+react-live-runner@^1.0.1-alpha.1:
+  version "1.0.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-live-runner/-/react-live-runner-1.0.1-alpha.1.tgz#cad1f79b19739fcc655d9da640c920b86f711496"
+  integrity sha512-siujfKaqCXMGrFRXsQVpwRuf32K+E2T4JTmRxBa1pSzWDPnhRvCZ0fVK33yUvy/zONbHy3x8+gHrpr8qTMxHsg==
   dependencies:
     prism-react-renderer "^1.2.1"
-    react-runner "^1.0.0"
+    react-runner "^1.0.1-alpha.1"
     react-simple-code-editor "^0.11.0"
 
-react-runner@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.0.tgz#297a4e0e6a784c1befc874cd88e3e9b3d5d40444"
-  integrity sha512-rkcWe7MZpUxsqQ6m7NzwPi99hd/CQYXgw/VEdyUDyuhdaLoskVg02tbG6+DDrIvL5HquVIJjnxlARM0fE+3Oyg==
+react-runner@^1.0.1-alpha.1:
+  version "1.0.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-runner/-/react-runner-1.0.1-alpha.1.tgz#826e219a40c66966ccc20123682cc122f8b6dc0d"
+  integrity sha512-de61CvKuckz0c/gL/f2u0HKi4kuNBk9GzU7Pw3ZdhLITT7lfbvo6/Pv/IBURHhFk7vuO+wkYXjnStGMdwZAP1A==
   dependencies:
-    sucrase "^3.10.1"
+    sucrase-esm "^3.20.4"
 
 react-simple-code-editor@^0.11.0:
   version "0.11.0"
@@ -1603,10 +1603,10 @@ styled-jsx@5.0.0:
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-5.0.0.tgz#816b4b92e07b1786c6b7111821750e0ba4d26e77"
   integrity sha512-qUqsWoBquEdERe10EW8vLp3jT25s/ssG1/qX5gZ4wu15OZpmSMFI2v+fWlRhLfykA5rFtlJ1ME8A8pm/peV4WA==
 
-sucrase@^3.10.1:
-  version "3.20.3"
-  resolved "https://registry.yarnpkg.com/sucrase/-/sucrase-3.20.3.tgz#424f1e75b77f955724b06060f1ae708f5f0935cf"
-  integrity sha512-azqwq0/Bs6RzLAdb4dXxsCgMtAaD2hzmUr4UhSfsxO46JFPAwMnnb441B/qsudZiS6Ylea3JXZe3Q497lsgXzQ==
+sucrase-esm@^3.20.4:
+  version "3.20.4"
+  resolved "https://registry.yarnpkg.com/sucrase-esm/-/sucrase-esm-3.20.4.tgz#e1aac929c165483d69a1bb4cf237234051c9c55b"
+  integrity sha512-AT7yL3rXZqph/j8wKhgpvJNrUfhp1rcLWism5iaT9SZ7cutg+HCvkDhuEDXLjhdwsUz6/f8hw8kBfgQWqeoDsQ==
   dependencies:
     commander "^4.0.0"
     glob "7.1.6"

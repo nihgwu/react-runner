@@ -8899,10 +8899,10 @@ stylehacks@^5.0.3:
     browserslist "^4.16.6"
     postcss-selector-parser "^6.0.4"
 
-sucrase-esm@^3.20.4:
-  version "3.20.4"
-  resolved "https://registry.yarnpkg.com/sucrase-esm/-/sucrase-esm-3.20.4.tgz#e1aac929c165483d69a1bb4cf237234051c9c55b"
-  integrity sha512-AT7yL3rXZqph/j8wKhgpvJNrUfhp1rcLWism5iaT9SZ7cutg+HCvkDhuEDXLjhdwsUz6/f8hw8kBfgQWqeoDsQ==
+sucrase-esm@^3.21.0:
+  version "3.21.0"
+  resolved "https://registry.yarnpkg.com/sucrase-esm/-/sucrase-esm-3.21.0.tgz#acf772b2e168594de72caa04dbfc19706ded8e62"
+  integrity sha512-RwdsUJFawSrj9jPuQyZpGHW/WwXc5xcUosGCuthPAJdOn/8GPdErDCbJTN9uCWBzcaxpmMxS6PwY3cLXY0VPjw==
   dependencies:
     commander "^4.0.0"
     glob "7.1.6"

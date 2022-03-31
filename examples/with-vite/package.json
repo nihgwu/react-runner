@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-live-runner": "latest"
+    "react-live-runner": "^1.0.1-alpha.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",

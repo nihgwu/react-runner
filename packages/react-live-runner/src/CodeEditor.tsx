@@ -23,6 +23,7 @@ export type CodeEditorProps = Omit<
   padding?: string | number
   theme?: Theme
   Prism?: PrismLib
+  highlight?: EditorProps['highlight']
   onChange?: (value: string) => void
 }
 
@@ -32,6 +33,7 @@ export const CodeEditor = ({
   language = 'jsx',
   theme = defaultTheme,
   Prism,
+  highlight,
   padding = 10,
   onChange,
   ...rest
@@ -64,8 +66,8 @@ export const CodeEditor = ({
 
   return (
     <Editor
-      highlight={highlightCode}
       {...rest}
+      highlight={highlight || highlightCode}
       padding={padding}
       value={isControlled ? controlledValue : uncontrolledValue}
       onValueChange={handleChange}

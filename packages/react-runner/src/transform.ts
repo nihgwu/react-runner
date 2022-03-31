@@ -1,4 +1,4 @@
-import { transform as _transform } from 'sucrase'
+import { transform as _transform } from 'sucrase-esm'
 
 export const transform = (code: string) => {
   return _transform(code, {

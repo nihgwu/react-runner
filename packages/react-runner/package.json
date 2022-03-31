@@ -39,7 +39,7 @@
     "prettier": "prettier --write '**/src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "sucrase": "^3.10.1"
+    "sucrase-esm": "^3.21.0"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17 || ^18",

@@ -20,7 +20,6 @@ export default defineConfig({
     alias: {
       react: `${esmCDN}react@17.0.2?pin=v74`,
       'react-dom': `${esmCDN}react-dom@17.0.2?pin=v74`,
-      sucrase: 'sucrase/dist/index.js',
     },
   },
   css: {

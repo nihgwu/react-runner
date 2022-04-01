@@ -14,7 +14,7 @@ self.addEventListener('fetch', async (event) => {
 
   event.respondWith(
     (async function () {
-      const cache = await caches.open('v0')
+      const cache = await caches.open('v1')
       if (shouldPatchReact(url)) {
         return createScriptResponse(reactScript)
       }

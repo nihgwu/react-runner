@@ -18,8 +18,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      react: `${esmCDN}react@17.0.2?pin=v74`,
-      'react-dom': `${esmCDN}react-dom@17.0.2?pin=v74`,
+      react: `${esmCDN}react${esmCDNQuery}`,
+      'react-dom': `${esmCDN}react-dom${esmCDNQuery}`,
     },
   },
   css: {

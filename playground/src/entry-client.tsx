@@ -1,12 +1,7 @@
-import React, { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(() => import('./main'))
+  })
+}
 
-import './index.css'
-import App from './App'
-
-ReactDOM.hydrate(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-  document.getElementById('app-root')
-)
+export {}

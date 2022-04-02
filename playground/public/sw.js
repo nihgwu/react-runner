@@ -5,16 +5,34 @@ self.addEventListener('install', function (event) {
 })
 
 self.addEventListener('activate', function (event) {
-  event.waitUntil(self.clients.claim())
+  const expectedCacheNames = ['esm.sh']
+  event.waitUntil(
+    self.clients.claim().then(() =>
+      caches.keys().then(function (cacheNames) {
+        return Promise.all(
+          cacheNames.map(function (cacheName) {
+            if (!expectedCacheNames.includes(cacheName)) {
+              return caches.delete(cacheName)
+            }
+          })
+        )
+      })
+    )
+  )
 })
 
-self.addEventListener('fetch', async (event) => {
+self.addEventListener('fetch', function (event) {
+  if (event.request.method !== 'GET') return
+
   const url = event.request.url
-  if (!url.startsWith('http') || event.request.method !== 'GET') return
+  const scope = self.registration.scope
+  if (!url.startsWith(scope) && !/^https:\/\/(cdn.)?esm.sh\//.test(url)) return
 
   event.respondWith(
     (async function () {
-      const cache = await caches.open('v1')
+      const cachedResponse = await caches.match(event.request)
+      if (cachedResponse) return cachedResponse
+
       if (shouldPatchReact(url)) {
         return createScriptResponse(reactScript)
       }
@@ -25,12 +43,13 @@ self.addEventListener('fetch', async (event) => {
         return createScriptResponse(reactDOMScript)
       }
 
-      const cachedResponse = await cache.match(event.request)
-      if (cachedResponse) return cachedResponse
-
       const networkResponse = await fetch(event.request)
-      event.waitUntil(cache.put(event.request, networkResponse.clone()))
-      return networkResponse
+      if (networkResponse.ok) {
+        caches
+          .open(url.startsWith(scope) ? 'web' : 'esm.sh')
+          .then((cache) => cache.put(event.request, networkResponse))
+      }
+      return networkResponse.clone()
     })()
   )
 })

@@ -1,6 +1,6 @@
 {
   "name": "react-runner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Run your React code on the go",
   "homepage": "https://react-runner.vercel.app",
   "repository": {

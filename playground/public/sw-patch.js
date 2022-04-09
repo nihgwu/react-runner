@@ -20,10 +20,10 @@ const createScriptResponse = (content) =>
   })
 
 const shouldPatchReact = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2).*react.js$/.test(url)
+  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2\/es2021).*react.js$/.test(url)
 
 const shoulePatchJsxRuntime = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2).*jsx-runtime.js$/.test(url)
+  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2\/es2021).*jsx-runtime.js$/.test(url)
 
 const shouldPatchReactDom = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react-dom@(?!17.0.2).*/.test(url)
+  /^https:\/\/cdn.esm.sh\/v74\/react-dom@(?!17.0.2\/es2021).*/.test(url)

@@ -33,14 +33,9 @@ self.addEventListener('fetch', function (event) {
       const cachedResponse = await caches.match(event.request)
       if (cachedResponse) return cachedResponse
 
-      if (shouldPatchReact(url)) {
-        return createScriptResponse(reactScript)
-      }
-      if (shoulePatchJsxRuntime(url)) {
-        return createScriptResponse(jsxRuntimeScript)
-      }
-      if (shouldPatchReactDom(url)) {
-        return createScriptResponse(reactDOMScript)
+      for (const pkg of packagesToPatch) {
+        const patch = createPatch(url, pkg)
+        if (patch) return patch
       }
 
       const networkResponse = await fetch(event.request)

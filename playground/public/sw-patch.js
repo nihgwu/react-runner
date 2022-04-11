@@ -1,29 +1,31 @@
-const reactScript = `/* esm.sh - react@17.0.2 */
-export * from "https://cdn.esm.sh/v74/react@17.0.2/es2021/react.js";
-export { default } from "https://cdn.esm.sh/v74/react@17.0.2/es2021/react.js";
-`
+const createPatch = (url, pkg) => {
+  const name = pkg.split('/')[0]
+  const entry = `${pkg.split('/')[1] || name}.js`
+  const target = `https://cdn.esm.sh/v77/${name}@17.0.2/es2021/${entry}`
+  if (
+    new RegExp(`^https://cdn.esm.sh/v\\d+/${name}@.*${entry}$`).test(url) &&
+    url !== target
+  ) {
+    return new Response(
+      `/* esm.sh lock ${pkg} to @17.0.2/es2021 */
+export * from "${target}";
+export { default } from "${target}"`,
+      {
+        headers: {
+          'content-type': 'application/javascript; charset=utf-8',
+        },
+        status: 200,
+      }
+    )
+  }
+}
 
-const reactDOMScript = `/* esm.sh - react-dom@17.0.2 */
-export * from "https://cdn.esm.sh/v74/react-dom@17.0.2/es2021/react-dom.js";
-export { default } from "https://cdn.esm.sh/v74/react-dom@17.0.2/es2021/react-dom.js";`
-
-const jsxRuntimeScript = `/* esm.sh - react@17.0.2/jsx-runtime */
-export * from "https://cdn.esm.sh/v74/react@17.0.2/es2021/jsx-runtime.js";
-export { default } from "https://cdn.esm.sh/v74/react@17.0.2/es2021/jsx-runtime.js";`
-
-const createScriptResponse = (content) =>
-  new Response(content, {
-    headers: {
-      'content-type': 'application/javascript; charset=utf-8',
-    },
-    status: 200,
-  })
-
-const shouldPatchReact = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2\/es2021).*react.js$/.test(url)
-
-const shoulePatchJsxRuntime = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react@(?!17.0.2\/es2021).*jsx-runtime.js$/.test(url)
-
-const shouldPatchReactDom = (url) =>
-  /^https:\/\/cdn.esm.sh\/v74\/react-dom@(?!17.0.2\/es2021).*/.test(url)
+const packagesToPatch = [
+  'react',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
+  'react-dom',
+  'react-dom/client',
+  'react-dom/server',
+  'react-dom/test-utils',
+]

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { ReactNode } from 'react'
 
 import { LiveContext } from './LiveContext'
 import { useLiveRunner, UseLiveRunnerProps } from './useLiveRunner'
@@ -6,6 +6,7 @@ import { Language, Theme } from './types'
 import defaultTheme from './defaultTheme'
 
 export type LiveProviderProps = Omit<UseLiveRunnerProps, 'initialCode'> & {
+  children?: ReactNode
   /** initial code for the live runner */
   code?: string
   /** language for syntax highlighting */
@@ -14,13 +15,13 @@ export type LiveProviderProps = Omit<UseLiveRunnerProps, 'initialCode'> & {
   theme?: Theme
 }
 
-export const LiveProvider: FC<LiveProviderProps> = ({
+export const LiveProvider = ({
   children,
   code: initialCode = '',
   language = 'jsx',
   theme = defaultTheme,
   ...rest
-}) => {
+}: LiveProviderProps) => {
   const { element, error, code, onChange } = useLiveRunner({
     initialCode,
     ...rest,

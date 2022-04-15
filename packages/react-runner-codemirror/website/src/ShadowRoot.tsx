@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState, FC } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-export const ShadowRoot: FC<JSX.IntrinsicElements['div']> = ({
+export const ShadowRoot = ({
   children,
   ...rest
-}) => {
+}: JSX.IntrinsicElements['div']) => {
   const ref = useRef<HTMLDivElement>(null)
   const [shadowRoot, setShadowRoot] = useState<ShadowRoot>()
 

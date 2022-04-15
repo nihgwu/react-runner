@@ -8,7 +8,7 @@ export const transform = (code: string) => {
 }
 
 const firstStatementRegexp =
-  /^(\s*)(<[^>]*>|function[\(\s]|\(\)[\s=]|class\s)(.*)/
+  /^(\s*)(<[^>]*>|function[(\s]|\(\)[\s=]|class\s)(.*)/
 
 export const normalizeCode = (code: string) => {
   return code.replace(firstStatementRegexp, '$1export default $2$3')

@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, CSSProperties } from 'react'
+import React, { ComponentPropsWithoutRef, CSSProperties, Fragment } from 'react'
 import Highlight, { Prism as defaultPrism } from 'prism-react-renderer'
 
 import { Language, Theme, PrismLib } from './types'
@@ -38,11 +38,14 @@ export const CodeBlock = ({
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => {
         const children = tokens.map((line, i) => (
-          <div {...getLineProps({ line, key: i })}>
-            {line.map((token, key) => (
-              <span {...getTokenProps({ token, key })} />
-            ))}
-          </div>
+          <Fragment key={i}>
+            <span {...getLineProps({ line })}>
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+              ))}
+            </span>
+            {'\n'}
+          </Fragment>
         ))
 
         if (noWrapper) return children

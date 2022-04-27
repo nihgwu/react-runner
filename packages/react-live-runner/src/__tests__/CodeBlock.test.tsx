@@ -22,5 +22,5 @@ test('noWrap', () => {
 test('children', () => {
   render(<CodeBlock data-testid="block">world</CodeBlock>)
 
-  expect(screen.getByTestId('block').textContent).toBe('world')
+  expect(screen.getByTestId('block').textContent).toBe('world\n')
 })

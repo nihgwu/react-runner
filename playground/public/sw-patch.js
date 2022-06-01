@@ -1,9 +1,9 @@
 const createPatch = (url, pkg) => {
   const name = pkg.split('/')[0]
   const entry = `${pkg.split('/')[1] || name}.js`
-  const target = `https://cdn.esm.sh/v77/${name}@17.0.2/es2021/${entry}`
+  const target = `https://esm.sh/v85/${name}@17.0.2/es2021/${entry}`
   if (
-    new RegExp(`^https://cdn.esm.sh/v\\d+/${name}@.*${entry}$`).test(url) &&
+    new RegExp(`^https://(cdn.)?esm.sh/v\\d+/${name}@.*${entry}$`).test(url) &&
     url !== target
   ) {
     return new Response(

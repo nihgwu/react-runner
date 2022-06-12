@@ -170,6 +170,10 @@ export const useAsyncRunner = ({
               ...scopeRef.current,
               import: {
                 react: React,
+                ...Object.keys(cssFiles).reduce((acc, name) => {
+                  acc[`./${name}`] = undefined
+                  return acc
+                }, {} as Record<string, undefined>),
                 ...scopeRef.current?.import,
                 ...importsMap,
               },

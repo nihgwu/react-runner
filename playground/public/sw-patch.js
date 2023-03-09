@@ -1,13 +1,15 @@
 const createPatch = (url, pkg) => {
   const name = pkg.split('/')[0]
   const entry = `${pkg.split('/')[1] || name}.js`
-  const target = `https://esm.sh/v85/${name}@17.0.2/es2021/${entry}`
+  const target = `https://esm.sh/v111/${name}@17.0.2/es2022/${entry}`
   if (
-    new RegExp(`^https://(cdn.)?esm.sh/v\\d+/${name}@.*${entry}$`).test(url) &&
+    new RegExp(
+      `^https://(cdn.)?esm.sh/(v\\d+|stable)/${name}@.*${entry}$`
+    ).test(url) &&
     url !== target
   ) {
     return new Response(
-      `/* esm.sh lock ${pkg} to @17.0.2/es2021 */
+      `/* esm.sh lock ${pkg} to @17.0.2/es2022 */
 export * from "${target}";
 export { default } from "${target}"`,
       {

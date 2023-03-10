@@ -13,17 +13,14 @@ import defaultTheme from './defaultTheme'
 
 type EditorProps = ComponentPropsWithoutRef<typeof Editor>
 
-export type CodeEditorProps = Omit<
-  EditorProps,
-  'defaultValue' | 'value' | 'onValueChange' | 'highlight' | 'onChange'
+export type CodeEditorProps = Partial<
+  Omit<EditorProps, 'defaultValue' | 'value' | 'onValueChange' | 'onChange'>
 > & {
   defaultValue?: string
   value?: string
   language?: Language
-  padding?: string | number
   theme?: Theme
   Prism?: PrismLib
-  highlight?: EditorProps['highlight']
   onChange?: (value: string) => void
 }
 

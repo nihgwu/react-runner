@@ -22,17 +22,6 @@ const config: any = {
 }
 
 export const transform = (code: string) => {
-  console.time('swc')
-  _transform(code, config).code.substring(13)
-  console.timeEnd('swc')
-
-  // console.time('sucrase')
-  // _transform1(code, {
-  //   transforms: ['jsx', 'typescript', 'imports'],
-  //   production: true,
-  // }).code.substring(13)
-  console.timeEnd('sucrase')
-
   return _transform(code, config).code.substring(13) // remove leading `"use strict";`
 }
 

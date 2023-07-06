@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 import { importCode, Runner, Scope } from 'react-runner'
 
@@ -81,8 +81,20 @@ export const MultiFilesExample = () => {
   const [importsError, setImportsError] = useState<string | null>(null)
   const [renderError, setRenderError] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
+  const [readied, setReadied] = useState(false)
+
+  useEffect(() => {
+    import('@swc/wasm-web/wasm-web').then((mod) => {
+      mod.default().then(() => {
+        setReadied(true)
+      })
+    })
+  }, [])
 
   const scope = useMemo(() => {
+    if (!readied) {
+      return {}
+    }
     try {
       const scope = withFiles(baseScope, {
         './AddTask.js': codes[1],
@@ -95,7 +107,7 @@ export const MultiFilesExample = () => {
         `${error.filename ? `[${error.filename}] ` : ''}${error.toString()}`
       )
     }
-  }, [codes, importsError])
+  }, [codes, importsError, readied])
 
   return (
     <>
@@ -113,7 +125,7 @@ export const MultiFilesExample = () => {
           <Preview>
             {importsError ? (
               <PreviewError>{importsError}</PreviewError>
-            ) : (
+            ) : readied ? (
               <Runner
                 code={codes[0]}
                 scope={scope}
@@ -125,7 +137,7 @@ export const MultiFilesExample = () => {
                   }
                 }}
               />
-            )}
+            ) : null}
           </Preview>
           {renderError && <PreviewError>{renderError}</PreviewError>}
         </PreviewContainer>

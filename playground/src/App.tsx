@@ -2,7 +2,6 @@ import React, { useEffect, useState, useReducer, lazy } from 'react'
 
 import { Header } from './components/Header'
 import { TabBar } from './components/TabBar'
-import { Preview } from './components/Preview'
 import { ResizePane } from './components/ResizePane'
 import { SafeSuspense } from './components/SafeSuspense'
 import { getHash, getHashFiles, updateHash } from './utils/urlHash'
@@ -10,6 +9,14 @@ import { defaultHash } from './utils/defaultHash'
 import styles from './App.module.css'
 
 const Editor = lazy(() => import('./components/Editor'))
+const Preview = lazy(
+  () =>
+    new Promise((res) => {
+      import('./components/Preview').then(({ Preview }) => {
+        res({ default: Preview })
+      })
+    })
+)
 
 const supportedExts = ['js', 'jsx', 'ts', 'tsx', 'css']
 const supportedExtsText = supportedExts.map((x) => `.${x}`).join(' ,')
@@ -102,7 +109,9 @@ function App() {
           </SafeSuspense>
         </ResizePane>
         <div className={styles.PreviewPane}>
-          <Preview files={files} />
+          <SafeSuspense fallback={null}>
+            <Preview files={files} />
+          </SafeSuspense>
         </div>
       </div>
     </>

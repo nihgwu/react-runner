@@ -39,6 +39,7 @@
     "prettier": "prettier --write '**/src/**/*.{ts,tsx}'"
   },
   "dependencies": {
+    "@swc/wasm-web": "^1.3.66",
     "sucrase": "^3.21.0"
   },
   "peerDependencies": {

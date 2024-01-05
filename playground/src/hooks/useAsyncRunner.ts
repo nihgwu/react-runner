@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import 'construct-style-sheets-polyfill'
 import { Runner, UseRunnerProps, UseRunnerReturn } from 'react-runner'
+import wasmUrl from '@swc/wasm-web/wasm-web_bg.wasm?url'
 
 import { withFiles } from '../utils/withFiles'
 import { useUncaughtError } from './useUncaughtError'
@@ -127,88 +128,108 @@ export const useAsyncRunner = ({
     error: null,
   })
 
+  const [readied, setReadied] = useState(false)
+
   useEffect(() => {
-    const controller = new AbortController()
-    const code = Object.values(files).join('\n\n')
-    const trimmedCode = code.trim()
-    const extractedImports = extractImports(
-      trimmedCode,
-      Object.keys(scopeRef.current?.import || {})
-    )
-    if (extractedImports[0].length || extractedImports[1].length) {
-      setState({
-        isLoading: true,
-        element: disableCache ? null : elementRef.current,
-        styleSheets: disableCache ? [] : styleSheetsRef.current,
-        error: null,
+    import('@swc/wasm-web/wasm-web').then((mod) => {
+      console.log(wasmUrl)
+      mod.default(wasmUrl).then(() => {
+        console.log(mod)
+        setReadied(true)
       })
-    }
-    resolveImports(...extractedImports)
-      .then(([importsMap, styleSheets]) => {
-        if (controller.signal.aborted) return
+    })
+  }, [])
 
-        const code = normalizeJs(files['App.tsx'])
-        const jsFiles: Record<string, string> = {}
-        const cssFiles: Record<string, string> = {}
-        Object.keys(files).forEach((name) => {
-          if (name.endsWith('.css')) cssFiles[name] = normalizeCss(files[name])
-          else if (name !== 'App.tsx') jsFiles[name] = normalizeJs(files[name])
-        })
-        Object.values(cssFiles).forEach((css) => {
-          try {
-            const style = new CSSStyleSheet()
-            style.replaceSync(css)
-
-            styleSheets.push(style)
-          } catch {}
-        })
-        if (controller.signal.aborted) return
-        const element = createElement(Runner, {
-          code,
-          scope: withFiles(
-            {
-              ...scopeRef.current,
-              import: {
-                react: React,
-                ...Object.keys(cssFiles).reduce((acc, name) => {
-                  acc[`./${name}`] = undefined
-                  return acc
-                }, {} as Record<string, undefined>),
-                ...scopeRef.current?.import,
-                ...importsMap,
-              },
-            },
-            jsFiles
-          ),
-          onRendered: (error) => {
-            if (controller.signal.aborted) return
-            if (error) {
-              setState({
-                isLoading: false,
-                element: disableCache ? null : elementRef.current,
-                styleSheets: disableCache ? [] : styleSheetsRef.current,
-                error: error.toString(),
-              })
-            } else {
-              elementRef.current = element
-              styleSheetsRef.current = styleSheets
-            }
-          },
-        })
-        if (controller.signal.aborted) return
-        setState({ isLoading: false, element, styleSheets, error: null })
-      })
-      .catch((error: Error) => {
+  useEffect(() => {
+    if (readied) {
+      console.log(readied)
+      const controller = new AbortController()
+      const code = Object.values(files).join('\n\n')
+      const trimmedCode = code.trim()
+      const extractedImports = extractImports(
+        trimmedCode,
+        Object.keys(scopeRef.current?.import || {})
+      )
+      if (extractedImports[0].length || extractedImports[1].length) {
         setState({
-          isLoading: false,
+          isLoading: true,
           element: disableCache ? null : elementRef.current,
           styleSheets: disableCache ? [] : styleSheetsRef.current,
-          error: error.toString().replace(esmCDN, '').replace(esmCDNQuery, ''),
+          error: null,
         })
-      })
+      }
+      resolveImports(...extractedImports)
+        .then(([importsMap, styleSheets]) => {
+          if (controller.signal.aborted) return
 
-    return () => controller.abort()
-  }, [files, disableCache])
+          const code = normalizeJs(files['App.tsx'])
+          const jsFiles: Record<string, string> = {}
+          const cssFiles: Record<string, string> = {}
+          Object.keys(files).forEach((name) => {
+            if (name.endsWith('.css'))
+              cssFiles[name] = normalizeCss(files[name])
+            else if (name !== 'App.tsx')
+              jsFiles[name] = normalizeJs(files[name])
+          })
+          Object.values(cssFiles).forEach((css) => {
+            try {
+              const style = new CSSStyleSheet()
+              style.replaceSync(css)
+
+              styleSheets.push(style)
+            } catch {}
+          })
+          if (controller.signal.aborted) return
+          const element = createElement(Runner, {
+            code,
+            scope: withFiles(
+              {
+                ...scopeRef.current,
+                import: {
+                  react: React,
+                  ...Object.keys(cssFiles).reduce((acc, name) => {
+                    acc[`./${name}`] = undefined
+                    return acc
+                  }, {} as Record<string, undefined>),
+                  ...scopeRef.current?.import,
+                  ...importsMap,
+                },
+              },
+              jsFiles
+            ),
+            onRendered: (error) => {
+              if (controller.signal.aborted) return
+              if (error) {
+                setState({
+                  isLoading: false,
+                  element: disableCache ? null : elementRef.current,
+                  styleSheets: disableCache ? [] : styleSheetsRef.current,
+                  error: error.toString(),
+                })
+              } else {
+                elementRef.current = element
+                styleSheetsRef.current = styleSheets
+              }
+            },
+          })
+          if (controller.signal.aborted) return
+          setState({ isLoading: false, element, styleSheets, error: null })
+        })
+        .catch((error: Error) => {
+          setState({
+            isLoading: false,
+            element: disableCache ? null : elementRef.current,
+            styleSheets: disableCache ? [] : styleSheetsRef.current,
+            error: error
+              .toString()
+              .replace(esmCDN, '')
+              .replace(esmCDNQuery, ''),
+          })
+        })
+
+      return () => controller.abort()
+    }
+  }, [files, disableCache, readied])
 
   useUncaughtError((error) => {
     setState({

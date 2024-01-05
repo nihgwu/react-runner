@@ -1,5 +1,5 @@
 import { Component, ReactElement } from 'react'
-
+import init from '@swc/wasm-web/wasm-web'
 import { generateElement } from './utils'
 import { RunnerOptions, Scope } from './types'
 
@@ -13,6 +13,13 @@ type RunnerState = {
   error: Error | null
   prevCode: string | null
   prevScope: Scope | undefined
+  readied: boolean
+}
+let drive: ReturnType<typeof init>
+
+export function setDrive(swc?: Parameters<typeof init> | string) {
+  drive = drive || init(swc)
+  return drive
 }
 
 export class Runner extends Component<RunnerProps, RunnerState> {
@@ -21,6 +28,7 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     error: null,
     prevCode: null,
     prevScope: undefined,
+    readied: false,
   }
 
   static getDerivedStateFromProps(
@@ -28,6 +36,9 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     state: RunnerState
   ): Partial<RunnerState> | null {
     // only regenerate on code/scope change
+    if (!state.readied) {
+      return null
+    }
     if (state.prevCode === props.code && state.prevScope === props.scope) {
       return null
     }
@@ -54,14 +65,24 @@ export class Runner extends Component<RunnerProps, RunnerState> {
   }
 
   componentDidMount() {
-    this.props.onRendered?.(this.state.error || undefined)
+    if (this.state.readied) {
+      this.props.onRendered?.(this.state.error || undefined)
+    } else {
+      setDrive()
+      drive.then(() => {
+        this.setState({
+          readied: true,
+        })
+      })
+    }
   }
 
   shouldComponentUpdate(nextProps: RunnerProps, nextState: RunnerState) {
     return (
       nextProps.code !== this.props.code ||
       nextProps.scope !== this.props.scope ||
-      nextState.error !== this.state.error
+      nextState.error !== this.state.error ||
+      nextState.readied !== this.state.readied
     )
   }
 

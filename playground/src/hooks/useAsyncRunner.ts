@@ -6,7 +6,7 @@ import React, {
   ReactElement,
 } from 'react'
 import 'construct-style-sheets-polyfill'
-import { Runner, UseRunnerProps, UseRunnerReturn } from 'react-runner'
+import { Runner, UseRunnerProps, UseRunnerReturn, setDrive } from 'react-runner'
 import wasmUrl from '@swc/wasm-web/wasm-web_bg.wasm?url'
 
 import { withFiles } from '../utils/withFiles'
@@ -15,6 +15,8 @@ import { useUncaughtError } from './useUncaughtError'
 const esmCDN = import.meta.env.VITE_ESM_CDN
 const esmCDNQuery = import.meta.env.VITE_ESM_CDN_QUERY
 const cssCDN = import.meta.env.VITE_CSS_CDN
+
+const Swc = setDrive(wasmUrl)
 
 const importModuleRegexp = /^import [^'"]* from ['"]([^\.'"\n ][^'"\n ]*)['"]/gm
 const importCssRegexp = /^import +['"]([^\.'"\n ][^'"\n ]*\.css)['"]/gm
@@ -119,6 +121,7 @@ export const useAsyncRunner = ({
   const elementRef = useRef<ReactElement | null>(null)
   const styleSheetsRef = useRef<CSSStyleSheet[]>([])
   const scopeRef = useRef(scope)
+  const [loadSwc, setLoadSwc] = useState(true)
   scopeRef.current = scope
 
   const [state, setState] = useState<UseAsyncRunnerReturn>({
@@ -128,21 +131,14 @@ export const useAsyncRunner = ({
     error: null,
   })
 
-  const [readied, setReadied] = useState(false)
-
   useEffect(() => {
-    import('@swc/wasm-web/wasm-web').then((mod) => {
-      console.log(wasmUrl)
-      mod.default(wasmUrl).then(() => {
-        console.log(mod)
-        setReadied(true)
-      })
+    Swc.then(() => {
+      setLoadSwc(false)
     })
   }, [])
 
   useEffect(() => {
-    if (readied) {
-      console.log(readied)
+    if (!loadSwc) {
       const controller = new AbortController()
       const code = Object.values(files).join('\n\n')
       const trimmedCode = code.trim()
@@ -229,7 +225,7 @@ export const useAsyncRunner = ({
 
       return () => controller.abort()
     }
-  }, [files, disableCache, readied])
+  }, [files, disableCache, loadSwc])
 
   useUncaughtError((error) => {
     setState({

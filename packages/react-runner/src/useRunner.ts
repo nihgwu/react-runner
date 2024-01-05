@@ -3,8 +3,6 @@ import { useState, useRef, useEffect, createElement, ReactElement } from 'react'
 import { Runner } from './Runner'
 import { RunnerOptions } from './types'
 
-import init from '@swc/wasm-web/wasm-web'
-
 export type UseRunnerProps = RunnerOptions & {
   /** whether to cache previous element when error occurs with current code */
   disableCache?: boolean
@@ -20,28 +18,13 @@ export const useRunner = ({
   scope,
   disableCache,
 }: UseRunnerProps): UseRunnerReturn => {
-  const isMountRef = useRef(true)
   const elementRef = useRef<ReactElement | null>(null)
-  const [readied, setReadied] = useState(false)
 
   const [state, setState] = useState<UseRunnerReturn>(() => {
     return { element: null, error: null }
   })
-  useEffect(() => {
-    init().then(() => {
-      setReadied(true)
-    })
-  }, [])
 
   useEffect(() => {
-    if (isMountRef.current) {
-      isMountRef.current = false
-      return
-    }
-    if (!readied) {
-      return
-    }
-    console.log(readied, 'readied')
     const element = createElement(Runner, {
       code,
       scope,
@@ -57,7 +40,7 @@ export const useRunner = ({
       },
     })
     setState({ element, error: null })
-  }, [code, scope, disableCache, readied])
+  }, [code, scope, disableCache])
 
   return state
 }

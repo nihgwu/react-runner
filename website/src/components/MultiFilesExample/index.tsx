@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { importCode, Runner, Scope } from 'react-runner'
 
@@ -72,6 +72,10 @@ const baseScope = {
   },
 }
 
+const defaultCode = `
+export default function App(){return null}
+`
+
 export const MultiFilesExample = () => {
   const [codes, setCodes] = useState<string[]>([
     todoApp,
@@ -82,26 +86,17 @@ export const MultiFilesExample = () => {
   const [renderError, setRenderError] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
   const [readied, setReadied] = useState(false)
-
-  useEffect(() => {
-    import('@swc/wasm-web/wasm-web').then((mod) => {
-      mod.default().then(() => {
-        setReadied(true)
-      })
-    })
-  }, [])
-
   const scope = useMemo(() => {
-    if (!readied) {
-      return {}
-    }
     try {
-      const scope = withFiles(baseScope, {
-        './AddTask.js': codes[1],
-        './TaskList.js': codes[2],
-      })
-      if (importsError) setImportsError(null)
-      return scope
+      if (readied) {
+        const scope = withFiles(baseScope, {
+          './AddTask.js': codes[1],
+          './TaskList.js': codes[2],
+        })
+        if (importsError) setImportsError(null)
+        return scope
+      }
+      return baseScope
     } catch (error) {
       setImportsError(
         `${error.filename ? `[${error.filename}] ` : ''}${error.toString()}`
@@ -125,7 +120,7 @@ export const MultiFilesExample = () => {
           <Preview>
             {importsError ? (
               <PreviewError>{importsError}</PreviewError>
-            ) : readied ? (
+            ) : (
               <Runner
                 code={codes[0]}
                 scope={scope}
@@ -135,9 +130,10 @@ export const MultiFilesExample = () => {
                   } else if (renderError) {
                     setRenderError(null)
                   }
+                  setReadied(true)
                 }}
               />
-            ) : null}
+            )}
           </Preview>
           {renderError && <PreviewError>{renderError}</PreviewError>}
         </PreviewContainer>

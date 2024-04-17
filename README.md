@@ -137,7 +137,7 @@ const { element, error, code, onChange } = useLiveRunner({
 
 ...
 <>
-  <CodeEditor value={code} onChange={onChange}>
+  <CodeEditor value={code} onChange={onChange} />
   <div>{element}</div>
   {error && <pre>{error}</pre>}
 </>

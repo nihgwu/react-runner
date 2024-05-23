@@ -21,7 +21,8 @@
   "unpkg": "dist/index.umd.js",
   "exports": {
     "require": "./dist/index.js",
-    "default": "./dist/index.modern.js"
+    "default": "./dist/index.modern.js",
+    "types": "./dist/index.d.ts"
   },
   "types": "dist/index.d.ts",
   "sideEffects": false,

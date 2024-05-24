@@ -18,33 +18,13 @@ export const useRunner = ({
   scope,
   disableCache,
 }: UseRunnerProps): UseRunnerReturn => {
-  const isMountRef = useRef(true)
   const elementRef = useRef<ReactElement | null>(null)
 
   const [state, setState] = useState<UseRunnerReturn>(() => {
-    const element = createElement(Runner, {
-      code,
-      scope,
-      onRendered: (error) => {
-        if (error) {
-          setState({
-            element: disableCache ? null : elementRef.current,
-            error: error.toString(),
-          })
-        } else {
-          elementRef.current = element
-        }
-      },
-    })
-    return { element, error: null }
+    return { element: null, error: null }
   })
 
   useEffect(() => {
-    if (isMountRef.current) {
-      isMountRef.current = false
-      return
-    }
-
     const element = createElement(Runner, {
       code,
       scope,

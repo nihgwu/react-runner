@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.5...react-live-runner@1.0.6) (2024-06-02)
+
+
+### Bug Fixes
+
+* types export ([#172](https://github.com/nihgwu/react-runner/issues/172)) ([0dc0181](https://github.com/nihgwu/react-runner/commit/0dc0181e0584ec98c968664800144056f545c08a))
+
+
+
+
+
 ## [1.0.5](https://github.com/nihgwu/react-runner/compare/react-live-runner@1.0.4...react-live-runner@1.0.5) (2023-03-20)
 
 **Note:** Version bump only for package react-live-runner

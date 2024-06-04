@@ -20,9 +20,9 @@
   "module": "dist/index.esm.js",
   "unpkg": "dist/index.umd.js",
   "exports": {
+    "types": "./dist/index.d.ts",
     "require": "./dist/index.js",
-    "default": "./dist/index.modern.js",
-    "types": "./dist/index.d.ts"
+    "default": "./dist/index.modern.js"
   },
   "types": "dist/index.d.ts",
   "sideEffects": false,

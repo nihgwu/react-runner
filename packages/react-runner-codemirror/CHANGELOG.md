@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.4](https://github.com/nihgwu/react-runner/compare/react-runner-codemirror@0.3.3...react-runner-codemirror@0.3.4) (2024-06-05)
+
+
+### Bug Fixes
+
+* Default condition should be last one ([#173](https://github.com/nihgwu/react-runner/issues/173)) ([2878890](https://github.com/nihgwu/react-runner/commit/287889039b547adb86dd48f885f959f6911c1352))
+
+
+
+
+
 ## [0.3.3](https://github.com/nihgwu/react-runner/compare/react-runner-codemirror@0.3.2...react-runner-codemirror@0.3.3) (2024-06-02)
 
 

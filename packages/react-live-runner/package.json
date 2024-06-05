@@ -1,6 +1,6 @@
 {
   "name": "react-live-runner",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Run your React code on the go",
   "homepage": "https://react-runner.vercel.app",
   "repository": {
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "prism-react-renderer": "^1.2.1",
-    "react-runner": "^1.0.4",
+    "react-runner": "^1.0.5",
     "react-simple-code-editor": "^0.13.1"
   },
   "peerDependencies": {

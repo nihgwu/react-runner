@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.4...react-runner@1.0.5) (2024-06-05)
+
+
+### Bug Fixes
+
+* Default condition should be last one ([#173](https://github.com/nihgwu/react-runner/issues/173)) ([2878890](https://github.com/nihgwu/react-runner/commit/287889039b547adb86dd48f885f959f6911c1352))
+
+
+
+
+
 ## [1.0.4](https://github.com/nihgwu/react-runner/compare/react-runner@1.0.3...react-runner@1.0.4) (2024-06-02)
 
 
